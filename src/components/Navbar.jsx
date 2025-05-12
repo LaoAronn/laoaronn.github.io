@@ -1,4 +1,5 @@
-import React from 'react'
+
+/* Node Modules */
 import { useRef, useEffect} from "react";
 import PropTypes from 'prop-types';
 
@@ -18,12 +19,18 @@ const Navbar = ({ navOpen }) => {
   }
 
   useEffect(initActiveBox, []);
-
+  window.addEventListener('resize', initActiveBox);
 
   const activeCurrentLink = (event) => {
     lastActiveLink.current?.classList.remove('active');
     event.target.classList.add('active');
     lastActiveLink.current = event.target;
+
+    activeBox.current.style.top = event.target.offsetTop + 'px';
+    activeBox.current.style.left = event.target.offsetLeft + 'px';
+
+    activeBox.current.style.width = event.target.offsetWidth + 'px';
+    activeBox.current.style.height = event.target.offsetHeight + 'px';
   }
 
   const navItems = [
@@ -59,7 +66,7 @@ const Navbar = ({ navOpen }) => {
   return (
     <nav className={'navbar ' + (navOpen ? 'active' : '')}>
       {
-        navItems.map(({ label, link, className, ref}, key) => (
+        navItems.map(({ label, link, className, ref }, key) => (
             <a
               href={link}
               key={key}
@@ -72,16 +79,14 @@ const Navbar = ({ navOpen }) => {
           ))
       }
 
-      <div
-      className='active-box'
-      ref={activeBox}>
+      <div className='active-box' ref={activeBox}>
 
       </div>
     </nav>
   )
 }
 
-Navbar.PropTypes = {
+Navbar.propTypes = {
   navOpen: PropTypes.bool.isRequired
 }
 

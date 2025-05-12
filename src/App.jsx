@@ -5,8 +5,11 @@ import "./App.css"
  */
 import Header from "./components/Header"
 
-export default function App() {
+
+const App = () => {
   return (
     <Header />
   )
 }
+
+export default App;

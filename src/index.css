@@ -22,7 +22,7 @@
   .font-sans {
     font-family: 'Inter', sans-serif;
   }
-}
+} 
 
 
 /* base */
@@ -32,6 +32,14 @@ html {
 
 body {
   @apply bg-zinc-900 text-zinc-50 h-[200vh]
+}
+
+/* Utilities */
+.material-symbols-rounded {
+  @apply w-[1em] h-[1em] overflow-hidden;
+  
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0,
+  "opsz" 24;
 }
 
 
@@ -46,10 +54,12 @@ body {
 /* Navbar */
 
 /* 39:11 Missing: transition-filter */
-.navbar{
+.navbar {
   @apply absolute top-full mt-2 right-0 min-w-40 p-2 bg-zinc-50/10
-  rounded-2xl ring-inset ring-1 ring-zinc-50/50 scale-90 isolate
-  blur-sm opacity-0 invisible transition-[transform,opacity,filter]
+  rounded-2xl ring-inset ring-1 ring-zinc-50/5 scale-90 isolate
+  blur-sm opacity-0 invisible transition-[opacity,transform,filter] 
+  md:static md:flex md:items-center md:mt-0 md:opacity-100 md:blur-none
+  md:visible md:scale-100 backdrop-blur-2xl
 }
 
 .navbar.active {
@@ -65,7 +75,19 @@ body {
   @apply text-zinc-900 duration-500
 }
 
-.navbar .activebox {
+.navbar .active-box {
   @apply absolute top-2 left-2 right-2 h-9 bg-zinc-50 rounded-lg
          -z-10 transition-[top,left] duration-500
+}
+
+/* Button */
+
+.btn {
+  @apply max-w-max h-9 flex items-center gap-2 px-4 rounded-xl
+         font-medium text-sm ring-1 ring-zinc-50/5 ring-inset 
+         transition-[background-color]
+}
+
+.btn-secondary {
+  @apply bg-zinc-50 text-zinc-900 active:bg-zinc-50/80
 }
