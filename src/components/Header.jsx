@@ -28,6 +28,7 @@ const Header = () => {
                 </h1>
 
                 <div className="relative md:justify-self-center">
+                    
                     <button
                         className="menu-btn md:hidden"
                         onClick={ () => setNavOpen((prev) => !prev) } >

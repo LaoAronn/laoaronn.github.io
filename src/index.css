@@ -76,12 +76,11 @@ body {
 .menu-btn {
   @apply w-10 h-10 grid place-items-center bg-zinc-50/10 rounded-xl 
   ring-inset ring-1 ring-zinc-50/[0.02] backdrop-blur-2xl hover:bg-zinc-50/15
-  transition-[transform,background-color] active:scale-95
+  transition-[transform,background-color] active:scale-95 md:hidden
 }
 
 /* Navbar */
 
-/* 39:11 Missing: transition-filter */
 .navbar {
   @apply absolute top-full mt-2 right-0 min-w-40 p-2 bg-zinc-50/10
   rounded-2xl ring-inset ring-1 ring-zinc-50/5 scale-90 isolate
@@ -99,6 +98,12 @@ body {
   tracking-wide text-zinc-50/50 hover:text-zinc-50 transition-colors
 }
 
+.nav-link-contact {
+  @apply grid items-center h-9 px-4 text-sm font-medium 
+  tracking-wide text-zinc-50/50 hover:text-zinc-50 transition-colors 
+  md:hidden
+}
+
 .nav-link.active {
   @apply text-zinc-900 duration-500
 }
@@ -113,11 +118,12 @@ body {
 .btn {
   @apply max-w-max h-9 flex items-center gap-2 px-4 rounded-xl
          font-medium text-sm ring-1 ring-zinc-50/5 ring-inset 
-         transition-[background-color]
+         transition-[background-color] 
 }
 
+/* Added Max-md:hidden for Header feature*/
 .btn-secondary {
-  @apply bg-zinc-50 text-zinc-900 active:bg-zinc-50/80
+  @apply bg-zinc-50 text-zinc-900 active:bg-zinc-50/80 max-md:hidden
 }
 
 .btn .material-symbols-rounded {
