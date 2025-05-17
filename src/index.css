@@ -52,6 +52,10 @@ body {
   @apply text-3xl lg:text-4xl lg:leading-tight font-semibold
 }
 
+.title-1 {
+  @apply text-[22px] font-normal
+}
+
 /* Utilities */
 
 .material-symbols-rounded {
@@ -127,6 +131,12 @@ body {
          transition-[background-color] 
 }
 
+.btn-submit {
+  @apply h-9 flex items-center gap-2 px-4 rounded-xl
+  font-medium text-sm ring-1 ring-zinc-50/5 ring-inset 
+  transition-[background-color] 
+}
+
 /* Added Max-md:hidden for Header feature*/
 .btn-secondary {
   @apply bg-zinc-50 text-zinc-900 active:bg-zinc-50/80 max-md:hidden
@@ -146,4 +156,20 @@ body {
 
 .btn-outline {
   @apply h-11 bg-zinc-800 hover:bg-zinc-700 active:bg-zinc-800
+}
+
+/* text field */
+.label {
+  @apply block text-zinc-200 text-sm font-normal mb-2
+}
+
+.text-field {
+  @apply block outline-none w-full px-3 py-3 text-sm bg-zinc-800 rounded-xl
+         ring-1 ring-inset ring-transparent
+         transition-shadow hover:ring-zinc-50/5
+         focus:ring-sky-400 focus:ring-2
+}
+
+.text-field::placeholder {
+  @apply text-zinc-400 
 }
