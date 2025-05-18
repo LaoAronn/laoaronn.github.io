@@ -58,11 +58,11 @@ const Skill = () => {
     <section className='section text-left'>
   <div className='container'>
 
-    <h2 className='headline-2 reveal-up'>
+    <h2 className='text-center headline-2 reveal-up'>
       Essential Tools I use
     </h2>
 
-    <p className='text-zinc-400 mt-3 mb-8 max-w-[50ch] reveal-up'>
+    <p className='text-zinc-400 mt-3 text-center mb-8 m-auto max-w-[75ch] reveal-up'>
       Discover the powerful tools and technologies I use to create exceptional, high-performing websites & applications.
     </p>
 
