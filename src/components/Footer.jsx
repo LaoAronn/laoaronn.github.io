@@ -16,8 +16,8 @@ const sitemap = [
     href: '#work'
   },
   {
-    label: 'Reviews',
-    href: '#reviews'
+    label: 'Photography',
+    href: '#photography'
   },
   {
     label: 'Contact me',
@@ -28,23 +28,15 @@ const sitemap = [
 const socials = [
   {
     label: 'GitHub',
-    href: 'https://www.github.com/codewithsadee-org'
+    href: 'https://github.com/LaoAronn'
   },
   {
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/codewithsadee'
+    href: 'https://www.linkedin.com/in/aronn-laurel-7861aa207/'
   },
   {
-    label: 'Twitter X',
-    href: 'https://x.com/codewithsadee_'
-  },
-  {
-    label: 'Instagram',
-    href: 'https://www.instagram.com/codewithsadee'
-  },
-  {
-    label: 'CodePen',
-    href: 'https://codepen.io/codewithsadee'
+    label: 'RESUME',
+    href: '/images/resume.pdf'
   }
 ];
 
@@ -101,6 +93,7 @@ const Footer = () => {
 
         </div>
 
+        {/** Logo Footer */}
         <div className="flex items-center justify-between pt-10 mb-8">
           <a href="/" 
              className="logo reveal-up"

@@ -27,19 +27,25 @@ const Hero = () => {
                 
 
                         <h2 className="headline-1 text-left max-w-[15ch] sm:max-w-[20ch] lg:max-w-[15ch] mt-5 mb-8 lg:mb-10 reveal-up">
-                            Aronn Grant Laurel Y.
+                            Aronn Grant Laurel Y. 
                         </h2>
 
                         <div className="flex items-center gap-1.5 text-zinc-400 text-md tracking-wide">
                                 <span className="relative w-3 h-3 rounded-full bg-emerald-400">
                                 <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping" />
                                 </span>
-                                Available For Work
+                                Available For Work 
                         </div>
 
                         <div className="text-left text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch] reveal-up">
-                            Hello World! I'm Aronn, an aspiring software developer and a Statistics major at UBC with a great passion for programming. I am hoping to achieve my goals one code at a time!
+                            Hello World! I'm Aronn, an aspiring software developer and a Statistics major at the University of British Columbia with a great passion for programming. I am hoping to achieve my goals one code at a time!
                         </div>
+
+                        <div className="text-left text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch] reveal-up">
+                            📍 Vancouver, Canada 
+                        </div>
+
+                        
 
 
                         <div className="flex items-center gap-3">
@@ -50,7 +56,7 @@ const Hero = () => {
 
                             <ButtonOutline
                                 href="#about"
-                                label="More"
+                                label="More About Me!"
                                 icon="arrow_downward"
                             />
 
