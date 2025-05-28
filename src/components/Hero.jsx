@@ -41,12 +41,10 @@ const Hero = () => {
                             Hello World! I'm Aronn, an aspiring software developer and a Statistics major at the University of British Columbia with a great passion for programming. I am hoping to achieve my goals one code at a time!
                         </div>
 
-                        <div className="text-left text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch] reveal-up">
-                            📍 Vancouver, Canada 
+                        <div className="text-left text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch]">
+                            <p className="mb-2.5">📍 Vancouver, Canada</p>
+                            <p>⏪ Previously @ Verzena</p>
                         </div>
-
-                        
-
 
                         <div className="flex items-center gap-3">
                             <ButtonPrimary 

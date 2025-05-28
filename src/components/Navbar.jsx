@@ -66,7 +66,7 @@ const Navbar = ({ navOpen }) => {
   return (
     <nav className={'navbar ' + (navOpen ? 'active' : '')}>
       {
-        navItems.map(({ label, link, className, ref }, key) => (
+        navItems.map(({ label, link, className, ref}, key) => (
             <a
               href={link}
               key={key}
@@ -78,6 +78,15 @@ const Navbar = ({ navOpen }) => {
             </a>
           ))
       }
+
+      <a
+        href="/images/resume.pdf"
+        className="nav-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Resume
+      </a>
 
       <div className='active-box' ref={activeBox}>
 
