@@ -10,6 +10,15 @@ const aboutItems = [
   }
 ];
 
+const workExperience = [
+  {
+    Company: 'Verzena',
+    Position: 'Software Engineering Intern',
+    Period: 'August - October 2024',
+    desc: 'Web Developer Intern at a startup, contributing to UI and logo design using Figma and built responsive web pages with JSX and Tailwind CSS. Maintained code quality through version control, documentation, and collaborative development workflows.',
+  },
+];
+
 const About = () => {
   return (
     <section id="about" className="section">
@@ -37,6 +46,11 @@ const About = () => {
             }
 
             </div>
+
+
+            {/** Related Work Experience */}
+
+
           </div>
       </div>
 

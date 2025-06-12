@@ -42,6 +42,7 @@ const ProjectCard = ({
                        arrow_outward
                     </span>
                 </div>
+                
 
                 <a href={projectLink} target="_blank" className="absolute inset-0">
 

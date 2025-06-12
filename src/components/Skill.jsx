@@ -30,6 +30,11 @@ const skillGroups = {
   ],
   Frameworks: [
     {
+      imgSrc: '/images/tailwindcss.svg',
+      label: 'TailwindCSS',
+      desc: 'CSS Framework (This website was designed with Tailwind)',
+    },
+    {
       imgSrc: '/images/react.svg',
       label: 'React',
       desc: 'Frontend Framework',
@@ -43,12 +48,8 @@ const skillGroups = {
       imgSrc: '/images/nodejs.svg',
       label: 'NodeJS',
       desc: 'Runtime / Backend',
-    },
-    {
-      imgSrc: '/images/tailwindcss.svg',
-      label: 'TailwindCSS',
-      desc: 'Utility CSS Framework',
-    },
+    }
+    
   ],
 };
 
@@ -58,13 +59,9 @@ const Skill = () => {
     <section className='section text-left'>
   <div className='container'>
 
-    <h2 className='text-center headline-2 reveal-up'>
+    <h2 className='text-center headline-2 reveal-up mb-8 m-auto max-w-[75ch]'>
       Essential Tools I use
     </h2>
-
-    <p className='text-zinc-400 mt-3 text-center mb-8 m-auto max-w-[75ch] reveal-up'>
-      Discover the powerful tools and technologies I use to create exceptional, high-performing websites & applications.
-    </p>
 
     {/* Flex container for side-by-side sections */}
     <div className="flex flex-col lg:flex-row gap-8">

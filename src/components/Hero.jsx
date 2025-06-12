@@ -38,7 +38,7 @@ const Hero = () => {
                         </div>
 
                         <div className="text-left text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch] reveal-up">
-                            Hello World! I'm Aronn, an aspiring software developer and a Statistics major at the University of British Columbia with a great passion for programming. I am hoping to achieve my goals one code at a time!
+                            Hello World! I'm an aspiring software developer and a Statistics major at the University of British Columbia with a great passion for programming. I am hoping to achieve my goals one code at a time!
                         </div>
 
                         <div className="text-left text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch]">
