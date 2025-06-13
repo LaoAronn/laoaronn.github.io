@@ -3,40 +3,34 @@ import ProjectCard from "./ProjectCard"
 
 const works = [
   {
-    imgSrc: '/images/project-1.jpg',
-    title: 'Full stack music app',
+    title: 'Movie Review Website',
     tags: ['API', 'MVC', 'Development'],
-    projectLink: 'https://musify-5al0.onrender.com/'
+    projectLink: 'https://github.com/LaoAronn/Movie-Website'
   },
   {
-    imgSrc: '/images/project-2.jpg',
-    title: 'Free stock photo app',
+    title: 'Game Platform Systems',
     tags: ['API', 'SPA'],
-    projectLink: 'https://pixstock-official.vercel.app/'
-  },
-  {
-    imgSrc: '/images/project-3.jpg',
-    title: 'Recipe app',
-    tags: ['Development', 'API'],
     projectLink: ''
   },
   {
-    imgSrc: '/images/project-4.jpg',
-    title: 'Real state website',
-    tags: ['Web-design', 'Development'],
-    projectLink: 'https://github.com/codewithsadee-org/wealthome'
+    title: 'CookAI',
+    tags: ['Development', 'API'],
+    projectLink: 'https://devpost.com/software/cook-ai'
   },
   {
-    imgSrc: '/images/project-5.jpg',
-    title: 'eCommerce website',
+    title: 'Pacman Game',
+    tags: ['Web-design', 'Development'],
+    projectLink: 'https://github.com/LaoAronn/Bootleg-Pacman'
+  },
+  {
+    title: 'UBC Men’s Basketball Team Roster Log',
     tags: ['eCommerce', 'Development'],
-    projectLink: 'https://github.com/codewithsadee/anon-ecommerce-website'
+    projectLink: 'https://github.com/LaoAronn/UBC-mbb-log'
   },
   {
-    imgSrc: '/images/project-6.jpg',
-    title: 'vCard Personal portfolio',
+    title: 'Digit Mastermind',
     tags: ['Web-design', 'Development'],
-    projectLink: 'https://github.com/codewithsadee/vcard-personal-portfolio'
+    projectLink: 'https://github.com/LaoAronn/Digit-Mastermind'
   },
 ];
 
@@ -49,11 +43,10 @@ const Work = () => {
           My Projects
         </h2>
 
-        <div className="grid gap-x-4 gap-y-5 grid-cols-[repeat(auto-fill,_minmax(280px,_1fr))]">
-          {works.map(({ imgSrc, title, tags, projectLink }, key) => (
+        <div className="grid gap-x-4 gap-y-5 grid-cols-1">
+          {works.map(({ title, tags, projectLink }, key) => (
             <ProjectCard 
               key={key}
-              imgSrc={imgSrc}
               title={title}
               tags={tags}
               projectLink={projectLink}

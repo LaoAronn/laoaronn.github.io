@@ -50,10 +50,11 @@ const App = () => {
       <Header />
 
       <main>
-        <Hero />
-        <About />
-        <Skill />
-        <Work />
+      
+        <Hero /> 
+        <About /> 
+        <Skill /> <hr className="h-px mx-auto my-4 bg-gray-200 border-0 dark:bg-gray-700"/>
+        <Work /> <hr className="h-px mx-auto my-4 bg-gray-200 border-0 dark:bg-gray-700"/>
         <Contact />
 
       </main>

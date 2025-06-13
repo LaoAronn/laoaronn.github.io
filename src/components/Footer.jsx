@@ -54,7 +54,10 @@ const Footer = () => {
               Let&apos;s work together today!
             </h2>
 
-            <ButtonPrimary href="mailto:aronnlearning@gmail.com" label="Start Project" icon="chevron_right" classes="reveal-up" />
+            {/**
+             *  <ButtonPrimary href="mailto:aronnlearning@gmail.com" label="Start Project" icon="chevron_right" classes="reveal-up" />
+             */}
+
           </div>
           
           <div className="grid grid-cols-2 gap-4 lg:pl-20">
