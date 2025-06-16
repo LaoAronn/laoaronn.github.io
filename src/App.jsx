@@ -53,8 +53,8 @@ const App = () => {
       
         <Hero /> 
         <About /> 
-        <Skill /> <hr className="h-px mx-auto my-4 bg-gray-200 border-0 dark:bg-gray-700"/>
-        <Work /> <hr className="h-px mx-auto my-4 bg-gray-200 border-0 dark:bg-gray-700"/>
+        <Skill /> <hr className="h-px w-10px mx-auto mb-0 my-15 bg-zinc-50/30 border-0"/>
+        <Work /> <hr className="h-px w-10px mx-auto mb-0 my-15 bg-zinc-50/30 border-0"/>
         <Contact />
 
       </main>
