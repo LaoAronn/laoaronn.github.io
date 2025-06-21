@@ -1,20 +1,20 @@
 
 const aboutItems = [
   {
-    label: 'Project done',
-    number: 45
+    label: 'User Engagement Improvement',
+    number: 20
   },
   {
-    label: 'Years of experience',
+    label: 'Documentation',
     number: 10
   }
 ];
 
 const workExperience = [
   {
-    Company: 'Verzena',
-    Position: 'Software Engineering Intern',
-    Period: 'August - October 2024',
+    company: 'Verzena',
+    position: 'Software Engineering Intern',
+    period: 'August - December 2024',
     desc: 'Web Developer Intern at a startup, contributing to UI and logo design using Figma and built responsive web pages with JSX and Tailwind CSS. Maintained code quality through version control, documentation, and collaborative development workflows.',
   },
 ];
@@ -27,9 +27,15 @@ const About = () => {
 
           <div className="text-left bg-zinc-800/50 p-7 rounded-2xl md:p-12 reveal-up">
             
-            <p className="text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch]">
-              WORK EXPERIENCE!
-            </p>
+              {/** Work Experience List */}
+              {workExperience.map(({ company, position, period, desc }, key) => (
+
+                <p className="text-zinc-300 mb-4 md:mb-8 md:text-3xl md:max-w-[60ch]">
+                  {company}
+                </p>  
+    
+              ))}
+            
 
             <div className="flex flex-wrap items-center gap-4 md:gap-7">
             {
@@ -37,7 +43,7 @@ const About = () => {
                 <div key={key}>
                   <div className="flex items-center md:mb-2">
                     <span className="text-2xl font-semibold md:text-4xl">{number}</span>
-                    <span className="text-sky-400 font-semibold md:text-3xl">+</span>
+                    <span className="text-sky-400 font-semibold md:text-3xl">%</span>
                   </div>
 
                   <p className="text-sm text-zinc-400">{label}</p>

@@ -60,7 +60,7 @@ const Skill = () => {
   <div className='container'>
 
     <h2 className='text-center headline-2 reveal-up mb-8 m-auto max-w-[75ch]'>
-      Essential Tools I use
+      What I Work With
     </h2>
 
     {/* Flex container for side-by-side sections */}
