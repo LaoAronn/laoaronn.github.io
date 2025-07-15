@@ -59,9 +59,14 @@ const Skill = () => {
     <section className='section text-left'>
   <div className='container'>
 
-    <h2 className='text-center headline-2 reveal-up mb-8 m-auto max-w-[75ch]'>
-      What I Work With
-    </h2>
+    {/** Skill Header */}
+    <div class="inline-flex items-center justify-center w-full reveal-up pb-15 ">
+      <hr class="w-full h-1 my-8 bg-gray-100 border-0 rounded-sm dark:bg-zinc-800"/>
+
+      <span class="absolute px-3 headline-2 -translate-x-1/2 left-1/2 dark:text-white dark:bg-zinc-900">
+        What I Work With
+      </span>
+    </div>
 
     {/* Flex container for side-by-side sections */}
     <div className="flex flex-col lg:flex-row gap-8">

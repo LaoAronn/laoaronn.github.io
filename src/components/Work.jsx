@@ -45,9 +45,15 @@ const Work = () => {
     <section id="work" className="section">
       <div className="container">
 
-        <h2 className="headline-2 mb-8 reveal-up">
-          My Projects
-        </h2>
+        {/** Project Header */}
+        <div class="inline-flex items-center justify-center w-full reveal-up pb-15 ">
+          <hr class="w-full h-1 my-8 bg-gray-100 border-0 rounded-sm dark:bg-zinc-800"/>
+
+          <span class="absolute px-3 headline-2 -translate-x-1/2 left-1/2 dark:text-white dark:bg-zinc-900">
+            My Projects
+          </span>
+        </div>
+        
 
         <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-4 gap-x-4 gap-y-5">
           {works.map(({ title, tags, projectLink, desc }, key) => (
