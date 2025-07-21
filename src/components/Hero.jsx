@@ -9,7 +9,7 @@ const Hero = () => {
             <div className="container lg:grid lg:grid-cols-2 items-center lg:gap-10">
 
                 <div className="">
-                    <div className="flex flex-col items-start gap-3">
+                    <div className="flex flex-col items-start gap-3 reveal-up">
 
                         {/** Portrait for Mobile / Small screen */}
                         <div className="block lg:hidden">
@@ -26,7 +26,7 @@ const Hero = () => {
                         </div>
                 
 
-                        <h2 className="headline-1 text-left max-w-[15ch] sm:max-w-[20ch] lg:max-w-[15ch] mt-5 mb-8 lg:mb-10 reveal-up">
+                        <h2 className="headline-1 text-left max-w-[15ch] sm:max-w-[20ch] lg:max-w-[15ch] mt-5 mb-8 lg:mb-10">
                             Aronn Grant Laurel Y. 
                         </h2>
 
@@ -37,7 +37,7 @@ const Hero = () => {
                                 Available For Work 
                         </div>
 
-                        <div className="text-left text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch] reveal-up">
+                        <div className="text-left text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch]">
                             Hello World! I'm an aspiring software developer and a Statistics major at the University of British Columbia with a great passion for programming. I am hoping to achieve my goals one code at a time!
                         </div>
 
