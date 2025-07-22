@@ -5,18 +5,12 @@ const aboutItems = [
     number: 20
   },
   {
-    label: 'Documentation',
-    number: 10
+    label: 'Bounce Rate Reduciton',
+    number: 80
   }
 ];
 
 const workExperience = [
-  {
-    company: 'Verzena',
-    position: 'Software Engineering Intern',
-    period: 'August - December 2024',
-    desc: 'Collaborated closely with 2 team members at a startup, contributing to UI and logo design using Figma and built responsive web pages with JSX and Tailwind CSS. Maintained code quality through version control, documentation, and collaborative development workflows.',
-  },
   {
     company: 'Verzena',
     position: 'Software Engineering Intern',
@@ -32,69 +26,86 @@ const About = () => {
       <div className="container">
 
         {/** Work Header */}
-        <div class="inline-flex items-center justify-center w-full reveal-up pb-15 ">
-          <hr class="w-full h-1 my-8 bg-gray-100 border-0 rounded-sm dark:bg-zinc-800"/>
+        <div className="inline-flex items-center justify-center w-full reveal-up pb-15 ">
+          <hr className="w-full h-1 my-8 bg-gray-100 border-0 rounded-sm dark:bg-zinc-800"/>
 
-          <span class="absolute px-3 headline-2 -translate-x-1/2 left-1/2 dark:text-white dark:bg-zinc-900">
+          <span className="absolute px-3 headline-2 -translate-x-1/2 left-1/2 dark:text-white dark:bg-zinc-900">
             My Experience
           </span>
 
         </div>
 
+        
+        {/** Work Experience List */}
+        {workExperience.map(({ company, position, period, desc }, key) => (
+
           <div className="text-left bg-zinc-800/50 p-7 rounded-2xl md:p-12 reveal-up">
+
+            <div className="-m-0.5px grid gap-1 p-1 md:px-2 md:pb-2 lg:grid-cols-[auto_auto] lg:gap-2 lg:py-3 xl:gap-3 xl:pr-3">
             
-              {/** Work Experience List */}
-              {workExperience.map(({ company }, key) => (
-                <div className="">
+              <div className="grid grid-cols-2">
 
-                  <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-                    {company}
-                  </button>
+                <div class="flex items-center mb-6 not-italic">
+                  
+                  <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                    
+                    <div className="flex-shrink-0 w-12 h-12 mr-2 rounded-full overflow-hidden border border-neutral-200">
+                      <img src="/images/verzena.png" alt="Verzena logo" class="w-full h-full object-cover"/>
+                    </div>
+                  
+                    <div>
+                        <a href="#" rel="author" class="text-xl font-bold text-gray-900 dark:text-white"> {position} </a>
+                        
+                        <p className="text-base text-gray-500 dark:text-gray-400">
+                          {company}
+                        </p>
+                        
+                        <p className="text-base text-gray-500 dark:text-gray-400">
+                          {period} 
+                        </p>
+                    </div>
 
-
-                </div>  
-
-              ))}
-
-              {workExperience.map(({ company, position, period, desc }, key) => (
-
-
-                <div className=" -m-0.5px grid gap-1 p-1 md:grid-cols-[8fr_13fr] md:px-2 md:pb-2 lg:grid-cols-[auto_auto] lg:gap-2 lg:py-3 xl:gap-3 xl:pr-3">
-
-                  <h2 class="font-body text-2xl leading-heading-2 font-bold normal-case md:text-3xl md:leading-heading lg:text-5xl lg:leading-heading-2">
-                    {company}
-                  </h2>
-
-
-                  <div class="w-full">
-                    <p class="text-md">
-                      {desc}
-                    </p>
                   </div>
-
-                </div>  
-
-              ))}
-            
-
-            <div className="flex flex-wrap items-center gap-4 md:gap-7">
-            {
-              aboutItems.map(({ label, number}, key) => (
-                <div key={key}>
-                  <div className="flex items-center md:mb-2">
-                    <span className="text-2xl font-semibold md:text-4xl">{number}</span>
-                    <span className="text-sky-400 font-semibold md:text-3xl">%</span>
-                  </div>
-
-                  <p className="text-sm text-zinc-400">{label}</p>
                 </div>
-              ))
-            }
 
+                <div className="w-full">
+                  <p className="text-md">
+                    {desc}
+                  </p>
+                </div>
+
+              </div>
+        
             </div>
 
+            <div className="text-left p-7 rounded-2xl md:p-12 reveal-up">
 
+              <div className="flex flex-wrap items-center gap-4 md:gap-7">
+              {
+                aboutItems.map(({ label, number}, key) => (
+                  <div key={key}>
+                    <div className="flex items-center md:mb-2">
+                      <span className="text-2xl font-semibold md:text-4xl">{number}</span>
+                      <span className="text-sky-400 font-semibold md:text-3xl">%</span>
+                    </div>
+
+                    <p className="text-sm text-zinc-400">{label}</p>
+                  </div>
+                ))
+              }
+              </div>
+
+            </div>
+                  
+                        
+                
           </div>
+
+          
+          
+        ))}
+
+          
       </div>
 
     </section>
