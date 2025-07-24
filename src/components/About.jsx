@@ -1,10 +1,12 @@
 
 const aboutItems = [
   {
+    workid: 1,
     label: 'User Engagement Improvement',
-    number: 20
+    number: 90
   },
   {
+    workid: 1,
     label: 'Bounce Rate Reduciton',
     number: 80
   }
@@ -12,6 +14,7 @@ const aboutItems = [
 
 const workExperience = [
   {
+    workid: 1,
     company: 'Verzena',
     position: 'Software Engineering Intern',
     period: 'August - December 2024',
@@ -37,73 +40,57 @@ const About = () => {
 
         
         {/** Work Experience List */}
-        {workExperience.map(({ company, position, period, desc }, key) => (
+        {workExperience.map(({ workid, company, position, period, desc }, key) => {
+          {/** Tag work outcome*/}
+          const relatedAboutItems = aboutItems.filter(item => item.workid === workid);
 
-          <div className="text-left bg-zinc-800/50 p-7 rounded-2xl md:p-12 reveal-up">
+          return (
+            <div key={key} className="text-left bg-zinc-800/50 p-7 rounded-2xl md:p-12 reveal-up">
 
-            <div className="-m-0.5px grid gap-1 p-1 md:px-2 md:pb-2 lg:grid-cols-[auto_auto] lg:gap-2 lg:py-3 xl:gap-3 xl:pr-3">
-            
-              <div className="grid grid-cols-2">
+              <div className="-m-0.5px grid gap-1 p-1 md:px-2 md:pb-2 lg:grid-cols-[auto_auto] lg:gap-2 lg:py-3 xl:gap-3 xl:pr-3">
+                <div className="grid grid-cols-2">
 
-                <div class="flex items-center mb-6 not-italic">
-                  
-                  <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
-                    
-                    <div className="flex-shrink-0 w-12 h-12 mr-2 rounded-full overflow-hidden border border-neutral-200">
-                      <img src="/images/verzena.png" alt="Verzena logo" class="w-full h-full object-cover"/>
+                  <div className="flex items-center mb-6 not-italic">
+                    <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                      <div className="flex-shrink-0 w-12 h-12 mr-4 rounded-full overflow-hidden border border-neutral-200">
+                        <img src="/images/verzena.png" alt="Verzena logo" className="w-full h-full object-cover" />
+                      </div>
+
+                      <div>
+                        <a href="#" rel="author" className="text-xl font-bold text-gray-900 dark:text-white">
+                          {position}
+                        </a>
+                        <p className="text-base text-gray-500 dark:text-gray-400">{company}</p>
+                        <p className="text-base text-gray-500 dark:text-gray-400">{period}</p>
+                      </div>
                     </div>
-                  
-                    <div>
-                        <a href="#" rel="author" class="text-xl font-bold text-gray-900 dark:text-white"> {position} </a>
-                        
-                        <p className="text-base text-gray-500 dark:text-gray-400">
-                          {company}
-                        </p>
-                        
-                        <p className="text-base text-gray-500 dark:text-gray-400">
-                          {period} 
-                        </p>
-                    </div>
-
                   </div>
-                </div>
 
-                <div className="w-full">
-                  <p className="text-md">
-                    {desc}
-                  </p>
-                </div>
+                  <div className="w-full">
+                    <p className="text-md">{desc}</p>
+                  </div>
 
+                </div>
               </div>
-        
-            </div>
 
-            <div className="text-left p-7 rounded-2xl md:p-12 reveal-up">
-
-              <div className="flex flex-wrap items-center gap-4 md:gap-7">
-              {
-                aboutItems.map(({ label, number}, key) => (
-                  <div key={key}>
-                    <div className="flex items-center md:mb-2">
-                      <span className="text-2xl font-semibold md:text-4xl">{number}</span>
-                      <span className="text-sky-400 font-semibold md:text-3xl">%</span>
+              <div className="text-left p-7 rounded-2xl md:p-12 reveal-up">
+                <div className="flex flex-wrap items-right gap-4 md:gap-7">
+                  {relatedAboutItems.map(({ label, number }, subKey) => (
+                    <div key={subKey}>
+                      <div className="flex items-center md:mb-2">
+                        <span className="text-2xl font-semibold md:text-4xl">{number}</span>
+                        <span className="text-sky-400 font-semibold md:text-3xl">%</span>
+                      </div>
+                      <p className="text-sm text-zinc-400">{label}</p>
                     </div>
-
-                    <p className="text-sm text-zinc-400">{label}</p>
-                  </div>
-                ))
-              }
+                  ))}
+                </div>
               </div>
 
             </div>
-                  
-                        
-                
-          </div>
+          );
+        })}
 
-          
-          
-        ))}
 
           
       </div>
