@@ -7,7 +7,7 @@ const aboutItems = [
   },
   {
     workid: 1,
-    label: 'Bounce Rate Reduciton',
+    label: 'Bounce Rate Reduction',
     number: 80
   }
 ];
@@ -45,7 +45,7 @@ const About = () => {
           const relatedAboutItems = aboutItems.filter(item => item.workid === workid);
 
           return (
-            <div key={key} className="text-left bg-zinc-800/50 p-7 rounded-2xl md:p-12 reveal-up">
+            <div key={key} className="text-left bg-zinc-800/50 p-7 mb-5 rounded-2xl md:p-12 reveal-up">
 
               <div className="-m-0.5px grid gap-1 p-1 md:px-2 md:pb-2 lg:grid-cols-[auto_auto] lg:gap-2 lg:py-3 xl:gap-3 xl:pr-3">
                 <div className="grid grid-cols-2">
@@ -68,28 +68,36 @@ const About = () => {
 
                   <div className="w-full">
                     <p className="text-md">{desc}</p>
+
+                    <div className="text-left p-4 rounded-2xl reveal-up">
+
+                    <div className="flex justify-left flex-wrap items-center gap-4 md:gap-7">
+                      {relatedAboutItems.map(({ label, number }, subKey) => (
+                        <div key={subKey}>
+                          <div className="flex items-center">
+                            <span className="text-2xl font-semibold md:text-4xl">{number}</span>
+                            <span className="text-sky-400 font-semibold md:text-3xl">%</span>
+                          </div>
+                          <p className="text-sm text-zinc-400">{label}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                  </div>
+                  
                   </div>
 
                 </div>
               </div>
 
-              <div className="text-left p-7 rounded-2xl md:p-12 reveal-up">
-                <div className="flex flex-wrap items-right gap-4 md:gap-7">
-                  {relatedAboutItems.map(({ label, number }, subKey) => (
-                    <div key={subKey}>
-                      <div className="flex items-center md:mb-2">
-                        <span className="text-2xl font-semibold md:text-4xl">{number}</span>
-                        <span className="text-sky-400 font-semibold md:text-3xl">%</span>
-                      </div>
-                      <p className="text-sm text-zinc-400">{label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              
 
             </div>
           );
         })}
+
+
+
 
 
           
