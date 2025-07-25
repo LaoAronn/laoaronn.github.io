@@ -35,7 +35,7 @@ const Contact = () => {
             Contact me for Collaboration!
           </h2>
 
-          <p className=" text-zinc-400 mt-3 mb-8 max-w-[50ch] lg:max-w-[30ch] reveal-up">
+          <p className=" text-zinc-400 mt-3 mb-8 reveal-up">
             Let’s connect and see how we can create something meaningful together!
           </p>
 
