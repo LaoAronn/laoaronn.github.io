@@ -142,6 +142,13 @@ body {
   transition-[background-color] 
 }
 
+/* Skill Card */
+.skill {
+  @apply transition-transform duration-250 hover:-translate-y-2 hover:bg-zinc-800;
+}
+
+
+
 /* Added Max-md:hidden for Header feature*/
 .btn-secondary {
   @apply bg-zinc-50 text-zinc-900 active:bg-zinc-50/80 max-md:hidden
