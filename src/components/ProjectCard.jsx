@@ -13,7 +13,7 @@ const ProjectCard = ({
         <div className={"relative p-4 rounded-2xl bg-zinc-800 hover:bg-zinc-700/50 active:bg-zinc-700/60 ring-1 ring-inset ring-zinc-50/5 transition-colors " + classes}>
             
             <a className="rounded-lg p-4 transition-all flex flex-col items-stretch justify-start gap-4" href={projectLink}>
-                <h3 className="font-mono font-bold text-lg title-1">
+                <h3 className="font-bold text-lg title-1">
                     {title}
                 </h3>
 

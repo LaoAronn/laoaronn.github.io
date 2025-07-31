@@ -36,7 +36,7 @@ const works = [
     title: 'Digit Mastermind #️⃣',
     tags: ['Game Development'],
     projectLink: 'https://github.com/LaoAronn/Digit-Mastermind',
-    desc: 'Code-breaking game with real-time terminal input and feedback loop.'
+    desc: 'Code-breaking game with real-time terminal input and feedback loop'
   },
 ];
 
