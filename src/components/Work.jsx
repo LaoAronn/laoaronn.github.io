@@ -4,39 +4,45 @@ import ProjectCard from "./ProjectCard"
 const works = [
   {
     title: 'Movie Review Website 🍿',
-    tags: ['Full-Stack Development', 'Web Server'],
+    tags: ['Svelte', 'SQLite', 'Php', 'XAMPP', 'HTML & CSS', 'JavaScript'],
     projectLink: 'https://github.com/LaoAronn/Movie-Website',
-    desc: 'Movie review platform with user login, rating, and review system'
+    desc: 'Full-Stack Development project on a Movie review platform with a database for user login, rating, and review system.'
   },
   {
     title: 'Game Platform Systems 🎮',
-    tags: ['Database', 'System Design'],
+    tags: ['PostgreSQL', 'UML Diagram'],
     projectLink: 'https://github.com/LaoAronn/Game-Platform-Systems-',
     desc: 'Database for organizing game info, player reviews, and news using relational schema'
   },
   {
     title: 'CookAI 🥘',
-    tags: ['UI Development', 'API', 'AI/ML'],
+    tags: ['React', 'JavaScript', 'MongoDB', 'AI/ML'],
     projectLink: 'https://devpost.com/software/cook-ai',
     desc: 'Generates recipes from ingredient photos with AI suggestions and responsive UI'
   },
   {
     title: 'Pac-Man Clone 🕹️',
-    tags: ['Web Development', 'Game Development'],
+    tags: ['Web/Game Development', 'JavaScript', 'HTML & CSS'],
     projectLink: 'https://github.com/LaoAronn/Bootleg-Pacman',
     desc: 'Interactive Pac-Man game with a twist of difficulty levels and obstacle mechanics'
   },
   {
     title: 'UBC Men’s Basketball Team Roster Log 🏀',
-    tags: ['GUI Application'],
+    tags: ['GUI Application', 'Java'],
     projectLink: 'https://github.com/LaoAronn/UBC-mbb-log',
     desc: 'Application managing and saving basketball team rosters with file I/O support'
   },
   {
     title: 'Digit Mastermind #️⃣',
-    tags: ['Game Development'],
+    tags: ['Game Development', 'Java'],
     projectLink: 'https://github.com/LaoAronn/Digit-Mastermind',
     desc: 'Code-breaking game with real-time terminal input and feedback loop'
+  },
+  {
+    title: 'My Sister Art Portfolio 🎨',
+    tags: ['Web Development', 'React'],
+    projectLink: 'https://github.com/LaoAronn/Digit-Mastermind',
+    desc: ' - '
   },
 ];
 
@@ -55,7 +61,7 @@ const Work = () => {
         </div>
         
 
-        <div className="grid grid-cols-1 gap-4 gap-x-4 gap-y-5">
+        <div className="grid grid-cols-1">
           {works.map(({ title, tags, projectLink, desc }, key) => (
             <ProjectCard 
               key={key}
