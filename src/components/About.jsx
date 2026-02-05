@@ -26,82 +26,96 @@ const About = () => {
   return (
     <section id="about" className="section">
 
-      <div className="container">
+      <div className="container px-4 sm:px-6">
 
         {/** Work Header */}
-        <div className="inline-flex items-center justify-center w-full reveal-up pb-15 ">
-          <hr className="w-full h-1 my-8 bg-gray-100 border-0 rounded-sm dark:bg-zinc-800"/>
+        <div className="inline-flex items-center justify-center w-full reveal-up pb-10 sm:pb-15">
+          <hr className="w-full h-[1px] my-6 sm:my-8 bg-gray-100 border-0 rounded-sm dark:bg-zinc-800"/>
 
-          <span className="absolute px-3 headline-2 -translate-x-1/2 left-1/2 dark:text-white dark:bg-zinc-900">
+          <span className="absolute px-3 headline-2 text-sm sm:text-base md:text-lg 
+            -translate-x-1/2 left-1/2 dark:text-white dark:bg-zinc-900">
             My Experience
           </span>
-
         </div>
 
-        
         {/** Work Experience List */}
         {workExperience.map(({ workid, company, position, period, desc }, key) => {
-          {/** Tag work outcome*/}
+
           const relatedAboutItems = aboutItems.filter(item => item.workid === workid);
 
           return (
-            <div key={key} className="text-left bg-zinc-800/50 p-7 mb-5 rounded-2xl md:p-12 reveal-up">
+            <div 
+              key={key} 
+              className="text-left bg-zinc-800/50 
+              p-4 sm:p-6 md:p-10 mb-4 sm:mb-5 
+              rounded-xl sm:rounded-2xl reveal-up"
+            >
 
-              <div className="-m-0.5px grid gap-1 p-1 md:px-2 md:pb-2 lg:grid-cols-[auto_auto] lg:gap-2 lg:py-3 xl:gap-3 xl:pr-3">
-                <div className="grid grid-cols-2">
+              {/* Layout container */}
+              <div className="grid gap-4 lg:grid-cols-[auto_1fr]">
 
-                  <div className="flex items-center mb-6 not-italic">
-                    <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
-                      <div className="flex-shrink-0 w-12 h-12 mr-4 rounded-full overflow-hidden border border-neutral-200">
-                        <img src="/images/verzena.png" alt="Verzena logo" className="w-full h-full object-cover" />
-                      </div>
+                {/* Header Section */}
+                <div className="flex flex-row items-center gap-4">
 
-                      <div>
-                        <a href="#" rel="author" className="text-xl font-bold text-gray-900 dark:text-white">
-                          {position}
-                        </a>
-                        <p className="text-base text-gray-500 dark:text-gray-400">{company}</p>
-                        <p className="text-base text-gray-500 dark:text-gray-400">{period}</p>
-                      </div>
-                    </div>
+                  {/* Logo */}
+                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-neutral-200">
+                    <img 
+                      src="/images/verzena.png" 
+                      alt="Verzena logo" 
+                      className="w-full h-full object-cover" 
+                    />
                   </div>
 
-                  <div className="w-full">
-                    <p className="text-md">{desc}</p>
+                  {/* Text Info */}
+                  <div>
+                    <p className="text-base sm:text-lg font-bold dark:text-white">
+                      {position}
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-400">
+                      {company}
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-500">
+                      {period}
+                    </p>
+                  </div>
+                </div>
 
-                    <div className="text-left p-4 rounded-2xl reveal-up">
+                {/* Content Section */}
+                <div className="mt-3 sm:mt-4">
+                  <p className="text-sm sm:text-base text-zinc-200 leading-relaxed">
+                    {desc}
+                  </p>
 
-                    <div className="flex justify-left flex-wrap items-center gap-4 md:gap-7">
+                  {/* Stats */}
+                  <div className="mt-4 sm:mt-6 p-3 sm:p-4 rounded-xl sm:rounded-2xl">
+
+                    <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                       {relatedAboutItems.map(({ label, number }, subKey) => (
                         <div key={subKey}>
                           <div className="flex items-center">
-                            <span className="text-2xl font-semibold md:text-4xl">{number}</span>
-                            <span className="text-sky-400 font-semibold md:text-3xl">%</span>
+                            <span className="text-xl sm:text-2xl md:text-3xl font-semibold">
+                              {number}
+                            </span>
+                            <span className="text-sky-400 font-semibold text-lg sm:text-xl md:text-2xl">
+                              %
+                            </span>
                           </div>
-                          <p className="text-sm text-zinc-400">{label}</p>
+                          <p className="text-xs sm:text-sm text-zinc-400">
+                            {label}
+                          </p>
                         </div>
                       ))}
                     </div>
 
                   </div>
-                  
-                  </div>
-
                 </div>
+
               </div>
-
-              
-
             </div>
           );
         })}
-
-
-
-
-
-          
       </div>
+
 
     </section>
   )
