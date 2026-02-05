@@ -71,14 +71,14 @@ const works = [
     title: 'Credit Card Default Classification 💳',
     tags: ['R', 'Jupyter Notebook'],
     projectLink: 'https://github.com/LaoAronn/CC-Default-Classification',
-    desc: ' - '
+    desc: ' A study comparing supervised learning models (Logistic Regression, Random Forests, Gradient Boosted Trees, SVM) to assess their effectiveness in predicting credit default risk. '
   },
   {
     category: 'data',
     title: 'Time Series Data Analysis ⏳',
     tags: ['R', 'LaTeX'],
     projectLink: 'https://github.com/LaoAronn/tseries',
-    desc: ' - '
+    desc: ' A study of stochastic modeling (ARIMA, GARCH), optimizing model parameters for forecasting, evaluating predictive performance with RMSE and MSE, and employing spectral and frequency-domain methods to examine periodic and cyclical patterns in time series data.'
   },
 ];
 
