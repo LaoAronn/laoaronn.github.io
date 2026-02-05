@@ -104,10 +104,8 @@ const Work = () => {
         </div>
         
         
-        <div className="flex justify-center pb-15">
-          <nav className="flex overflow-x-auto items-center p-1 space-x-1 text-sm 
-            backdrop-blur-md bg-white/10 dark:bg-white/5 
-            border border-white/20 rounded-2xl shadow-lg">
+        <div className="flex justify-center pb-15  reveal-up">
+          <nav className="flex overflow-x-auto items-center p-1 space-x-1 md:text-sm text-xs backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 rounded-2xl shadow-lg">
 
             {["software", "data"].map((tab) => (
               <button
