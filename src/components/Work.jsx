@@ -96,14 +96,16 @@ const Work = () => {
 
         {/** Project Header */}
         <div class="relative inline-flex items-center justify-center w-full reveal-up pb-15">
-          <hr class="w-full h-1 my-8 bg-gray-100 border-0 rounded-sm dark:bg-zinc-800"/>
+          <hr class="w-full h-[1px] my-8 bg-gray-100 border-0 rounded-sm dark:bg-zinc-800"/>
 
           <span class="absolute px-3 headline-2 -translate-x-1/2 left-1/2 
-            dark:text-white dark:bg-zinc-900 
-            bg-white z-10">
+            text-zinc-900 dark:text-white
+            bg-zinc-100 dark:bg-zinc-900
+            z-10">
             My Projects
           </span>
         </div>
+
 
         
         
