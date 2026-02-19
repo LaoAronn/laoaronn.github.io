@@ -5,6 +5,13 @@ import {useState} from "react";
 const works = [
   {
     category: 'software',
+    title: 'ScanAhead 👨‍⚕️',
+    tags: ['React', 'Gemini AI', 'ElevenLabs (Speech AI)', 'KIRIEngine (3D Modelling)', 'PostGreSQL'],
+    projectLink: 'https://github.com/LaoAronn/ScanAhead',
+    desc: '-'
+  },
+  {
+    category: 'software',
     title: 'Movie Review Website 🍿',
     tags: ['Svelte', 'SQLite', 'Php', 'XAMPP', 'HTML & CSS', 'JavaScript'],
     projectLink: 'https://github.com/LaoAronn/Movie-Website',
