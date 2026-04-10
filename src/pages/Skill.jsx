@@ -1,7 +1,7 @@
 import React from 'react';
 
 /* Components */
-import SkillCard from "./SkillCard"
+import SkillCard from "../components/SkillCard"
 
 const skillGroups = {
   Tools: [

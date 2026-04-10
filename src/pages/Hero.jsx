@@ -1,6 +1,5 @@
-
 /* Components */
-import {ButtonPrimary, ButtonOutline} from "./Button";
+import {ButtonPrimary, ButtonOutline} from "../components/Button";
 
 const Hero = () => {
     return (
@@ -26,7 +25,7 @@ const Hero = () => {
                         </div>
                 
 
-                        <h2 className="headline-1 text-left max-w-[15ch] sm:max-w-[20ch] lg:max-w-[15ch] mt-5 mb-8 lg:mb-10">
+                        <h2 className="headline-1 text-left max-w-[15ch] sm:max-w-[20ch] lg:max-w-[15ch] mt-5 mb-8 lg:mb-10 text-black dark:text-white">
                             Aronn Grant Laurel Y. 
                         </h2>
 
@@ -55,7 +54,7 @@ const Hero = () => {
                             </a>
 
                             <ButtonOutline
-                                href="#about"
+                                href="/about"
                                 label="More About Me!"
                                 icon="arrow_downward"
                             />
@@ -87,4 +86,4 @@ const Hero = () => {
     )
 }
 
-export default Hero 
+export default Hero

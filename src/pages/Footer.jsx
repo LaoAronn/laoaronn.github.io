@@ -1,6 +1,6 @@
 
 /* Components */
-import { ButtonPrimary } from "./Button";
+import { ButtonPrimary } from "../components/Button";
 
 const sitemap = [
   {

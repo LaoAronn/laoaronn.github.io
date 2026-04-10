@@ -7,7 +7,8 @@ import { ReactLenis } from 'lenis/react';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 /**
  * Register GSAP plugins
@@ -15,19 +16,21 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /**
- * Components
+ * Components & Pages
 */
 import Header from "./components/Header";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Skill from "./components/Skill";
-import Work from "./components/Work";
-import Photography from "./components/Photography";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import Works from './components/Work';
+import Hero from "./pages/Hero";
+import AboutPage from "./pages/About";
+import Works from "./pages/Works";
+import PhotographyPage from "./pages/Photography";
+import ContactPage from "./pages/Contact";
 
-const App = () => {
+const AppRoutes = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    ScrollTrigger.refresh();
+  }, [location]);
 
   useGSAP(() => {
     const elements = gsap.utils.toArray('.reveal-up');
@@ -49,18 +52,24 @@ const App = () => {
   });
 
   return (
+    <main>
+      <Routes>
+        <Route path="/" element={<Hero />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/works" element={<Works />} />
+        <Route path="/photography" element={<PhotographyPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
+    </main>
+  )
+}
+
+const App = () => {
+  return (
     <ReactLenis root>
       <BrowserRouter>
         <Header />
-
-        <main>
-          <Routes>
-            <Route path="/" element={<><Hero /><About /><Skill /><Work /><Photography /><Contact /></>} />
-            <Route path="/works" element={<Works />} />
-          </Routes>
-        </main>
-
-        <Footer />
+        <AppRoutes />
       </BrowserRouter>
     </ReactLenis>
   )

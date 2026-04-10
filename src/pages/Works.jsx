@@ -1,5 +1,5 @@
 /* Components */
-import ProjectCard from "./ProjectCard"
+import ProjectCard from "../components/ProjectCard"
 import {useState, useRef, useEffect} from "react";
 
 const works = [
@@ -89,7 +89,7 @@ const works = [
   },
 ];
 
-const Work = () => {
+const Works = () => {
 
   const[activeTab, setActiveTab] = useState("software");
   const[cardIndex, setCardIndex] = useState(0);
@@ -253,4 +253,4 @@ const Work = () => {
   )
 }
 
-export default Work
+export default Works
