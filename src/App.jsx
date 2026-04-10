@@ -7,6 +7,7 @@ import { ReactLenis } from 'lenis/react';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 /**
  * Register GSAP plugins
@@ -24,6 +25,7 @@ import Work from "./components/Work";
 import Photography from "./components/Photography";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import Works from './components/Work';
 
 const App = () => {
 
@@ -48,20 +50,18 @@ const App = () => {
 
   return (
     <ReactLenis root>
-      <Header />
+      <BrowserRouter>
+        <Header />
 
-      <main>
-      
-        <Hero /> 
-        <About /> 
-        <Skill /> 
-        <Work />
-        <Photography />
-        <Contact />
+        <main>
+          <Routes>
+            <Route path="/" element={<><Hero /><About /><Skill /><Work /><Photography /><Contact /></>} />
+            <Route path="/works" element={<Works />} />
+          </Routes>
+        </main>
 
-      </main>
-
-      <Footer />
+        <Footer />
+      </BrowserRouter>
     </ReactLenis>
   )
 }

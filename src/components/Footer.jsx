@@ -103,7 +103,7 @@ const Footer = () => {
           >
 
             <img 
-              src="/images/logo.png"
+              src="/images/aronnSeal.png"
               width={40}
               height={40}
               alt="Logo"
