@@ -1,11 +1,12 @@
 /* Node Modules */
 import { useRef, useEffect} from "react";
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = ({ navOpen }) => {
   const lastActiveLink = useRef();
   const activeBox = useRef();
+  const location = useLocation();
   
   const initActiveBox = () => {
     if (!activeBox.current || !lastActiveLink.current) return;
@@ -17,10 +18,34 @@ const Navbar = ({ navOpen }) => {
   }
 
   useEffect(() => {
-    initActiveBox();
+    // Delay initialization to ensure DOM is ready
+    const timer = setTimeout(() => {
+      initActiveBox();
+    }, 100);
+    
     window.addEventListener('resize', initActiveBox);
-    return () => window.removeEventListener('resize', initActiveBox);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', initActiveBox);
+    };
   }, []);
+
+  useEffect(() => {
+    // Update active link when location changes
+    const activeLink = document.querySelector(`a[href="${location.pathname}"]`);
+    if (activeLink) {
+      document.querySelectorAll('.nav-link, .nav-link-contact').forEach(link => {
+        link.classList.remove('active');
+      });
+      activeLink.classList.add('active');
+      lastActiveLink.current = activeLink;
+      
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        initActiveBox();
+      }, 0);
+    }
+  }, [location.pathname]);
 
   const activeCurrentLink = (event) => {
     if (!activeBox.current) return;
@@ -33,18 +58,13 @@ const Navbar = ({ navOpen }) => {
     activeBox.current.style.left = event.target.offsetLeft + 'px';
     activeBox.current.style.width = event.target.offsetWidth + 'px';
     activeBox.current.style.height = event.target.offsetHeight + 'px';
-
-    // Refresh page on navigation
-    setTimeout(() => {
-      window.location.reload();
-    }, 300);
   }
 
   const navItems = [
     {
       label: 'Home',
       link: '/',
-      className: 'nav-link active',
+      className: 'nav-link',
       ref: lastActiveLink
     },
     {

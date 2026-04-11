@@ -4,16 +4,7 @@ import "./App.css"
  * Node Modules
  */
 import { ReactLenis } from 'lenis/react';
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
-
-/**
- * Register GSAP plugins
- */
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /**
  * Components & Pages
@@ -27,29 +18,6 @@ import ContactPage from "./pages/Contact";
 
 const AppRoutes = () => {
   const location = useLocation();
-
-  useEffect(() => {
-    ScrollTrigger.refresh();
-  }, [location]);
-
-  useGSAP(() => {
-    const elements = gsap.utils.toArray('.reveal-up');
-
-    elements.forEach((element) => {
-      gsap.to(element, {
-        scrollTrigger: {
-          trigger: element,
-          start: '-200 bottom',
-          end: 'bottom 80%',
-          scrub: true
-        },
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: 'power2.out'
-      })
-    })
-  });
 
   return (
     <main>

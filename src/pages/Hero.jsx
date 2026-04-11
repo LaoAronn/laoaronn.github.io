@@ -8,7 +8,7 @@ const Hero = () => {
             <div className="container lg:grid lg:grid-cols-2 items-center lg:gap-10">
 
                 <div className="">
-                    <div className="flex flex-col items-start gap-3 reveal-up">
+                    <div className="flex flex-col items-start gap-3">
 
                         {/** Portrait for Mobile / Small screen */}
                         <div className="block lg:hidden">
