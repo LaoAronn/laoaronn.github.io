@@ -18,20 +18,7 @@ const Navbar = ({ navOpen }) => {
   }
 
   useEffect(() => {
-    // Delay initialization to ensure DOM is ready
-    const timer = setTimeout(() => {
-      initActiveBox();
-    }, 100);
-    
-    window.addEventListener('resize', initActiveBox);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', initActiveBox);
-    };
-  }, []);
-
-  useEffect(() => {
-    // Update active link when location changes
+    // Update active link when route changes
     const activeLink = document.querySelector(`a[href="${location.pathname}"]`);
     if (activeLink) {
       document.querySelectorAll('.nav-link, .nav-link-contact').forEach(link => {
@@ -39,11 +26,6 @@ const Navbar = ({ navOpen }) => {
       });
       activeLink.classList.add('active');
       lastActiveLink.current = activeLink;
-      
-      // Small delay to ensure DOM is updated
-      setTimeout(() => {
-        initActiveBox();
-      }, 0);
     }
   }, [location.pathname]);
 
@@ -63,9 +45,8 @@ const Navbar = ({ navOpen }) => {
   const navItems = [
     {
       label: 'Home',
-      link: '/',
-      className: 'nav-link active',
-      ref: lastActiveLink
+      link: '/home',
+      className: 'nav-link',
     },
     {
       label: 'About',
