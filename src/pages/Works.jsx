@@ -113,6 +113,7 @@ const Works = () => {
     touchStartY.current = e.touches[0].clientY;
   };
 
+  // Flash Card swiping
   const handleTouchEnd = (e) => {
     const touchEndY = e.changedTouches[0].clientY;
     const diff = touchStartY.current - touchEndY;
@@ -154,46 +155,16 @@ const Works = () => {
   }, [filteredWorks.length]);
 
   return (
-    <section id="work" className="section">
-      <div className="container">
-
-        {/** Project Header */}
-        <div className="relative inline-flex items-center justify-center w-full reveal-up pb-15">
-          <hr className="w-full h-[1px] my-8 bg-gray-100 border-0 rounded-sm dark:bg-zinc-800"/>
-
-          <span className="absolute px-3 headline-2 -translate-x-1/2 left-1/2 
-            text-zinc-900 dark:text-white
-            bg-zinc-100 dark:bg-zinc-900
-            z-10">
-            My Projects
-          </span>
-        </div>
-
-        <div className="flex justify-center pb-15 reveal-up">
-          <nav className="flex overflow-x-auto items-center p-1 space-x-1 md:text-sm text-xs backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 rounded-2xl shadow-lg">
-            {["software", "data"].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`flex items-center h-9 px-6 font-medium rounded-xl transition-all duration-300
-                  ${activeTab === tab
-                    ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md scale-[1.02]"
-                    : "text-gray-600 dark:text-gray-300 hover:text-sky-500 dark:hover:text-sky-400 hover:bg-white/10"}
-                `}
-              >
-                {tab === "software" ? "Software Development" : "Data Analytics"}
-              </button>
-            ))}
-          </nav>
-        </div>
+    <section id="work" className="fixed inset-0 overflow-hidden">
+      <div className="h-full w-full flex flex-col overflow-hidden">
 
         <div 
           ref={containerRef}
-          className="flex flex-col items-center justify-center min-h-screen reveal-up"
+          className="flex flex-col items-center justify-center flex-1 overflow-hidden px-4"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="w-full max-w-2xl relative" style={{ height: "400px" }}>
+          <div className="w-full max-w-2xl relative" style={{ height: "clamp(300px, 50vh, 500px)" }}>
             {filteredWorks.map((work, index) => {
               const offset = index - cardIndex;
               const isVisible = offset >= 0 && offset < 3;
@@ -247,6 +218,27 @@ const Works = () => {
             👆 Swipe up/down or scroll to navigate
           </p>
         </div>
+
+          {/** Project Categories */}
+          <div className="flex justify-center pb-10">
+            <nav className="flex overflow-x-auto items-center p-1 space-x-1 md:text-sm text-xs backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 rounded-2xl shadow-lg">
+              {["software", "data"].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`flex items-center h-9 px-6 font-medium rounded-xl transition-all duration-300
+                    ${activeTab === tab
+                      ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md scale-[1.02]"
+                      : "text-gray-600 dark:text-gray-300 hover:text-sky-500 dark:hover:text-sky-400 hover:bg-white/10"}
+                  `}
+                >
+                  {tab === "software" ? "Software Development" : "Data Analytics"}
+                </button>
+              ))}
+            </nav>
+          </div>
+
+          
 
       </div>
     </section>
