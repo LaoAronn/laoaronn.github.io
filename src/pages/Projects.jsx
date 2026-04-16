@@ -55,7 +55,7 @@ const allProjects = [
     title: 'Sister Art Portfolio 🎨',
     desc: 'Elegant portfolio showcase website',
     icon: '🎨',
-    link: 'https://github.com/LaoAronn/Sister-Art-Portfolio'
+    link: 'https://allyhasawebsite.com/'
   },
   {
     category: 'data',
