@@ -3,19 +3,9 @@ import { useRef, useEffect} from "react";
 import PropTypes from 'prop-types';
 import { Link, useLocation } from "react-router-dom";
 
-const Navbar = ({ navOpen }) => {
+const Navbar = () => {
   const lastActiveLink = useRef();
-  const activeBox = useRef();
   const location = useLocation();
-  
-  const initActiveBox = () => {
-    if (!activeBox.current || !lastActiveLink.current) return;
-
-    activeBox.current.style.top = lastActiveLink.current.offsetTop + 'px';
-    activeBox.current.style.left = lastActiveLink.current.offsetLeft + 'px';
-    activeBox.current.style.width = lastActiveLink.current.offsetWidth + 'px';
-    activeBox.current.style.height = lastActiveLink.current.offsetHeight + 'px';
-  }
 
   useEffect(() => {
     // Update active link when route changes
@@ -30,16 +20,9 @@ const Navbar = ({ navOpen }) => {
   }, [location.pathname]);
 
   const activeCurrentLink = (event) => {
-    if (!activeBox.current) return;
-
     lastActiveLink.current?.classList.remove('active');
     event.target.classList.add('active');
     lastActiveLink.current = event.target;
-
-    activeBox.current.style.top = event.target.offsetTop + 'px';
-    activeBox.current.style.left = event.target.offsetLeft + 'px';
-    activeBox.current.style.width = event.target.offsetWidth + 'px';
-    activeBox.current.style.height = event.target.offsetHeight + 'px';
   }
 
   const navItems = [
@@ -67,7 +50,7 @@ const Navbar = ({ navOpen }) => {
 
 
   return (
-    <nav className={'navbar ' + (navOpen ? 'active' : '')}>
+    <nav className="navbar flex justify-center">
       {
         navItems.map(({ label, link, className, ref}, key) => (
             <Link
@@ -81,13 +64,11 @@ const Navbar = ({ navOpen }) => {
             </Link>
           ))
       }
-      
     </nav>
   )
 }
 
 Navbar.propTypes = {
-  navOpen: PropTypes.bool.isRequired
 }
 
 export default Navbar
