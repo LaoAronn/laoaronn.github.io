@@ -155,16 +155,16 @@ const Works = () => {
   }, [filteredWorks.length]);
 
   return (
-    <section id="work" className="fixed inset-0 overflow-hidden">
-      <div className="h-full w-full flex flex-col overflow-hidden">
+    <section id="work" className="relative w-full py-8 md:py-12 min-h-screen">
+      <div className="h-full w-full flex flex-col">
 
         <div 
           ref={containerRef}
-          className="flex flex-col items-center justify-center flex-1 overflow-hidden px-4"
+          className="flex flex-col items-center justify-center flex-1 overflow-hidden px-4 md:px-8"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="w-full max-w-sm relative" style={{ aspectRatio: "1 / 1", height: "clamp(250px, 60vh, 400px)" }}>
+          <div className="w-full relative" style={{ maxWidth: "clamp(280px, 90vw, 600px)", aspectRatio: "1 / 1", height: "clamp(280px, 70vh, 500px)" }}>
             {filteredWorks.map((work, index) => {
               const offset = index - cardIndex;
               const isVisible = offset >= 0 && offset < 3;
@@ -194,8 +194,8 @@ const Works = () => {
           </div>
 
           {/* Card Navigation Indicator */}
-          <div className="flex items-center justify-center gap-2 mt-12">
-            <span className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex items-center justify-center gap-2 mt-8 md:mt-12 flex-wrap">
+            <span className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
               {cardIndex + 1} / {filteredWorks.length}
             </span>
             <div className="flex gap-1 flex-wrap justify-center">
@@ -205,7 +205,7 @@ const Works = () => {
                   onClick={() => setCardIndex(index)}
                   className={`h-2 rounded-full transition-all ${
                     index === cardIndex
-                      ? "w-6 bg-sky-500"
+                      ? "w-4 md:w-6 bg-sky-500"
                       : "w-2 bg-gray-400 dark:bg-gray-600 hover:bg-gray-500"
                   }`}
                 />
@@ -216,13 +216,13 @@ const Works = () => {
         </div>
 
           {/** Project Categories */}
-          <div className="flex justify-center pb-10">
-            <nav className="flex overflow-x-auto items-center p-1 space-x-1 md:text-sm text-xs backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 rounded-2xl shadow-lg">
+          <div className="flex justify-center pb-8 md:pb-10 mt-8 md:mt-12 px-4">
+            <nav className="flex overflow-x-auto items-center p-1 space-x-1 text-xs md:text-sm backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 rounded-2xl shadow-lg">
               {["software", "data"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`flex items-center h-9 px-6 font-medium rounded-xl transition-all duration-300
+                  className={`flex items-center h-8 md:h-9 px-4 md:px-6 font-medium rounded-xl transition-all duration-300 whitespace-nowrap
                     ${activeTab === tab
                       ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md scale-[1.02]"
                       : "text-gray-600 dark:text-gray-300 hover:text-sky-500 dark:hover:text-sky-400 hover:bg-white/10"}
