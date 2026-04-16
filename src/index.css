@@ -22,6 +22,19 @@
   .font-sans {
     font-family: 'Inter', sans-serif;
   }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+  }
 } 
 
 
@@ -92,12 +105,13 @@ body {
 /* Navbar */
 
 .navbar {
-  @apply flex items-center justify-center gap-0 p-0
+  @apply flex items-center justify-start gap-0 p-0
 }
 
 .nav-link {
-  @apply grid items-center h-9 px-4 text-sm font-medium
+  @apply flex items-center justify-start h-7 px-2 text-xs font-medium text-left
   tracking-wide text-zinc-50/50 hover:text-zinc-50 transition-colors
+  md:h-9 md:px-4 md:text-sm
 }
 
 .nav-link-contact {

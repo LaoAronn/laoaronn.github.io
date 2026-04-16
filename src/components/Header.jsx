@@ -7,25 +7,45 @@ import { useState } from "react";
 
 const Header = () => {
     const [navOpen, setNavOpen] = useState(false);
+    const [showSubtitle, setShowSubtitle] = useState(false);
 
     return (
-        <header className="fixed top-0 left-0 w-full h-20 flex items-center z-40 bg-gradient-to-b from-zinc-900 to-zinc-900/0">
+        <header className="relative w-full z-40 bg-gradient-to-b from-zinc-900 to-zinc-900/0">
             
-            <div className="max-w-screen-2xl w-full mx-auto px-4 flex items-center gap-8">
+            <div className="max-w-screen-2xl w-full mx-auto px-4 flex flex-col items-start gap-2 py-6">
 
-                <h1>
-                    <Link to="/" className="logo">
-                        <img src="/images/aronnSeal.png"
-                             width = {40}
-                             height = {40}
-                             alt="Aronn Laurel"
-                        />
-                    </Link>
-                </h1>
+                {/* Logo */}
+                <Link to="/" className="logo" onClick={() => setShowSubtitle(!showSubtitle)}>
+                    <img src="/images/aronnSeal.png"
+                         width = {36}
+                         height = {36}
+                         className="md:w-[50px] md:h-[50px]"
+                         alt="Aronn Laurel"
+                    />
+                </Link>
 
-                <div className="flex-1 flex justify-center">
-                    <Navbar navOpen={navOpen} />
+                {/* Name and Header */}
+                <div className="text-left">
+                    <div className="flex items-center gap-3">
+                        <h1 className="text-2xl md:text-4xl font-semibold text-zinc-50">
+                            Aronn Laurel
+                        </h1>
+                        {showSubtitle && (
+                            <h1 className="text-lg md:text-2xl text-red-600 animate-fadeIn">
+                                洪梓洺
+                            </h1>
+                        )}
+                    </div>
+                    <p className="text-xs md:text-sm text-zinc-500">
+                        Dev, design, & everything in between.
+                    </p>
                 </div>
+
+                {/* Navigation */}
+                <Navbar navOpen={navOpen} />
+
+                {/* Separator */}
+                <div className="w-full h-px bg-gradient-to-r from-zinc-700/0 via-zinc-700/50 to-zinc-700/0 mt-4"></div>
 
             </div>
 

@@ -3,7 +3,7 @@ import {ButtonPrimary, ButtonOutline} from "../components/Button";
 
 const Hero = () => {
     return (
-        <section id="home" className="pt-28 lg:pt-36">
+        <section id="home" className="pt-8 lg:pt-12">
 
             <div className="container lg:grid lg:grid-cols-2 items-center lg:gap-10">
 

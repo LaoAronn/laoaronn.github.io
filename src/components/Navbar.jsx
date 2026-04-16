@@ -48,24 +48,21 @@ const Navbar = () => {
     }
   ];
 
-
   return (
-    <nav className="navbar flex justify-center">
-      {
-        navItems.map(({ label, link, className, ref}, key) => (
-            <Link
-              to={link}
-              key={key}
-              ref={ref}
-              className={className}
-              onClick={activeCurrentLink}
-            > 
-              {label}
-            </Link>
-          ))
-      }
+    <nav style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }} className="-ml-2 md:-ml-4">
+      {navItems.map(({ label, link, className }, key) => (
+        <Link
+          to={link}
+          key={key}
+          className={className}
+          onClick={activeCurrentLink}
+        >
+          {label}
+        </Link>
+      ))}
     </nav>
   )
+
 }
 
 Navbar.propTypes = {
