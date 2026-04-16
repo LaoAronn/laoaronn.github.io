@@ -109,7 +109,7 @@ body {
 }
 
 .nav-link {
-  @apply flex items-center justify-start h-7 px-2 text-xs font-medium text-left
+  @apply flex items-center h-7 px-2 text-xs font-medium text-left
   tracking-wide text-zinc-50/50 hover:text-zinc-50 transition-colors
   md:h-9 md:px-4 md:text-sm
 }

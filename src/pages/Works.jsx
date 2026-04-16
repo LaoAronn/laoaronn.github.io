@@ -1,244 +1,125 @@
-/* Components */
-import ProjectCard from "../components/ProjectCard"
-import {useState, useRef, useEffect} from "react";
 
-const works = [
+const aboutItems = [
   {
-    category: 'software',
-    title: 'ScanAhead 👨‍⚕️',
-    tags: ['React', 'Gemini AI', 'ElevenLabs (Speech AI)', 'KIRIEngine (3D Modelling)', 'PostGreSQL'],
-    projectLink: 'https://github.com/LaoAronn/ScanAhead',
-    desc: '-'
+    workid: 1,
+    label: 'User Engagement Improvement',
+    number: 90
   },
   {
-    category: 'software',
-    title: 'Movie Review Website 🍿',
-    tags: ['Svelte', 'SQLite', 'Php', 'XAMPP', 'HTML & CSS', 'JavaScript'],
-    projectLink: 'https://github.com/LaoAronn/Movie-Website',
-    desc: 'Full-Stack Development project on a Movie review platform with a database for user login, rating, and review system.'
-  },
+    workid: 1,
+    label: 'Bounce Rate Reduction',
+    number: 80
+  }
+];
+
+const workExperience = [
   {
-    category: 'software',
-    title: 'Game Platform Systems 🎮',
-    tags: ['PostgreSQL', 'UML Diagram'],
-    projectLink: 'https://github.com/LaoAronn/Game-Platform-Systems-',
-    desc: 'Database for organizing game info, player reviews, and news using relational schema'
-  },
-  {
-    category: 'software',
-    title: 'CookAI 🥘',
-    tags: ['React', 'JavaScript', 'MongoDB', 'AI/ML'],
-    projectLink: 'https://devpost.com/software/cook-ai',
-    desc: 'Generates recipes from ingredient photos with AI suggestions and responsive UI'
-  },
-  {
-    category: 'software',
-    title: 'Pac-Man Clone 🕹️',
-    tags: ['Web/Game Development', 'JavaScript', 'HTML & CSS'],
-    projectLink: 'https://github.com/LaoAronn/Bootleg-Pacman',
-    desc: 'Interactive Pac-Man game with a twist of difficulty levels and obstacle mechanics'
-  },
-  {
-    category: 'software',
-    title: 'UBC Men’s Basketball Team Roster Log 🏀',
-    tags: ['GUI Application', 'Java'],
-    projectLink: 'https://github.com/LaoAronn/UBC-mbb-log',
-    desc: 'Application managing and saving basketball team rosters with file I/O support'
-  },
-  {
-    category: 'software',
-    title: 'Digit Mastermind #️⃣',
-    tags: ['Game Development', 'Java'],
-    projectLink: 'https://github.com/LaoAronn/Digit-Mastermind',
-    desc: 'Code-breaking game with real-time terminal input and feedback loop'
-  },
-  {
-    category: 'software',
-    title: 'My Sister Art Portfolio 🎨',
-    tags: ['Web Development', 'React'],
-    projectLink: 'https://github.com/LaoAronn/Digit-Mastermind',
-    desc: ' - '
-  },
-  {
-    category: 'data',
-    title: 'Predicting Percipitation Rates ☂️',
-    tags: ['R', 'Jupyter Notebook'],
-    projectLink: 'https://github.com/LaoAronn/Precipitation-Predictability-London-',
-    desc: ' Using percipiation data from London ranging from 1979 to 2020, my project aims to find the best given factors to predict precipitation rates in London using K-nearest neighbors regression. '
-  },
-  {
-    category: 'data',
-    title: 'Modeling Music Popularity - Factors influencing Spotify Streams 🎵',
-    tags: ['R', 'R Studio'],
-    projectLink: 'https://github.com/LaoAronn/Spotify-Regression-Model',
-    desc: ' An exploratory study analuzing Spotify data from 2023 using a linear regression model to identify factors influencing streaming success. The findings aim to inform broader understanding of music industry trends and consumption patterns. '
-  },
-  {
-    category: 'data',
-    title: 'Credit Card Default Classification 💳',
-    tags: ['R', 'Jupyter Notebook'],
-    projectLink: 'https://github.com/LaoAronn/CC-Default-Classification',
-    desc: ' A study comparing supervised learning models (Logistic Regression, Random Forests, Gradient Boosted Trees, SVM) to assess their effectiveness in predicting credit default risk. '
-  },
-  {
-    category: 'data',
-    title: 'Time Series Data Analysis ⏳',
-    tags: ['R', 'LaTeX'],
-    projectLink: 'https://github.com/LaoAronn/tseries',
-    desc: ' A study of stochastic modeling (ARIMA, GARCH), optimizing model parameters for forecasting, evaluating predictive performance with RMSE and MSE, and employing spectral and frequency-domain methods to examine periodic and cyclical patterns in time series data.'
+    workid: 1,
+    company: 'Verzena',
+    position: 'Software Engineering Intern',
+    period: 'August - December 2024',
+    desc: 'Collaborated closely with 2 team members at a startup, contributing to UI and logo design using Figma and built responsive web pages with JSX and Tailwind CSS. Maintained code quality through version control, documentation, and collaborative development workflows.',
   },
 ];
 
-const Works = () => {
-
-  const[activeTab, setActiveTab] = useState("software");
-  const[cardIndex, setCardIndex] = useState(0);
-  const containerRef = useRef(null);
-  const touchStartY = useRef(0);
-  const lastWheelTime = useRef(0);
-
-  const filteredWorks = works.filter(
-    project => project.category === activeTab
-  );
-
-  const handleCardChange = (direction) => {
-    if (direction === "next") {
-      setCardIndex((prev) => (prev + 1) % filteredWorks.length);
-    } else if (direction === "prev") {
-      setCardIndex((prev) => (prev - 1 + filteredWorks.length) % filteredWorks.length);
-    }
-  };
-
-  const handleTouchStart = (e) => {
-    touchStartY.current = e.touches[0].clientY;
-  };
-
-  // Flash Card swiping
-  const handleTouchEnd = (e) => {
-    const touchEndY = e.changedTouches[0].clientY;
-    const diff = touchStartY.current - touchEndY;
-
-    if (diff > 100) {
-      handleCardChange("next");
-    } else if (diff < -200) {
-      handleCardChange("prev");
-    }
-  };
-
-  const handleWheel = (e) => {
-    e.preventDefault();
-    const now = Date.now();
-    
-    // Throttle wheel events to 300ms
-    if (now - lastWheelTime.current < 300) return;
-    lastWheelTime.current = now;
-
-    if (e.deltaY > 0) {
-      handleCardChange("next");
-    } else if (e.deltaY < 0) {
-      handleCardChange("prev");
-    }
-  };
-
-  useEffect(() => {
-    setCardIndex(0);
-  }, [activeTab]);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    container.addEventListener("wheel", handleWheel, { passive: false });
-    return () => {
-      container.removeEventListener("wheel", handleWheel);
-    };
-  }, [filteredWorks.length]);
-
+const About = () => {
   return (
-    <section id="work" className="fixed inset-0 overflow-hidden">
-      <div className="h-full w-full flex flex-col overflow-hidden">
+    <section id="about" className="section">
 
-        <div 
-          ref={containerRef}
-          className="flex flex-col items-center justify-center flex-1 overflow-hidden px-4"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div className="w-full max-w-sm relative" style={{ aspectRatio: "1 / 1", height: "clamp(250px, 60vh, 400px)" }}>
-            {filteredWorks.map((work, index) => {
-              const offset = index - cardIndex;
-              const isVisible = offset >= 0 && offset < 3;
-              
-              return (
-                isVisible && (
-                  <div
-                    key={index}
-                    className="absolute w-full h-full transition-all duration-500 ease-out rounded-3xl shadow-2xl overflow-hidden bg-gradient-to-br from-sky-50 to-blue-100 dark:from-zinc-800 dark:to-zinc-700"
-                    style={{
-                      transform: `translateY(${offset * 20}px) scale(${1 - offset * 0.05}) rotateZ(${offset * 2}deg)`,
-                      zIndex: 100 - offset,
-                      opacity: offset === 0 ? 1 : 0.6,
-                    }}
-                  >
-                    <ProjectCard 
-                      title={work.title}
-                      tags={work.tags}
-                      projectLink={work.projectLink}
-                      desc={work.desc}
-                      classes=""
-                    />
-                  </div>
-                )
-              );
-            })}
-          </div>
+      <div className="container px-4 sm:px-6">
 
-          {/* Card Navigation Indicator */}
-          <div className="flex items-center justify-center gap-2 mt-12">
-            <span className="text-sm text-gray-600 dark:text-gray-400">
-              {cardIndex + 1} / {filteredWorks.length}
-            </span>
-            <div className="flex gap-1 flex-wrap justify-center">
-              {filteredWorks.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCardIndex(index)}
-                  className={`h-2 rounded-full transition-all ${
-                    index === cardIndex
-                      ? "w-6 bg-sky-500"
-                      : "w-2 bg-gray-400 dark:bg-gray-600 hover:bg-gray-500"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-          
+        {/** Work Header */}
+        <div className="inline-flex items-center justify-center w-full reveal-up pb-10 sm:pb-15">
+          <hr className="w-full h-[1px] my-6 sm:my-8 bg-gray-100 border-0 rounded-sm dark:bg-zinc-800"/>
+
+          <span className="absolute px-3 headline-2 text-sm sm:text-base md:text-lg 
+            -translate-x-1/2 left-1/2 dark:text-white dark:bg-zinc-900">
+            My Experience
+          </span>
         </div>
 
-          {/** Project Categories */}
-          <div className="flex justify-center pb-10">
-            <nav className="flex overflow-x-auto items-center p-1 space-x-1 md:text-sm text-xs backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 rounded-2xl shadow-lg">
-              {["software", "data"].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`flex items-center h-9 px-6 font-medium rounded-xl transition-all duration-300
-                    ${activeTab === tab
-                      ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md scale-[1.02]"
-                      : "text-gray-600 dark:text-gray-300 hover:text-sky-500 dark:hover:text-sky-400 hover:bg-white/10"}
-                  `}
-                >
-                  {tab === "software" ? "Software Development" : "Data Analytics"}
-                </button>
-              ))}
-            </nav>
-          </div>
+        {/** Work Experience List */}
+        {workExperience.map(({ workid, company, position, period, desc }, key) => {
 
-          
+          const relatedAboutItems = aboutItems.filter(item => item.workid === workid);
 
+          return (
+            <div 
+              key={key} 
+              className="text-left bg-zinc-800/50 
+              p-4 sm:p-6 md:p-10 mb-4 sm:mb-5 
+              rounded-xl sm:rounded-2xl reveal-up"
+            >
+
+              {/* Layout container */}
+              <div className="grid gap-4 lg:grid-cols-[auto_1fr]">
+
+                {/* Header Section */}
+                <div className="flex flex-row items-center gap-4">
+
+                  {/* Logo */}
+                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-neutral-200">
+                    <img 
+                      src="/images/verzena.png" 
+                      alt="Verzena logo" 
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
+
+                  {/* Text Info */}
+                  <div>
+                    <p className="text-base sm:text-lg font-bold dark:text-white">
+                      {position}
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-400">
+                      {company}
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-500">
+                      {period}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Content Section */}
+                <div className="mt-3 sm:mt-4">
+                  <p className="text-sm sm:text-base text-zinc-200 leading-relaxed">
+                    {desc}
+                  </p>
+
+                  {/* Stats */}
+                  <div className="mt-4 sm:mt-6 p-3 sm:p-4 rounded-xl sm:rounded-2xl">
+
+                    <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+                      {relatedAboutItems.map(({ label, number }, subKey) => (
+                        <div key={subKey}>
+                          <div className="flex items-center">
+                            <span className="text-xl sm:text-2xl md:text-3xl font-semibold">
+                              {number}
+                            </span>
+                            <span className="text-sky-400 font-semibold text-lg sm:text-xl md:text-2xl">
+                              %
+                            </span>
+                          </div>
+                          <p className="text-xs sm:text-sm text-zinc-400">
+                            {label}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          );
+        })}
       </div>
+
+
     </section>
   )
 }
 
-export default Works
+export default About
+

@@ -27,18 +27,18 @@ const Navbar = () => {
 
   const navItems = [
     {
-      label: 'Home',
+      label: 'Projects',
       link: '/',
+      className: 'nav-link'
+    },
+        {
+      label: 'Work',
+      link: '/works',
       className: 'nav-link',
     },
     {
       label: 'About',
       link: '/about',
-      className: 'nav-link'
-    },
-    {
-      label: 'Work',
-      link: '/works',
       className: 'nav-link'
     },
     {
@@ -49,7 +49,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }} className="-ml-2 md:-ml-4">
+    <nav className="flex items-center justify-start gap-0">
       {navItems.map(({ label, link, className }, key) => (
         <Link
           to={link}

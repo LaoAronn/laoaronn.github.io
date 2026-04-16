@@ -10,10 +10,9 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
  * Components & Pages
 */
 import Header from "./components/Header";
-import Hero from "./pages/Hero";
-import AboutPage from "./pages/About";
+import About from "./pages/About";
 import Works from "./pages/Works";
-import PhotographyPage from "./pages/Photography";
+import Projects from "./pages/Projects";
 import ContactPage from "./pages/Contact";
 
 const AppRoutes = () => {
@@ -22,10 +21,9 @@ const AppRoutes = () => {
   return (
     <main>
       <Routes>
-        <Route path="/" element={<Hero />} />
-        <Route path="/about" element={<AboutPage />} />
         <Route path="/works" element={<Works />} />
-        <Route path="/photography" element={<PhotographyPage />} />
+        <Route path="/" element={<Projects />} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </main>

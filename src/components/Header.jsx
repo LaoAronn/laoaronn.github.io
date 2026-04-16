@@ -12,33 +12,38 @@ const Header = () => {
     return (
         <header className="relative w-full z-40 bg-gradient-to-b from-zinc-900 to-zinc-900/0">
             
-            <div className="max-w-screen-2xl w-full mx-auto px-4 flex flex-col items-start gap-2 py-6">
+            <div className="w-full px-6 flex flex-col items-start gap-3 py-6">
 
-                {/* Logo */}
-                <Link to="/" className="logo" onClick={() => setShowSubtitle(!showSubtitle)}>
-                    <img src="/images/aronnSeal.png"
-                         width = {36}
-                         height = {36}
-                         className="md:w-[50px] md:h-[50px]"
-                         alt="Aronn Laurel"
-                    />
-                </Link>
+                {/* Logo + Name side by side */}
+                <div className="flex items-center gap-4">
 
-                {/* Name and Header */}
-                <div className="text-left">
-                    <div className="flex items-center gap-3">
-                        <h1 className="text-2xl md:text-4xl font-semibold text-zinc-50">
-                            Aronn Laurel
-                        </h1>
-                        {showSubtitle && (
-                            <h1 className="text-lg md:text-2xl text-red-600 animate-fadeIn">
-                                洪梓洺
+                    {/* Logo */}
+                    <Link to="/" className="logo" onClick={() => setShowSubtitle(!showSubtitle)}>
+                        <img src="/images/aronnSeal.png"
+                             width={36}
+                             height={36}
+                             className="md:w-[50px] md:h-[50px]"
+                             alt="Aronn Laurel"
+                        />
+                    </Link>
+
+                    {/* Name and Subtitle */}
+                    <div className="text-left">
+                        <div className="flex items-center gap-3">
+                            <h1 className="text-2xl md:text-4xl font-semibold text-zinc-50">
+                                Aronn Laurel
                             </h1>
-                        )}
+                            {showSubtitle && (
+                                <h1 className="text-2xl md:text-4xl text-red-600 animate-fadeIn">
+                                    洪梓洺
+                                </h1>
+                            )}
+                        </div>
+                        <p className="text-xs md:text-sm text-zinc-500">
+                            Dev, design, & everything in between.
+                        </p>
                     </div>
-                    <p className="text-xs md:text-sm text-zinc-500">
-                        Dev, design, & everything in between.
-                    </p>
+
                 </div>
 
                 {/* Navigation */}

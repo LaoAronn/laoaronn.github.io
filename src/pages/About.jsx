@@ -1,125 +1,89 @@
-
-const aboutItems = [
-  {
-    workid: 1,
-    label: 'User Engagement Improvement',
-    number: 90
-  },
-  {
-    workid: 1,
-    label: 'Bounce Rate Reduction',
-    number: 80
-  }
-];
-
-const workExperience = [
-  {
-    workid: 1,
-    company: 'Verzena',
-    position: 'Software Engineering Intern',
-    period: 'August - December 2024',
-    desc: 'Collaborated closely with 2 team members at a startup, contributing to UI and logo design using Figma and built responsive web pages with JSX and Tailwind CSS. Maintained code quality through version control, documentation, and collaborative development workflows.',
-  },
-];
+/* Components */
+import {ButtonPrimary, ButtonOutline} from "../components/Button";
 
 const About = () => {
-  return (
-    <section id="about" className="section">
+    return (
+        <section id="home" className="pt-8 lg:pt-12">
 
-      <div className="container px-4 sm:px-6">
+            <div className="container lg:grid lg:grid-cols-2 items-center lg:gap-10">
 
-        {/** Work Header */}
-        <div className="inline-flex items-center justify-center w-full reveal-up pb-10 sm:pb-15">
-          <hr className="w-full h-[1px] my-6 sm:my-8 bg-gray-100 border-0 rounded-sm dark:bg-zinc-800"/>
+                <div className="">
+                    <div className="flex flex-col items-start gap-3">
 
-          <span className="absolute px-3 headline-2 text-sm sm:text-base md:text-lg 
-            -translate-x-1/2 left-1/2 dark:text-white dark:bg-zinc-900">
-            My Experience
-          </span>
-        </div>
+                        {/** Portrait for Mobile / Small screen */}
+                        <div className="block lg:hidden">
+                            <figure className="w-full max-w-[450px] ml-auto bg-gradient-to-t from-sky-400 via-25% via-sky-400/40 to-70% rounded-[50px] overflow-hidden">
 
-        {/** Work Experience List */}
-        {workExperience.map(({ workid, company, position, period, desc }, key) => {
+                                <img src="/images/hero-banner.png"
+                                    width={656}
+                                    height={800}
+                                    alt="Aronn"
+                                    className="w-full"
+                                />
 
-          const relatedAboutItems = aboutItems.filter(item => item.workid === workid);
-
-          return (
-            <div 
-              key={key} 
-              className="text-left bg-zinc-800/50 
-              p-4 sm:p-6 md:p-10 mb-4 sm:mb-5 
-              rounded-xl sm:rounded-2xl reveal-up"
-            >
-
-              {/* Layout container */}
-              <div className="grid gap-4 lg:grid-cols-[auto_1fr]">
-
-                {/* Header Section */}
-                <div className="flex flex-row items-center gap-4">
-
-                  {/* Logo */}
-                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border border-neutral-200">
-                    <img 
-                      src="/images/verzena.png" 
-                      alt="Verzena logo" 
-                      className="w-full h-full object-cover" 
-                    />
-                  </div>
-
-                  {/* Text Info */}
-                  <div>
-                    <p className="text-base sm:text-lg font-bold dark:text-white">
-                      {position}
-                    </p>
-                    <p className="text-xs sm:text-sm text-gray-400">
-                      {company}
-                    </p>
-                    <p className="text-xs sm:text-sm text-gray-500">
-                      {period}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Content Section */}
-                <div className="mt-3 sm:mt-4">
-                  <p className="text-sm sm:text-base text-zinc-200 leading-relaxed">
-                    {desc}
-                  </p>
-
-                  {/* Stats */}
-                  <div className="mt-4 sm:mt-6 p-3 sm:p-4 rounded-xl sm:rounded-2xl">
-
-                    <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-                      {relatedAboutItems.map(({ label, number }, subKey) => (
-                        <div key={subKey}>
-                          <div className="flex items-center">
-                            <span className="text-xl sm:text-2xl md:text-3xl font-semibold">
-                              {number}
-                            </span>
-                            <span className="text-sky-400 font-semibold text-lg sm:text-xl md:text-2xl">
-                              %
-                            </span>
-                          </div>
-                          <p className="text-xs sm:text-sm text-zinc-400">
-                            {label}
-                          </p>
+                            </figure>
                         </div>
-                      ))}
+                
+
+                        <h2 className="headline-1 text-left max-w-[15ch] sm:max-w-[20ch] lg:max-w-[15ch] mt-5 mb-8 lg:mb-10 text-black dark:text-white">
+                            Aronn Grant Laurel Y. 
+                        </h2>
+
+                        <div className="flex items-center gap-1.5 text-zinc-400 text-md tracking-wide">
+                                <span className="relative w-3 h-3 rounded-full bg-emerald-400">
+                                <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping" />
+                                </span>
+                                Available For Work 
+                        </div>
+
+                        <div className="text-left text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch]">
+                            Hello World! I'm an aspiring software developer and a Statistics major at the University of British Columbia with a great passion for programming. I am hoping to achieve my goals one code at a time!
+                        </div>
+
+                        <div className="text-left text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch]">
+                            <p className="mb-2.5">📍 Vancouver, Canada</p>
+                            <p>⏪ Previously @ Verzena</p>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <a href="/images/resume.pdf" download="resume.pdf">
+                                <ButtonPrimary 
+                                    label = "Download CV"
+                                    icon = "download"
+                                />
+                            </a>
+
+                            <ButtonOutline
+                                href="/about"
+                                label="More About Me!"
+                                icon="arrow_downward"
+                            />
+
+                        </div>
+
                     </div>
 
-                  </div>
+
                 </div>
 
-              </div>
+                {/** Portrait for Window Size */}
+                <div className="hidden lg:block">
+                    <figure className="w-full max-w-[450px] ml-auto bg-gradient-to-t from-sky-400 via-25% via-sky-400/40 to-70% rounded-[50px] overflow-hidden">
+
+                        <img src="/images/hero-banner.png"
+                             width={656}
+                             height={800}
+                             alt="Aronn"
+                             className="w-full"
+                        />
+
+                    </figure>
+                </div>
+
             </div>
-          );
-        })}
-      </div>
 
-
-    </section>
-  )
+        </section>
+    )
 }
 
 export default About
-
