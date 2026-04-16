@@ -126,11 +126,20 @@ const Works = () => {
   };
 
   const handleWheel = (e) => {
-    e.preventDefault();
     const now = Date.now();
     
     // Throttle wheel events to 300ms
     if (now - lastWheelTime.current < 300) return;
+
+    // Allow scrolling past the section if at the end/beginning
+    const isAtEnd = cardIndex === filteredWorks.length - 1 && e.deltaY > 0;
+    const isAtStart = cardIndex === 0 && e.deltaY < 0;
+    
+    if (isAtEnd || isAtStart) {
+      return; // Allow default scroll behavior
+    }
+
+    e.preventDefault();
     lastWheelTime.current = now;
 
     if (e.deltaY > 0) {
@@ -157,6 +166,25 @@ const Works = () => {
   return (
     <section id="work" className="relative w-full py-8 md:py-12 min-h-screen">
       <div className="h-full w-full flex flex-col">
+
+        {/** Project Categories */}
+        <div className="flex justify-center pb-8 md:pb-10 mt-8 md:mt-12 px-4">
+          <nav className="flex overflow-x-auto items-center p-1 space-x-1 text-xs md:text-sm backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 rounded-2xl shadow-lg">
+            {["software", "data"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`flex items-center h-8 md:h-9 px-4 md:px-6 font-medium rounded-xl transition-all duration-300 whitespace-nowrap
+                  ${activeTab === tab
+                    ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md scale-[1.02]"
+                    : "text-gray-600 dark:text-gray-300 hover:text-sky-500 dark:hover:text-sky-400 hover:bg-white/10"}
+                `}
+              >
+                {tab === "software" ? "Software Development" : "Data Analytics"}
+              </button>
+            ))}
+          </nav>
+        </div>
 
         <div 
           ref={containerRef}
@@ -215,24 +243,7 @@ const Works = () => {
           
         </div>
 
-          {/** Project Categories */}
-          <div className="flex justify-center pb-8 md:pb-10 mt-8 md:mt-12 px-4">
-            <nav className="flex overflow-x-auto items-center p-1 space-x-1 text-xs md:text-sm backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 rounded-2xl shadow-lg">
-              {["software", "data"].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`flex items-center h-8 md:h-9 px-4 md:px-6 font-medium rounded-xl transition-all duration-300 whitespace-nowrap
-                    ${activeTab === tab
-                      ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md scale-[1.02]"
-                      : "text-gray-600 dark:text-gray-300 hover:text-sky-500 dark:hover:text-sky-400 hover:bg-white/10"}
-                  `}
-                >
-                  {tab === "software" ? "Software Development" : "Data Analytics"}
-                </button>
-              ))}
-            </nav>
-          </div>
+          
 
           
 

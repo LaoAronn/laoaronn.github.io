@@ -49,7 +49,7 @@ const Header = () => {
                 {/* Navigation */}
                 <Navbar navOpen={navOpen} />
 
-                {/* Separator */}
+                {/* HL */}
                 <div className="w-full h-px bg-gradient-to-r from-zinc-700/0 via-zinc-700/50 to-zinc-700/0 mt-4"></div>
 
             </div>

@@ -2,29 +2,6 @@
 /* Components */
 import { ButtonPrimary } from "../components/Button";
 
-const sitemap = [
-  {
-    label: 'Home',
-    href: '#home'
-  },
-  {
-    label: 'About',
-    href: '#about'
-  },
-  {
-    label: 'Work',
-    href: '#work'
-  },
-  {
-    label: 'Photography',
-    href: '#photography'
-  },
-  {
-    label: 'Contact me',
-    href: '#contact'
-  }
-];
-
 const socials = [
   {
     label: 'GitHub',
@@ -45,6 +22,10 @@ const Footer = () => {
 
     <footer className="section">
 
+      {/* HL */}
+      <div className="w-full h-px bg-gradient-to-r from-zinc-700/0 via-zinc-700/50 to-zinc-700/0 m-5"></div>
+
+      {/* My Footer Content */}
       <div className="container">
 
         <div className="lg:grid lg:grid-cols-2">
@@ -61,21 +42,6 @@ const Footer = () => {
           </div>
           
           <div className="grid grid-cols-2 gap-4 lg:pl-20">
-
-            <div>
-              <p className="mb-2 reveal-up"> Sitemap </p>
-
-              <ul>
-                {sitemap.map(({ label, href }, key) => (
-                  <li key={key}> 
-                    <a href={href} className="block text-sm text-zinc-400 py-1 transition-colors hover:text-zinc-200 reveal-up">
-                      {label} 
-                    </a>
-                  </li>
-                ))}
-              </ul>
-
-            </div>
 
             <div>
               <p className="mb-2 reveal-up"> Social </p>

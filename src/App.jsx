@@ -14,6 +14,7 @@ import About from "./pages/About";
 import Works from "./pages/Works";
 import Projects from "./pages/Projects";
 import ContactPage from "./pages/Contact";
+import Footer from "./pages/Footer";
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -36,6 +37,7 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <AppRoutes />
+        <Footer />
       </BrowserRouter>
     </ReactLenis>
   )
