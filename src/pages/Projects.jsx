@@ -164,11 +164,11 @@ const Works = () => {
   }, [filteredWorks.length]);
 
   return (
-    <section id="work" className="relative w-full py-8 md:py-12 min-h-screen">
-      <div className="h-full w-full flex flex-col">
+    <section id="work" className="relative w-full py-8 md:py-12">
+      <div className="w-full flex flex-col">
 
         {/** Project Categories */}
-        <div className="flex justify-center pb-8 md:pb-10 mt-8 md:mt-12 px-4">
+        <div className="flex justify-center pb-8 md:pb-10 px-4">
           <nav className="flex overflow-x-auto items-center p-1 space-x-1 text-xs md:text-sm backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20 rounded-2xl shadow-lg">
             {["software", "data"].map((tab) => (
               <button
@@ -186,9 +186,11 @@ const Works = () => {
           </nav>
         </div>
 
+        {/* Sticky Cards Container */}
         <div 
           ref={containerRef}
-          className="flex flex-col items-center justify-center flex-1 overflow-hidden px-4 md:px-8"
+          className="sticky top-0 md:top-4 h-screen md:h-auto flex flex-col items-center justify-center overflow-hidden px-4 md:px-8 z-30"
+          style={{ minHeight: "clamp(400px, 100vh, 800px)" }}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
@@ -240,13 +242,10 @@ const Works = () => {
               ))}
             </div>
           </div>
-          
         </div>
 
-          
-
-          
-
+        {/* Spacer for scrolling */}
+        <div className="h-screen md:h-96" />
       </div>
     </section>
   )
