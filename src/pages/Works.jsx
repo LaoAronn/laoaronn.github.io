@@ -164,7 +164,7 @@ const Works = () => {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="w-full max-w-2xl relative" style={{ height: "clamp(300px, 50vh, 500px)" }}>
+          <div className="w-full max-w-sm relative" style={{ aspectRatio: "1 / 1", height: "clamp(250px, 60vh, 400px)" }}>
             {filteredWorks.map((work, index) => {
               const offset = index - cardIndex;
               const isVisible = offset >= 0 && offset < 3;
@@ -173,9 +173,9 @@ const Works = () => {
                 isVisible && (
                   <div
                     key={index}
-                    className="absolute w-full transition-all duration-500 ease-out"
+                    className="absolute w-full h-full transition-all duration-500 ease-out rounded-3xl shadow-2xl overflow-hidden bg-gradient-to-br from-sky-50 to-blue-100 dark:from-zinc-800 dark:to-zinc-700"
                     style={{
-                      transform: `translateY(${offset * 20}px) scale(${1 - offset * 0.04})`,
+                      transform: `translateY(${offset * 20}px) scale(${1 - offset * 0.05}) rotateZ(${offset * 2}deg)`,
                       zIndex: 100 - offset,
                       opacity: offset === 0 ? 1 : 0.6,
                     }}
@@ -212,11 +212,7 @@ const Works = () => {
               ))}
             </div>
           </div>
-
-          {/* Swipe Instructions */}
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-6 text-center">
-            👆 Swipe up/down or scroll to navigate
-          </p>
+          
         </div>
 
           {/** Project Categories */}

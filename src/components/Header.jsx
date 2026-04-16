@@ -38,11 +38,6 @@ const Header = () => {
                     <Navbar navOpen={navOpen} />
                 </div>
 
-                <Link to="/contact"
-                    className="btn btn-secondary max-md:hidden md:justify-self-end">
-                        Contact Me
-                </Link>
-
             </div>
 
         </header>

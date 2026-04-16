@@ -45,7 +45,7 @@ const Navbar = ({ navOpen }) => {
   const navItems = [
     {
       label: 'Home',
-      link: '/home',
+      link: '/',
       className: 'nav-link',
     },
     {
@@ -59,14 +59,9 @@ const Navbar = ({ navOpen }) => {
       className: 'nav-link'
     },
     {
-      label: 'Photography',
-      link: '/photography',
-      className: 'nav-link'
-    },
-    {
       label: 'Contact',
       link: '/contact',
-      className: 'nav-link-contact'
+      className: 'nav-link'
     }
   ];
 
@@ -86,19 +81,7 @@ const Navbar = ({ navOpen }) => {
             </Link>
           ))
       }
-
-      <a
-        href="/images/resume.pdf"
-        className="nav-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Resume
-      </a>
-
-      <div className='active-box' ref={activeBox}>
-
-      </div>
+      
     </nav>
   )
 }
