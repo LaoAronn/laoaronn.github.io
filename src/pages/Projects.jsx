@@ -126,7 +126,7 @@ const Projects = () => {
               onClick={() => setActiveCategory(category)}
               className={`px-6 md:px-8 py-2 md:py-3 rounded-xl font-semibold transition-all duration-300 text-sm md:text-base ${
                 activeCategory === category
-                  ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg scale-105'
+                  ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg scale-105'
                   : 'bg-white/10 text-zinc-400 hover:text-zinc-200 hover:bg-white/20'
               }`}
             >
