@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const allProjects = [
   {
@@ -96,35 +96,113 @@ const allProjects = [
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('software');
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [indexHovered, setIndexHovered] = useState(false);
-  const [hoveredProjectIndex, setHoveredProjectIndex] = useState(null);
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isCarouselHovered, setIsCarouselHovered] = useState(false);
+  const [isCardsHovered, setIsCardsHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const carouselRef = useRef(null);
 
   const filteredProjects = allProjects.filter(p => p.category === activeCategory);
 
-  const handleScroll = (e) => {
-    setScrollPosition(e.target.scrollLeft);
+  const handleCategoryChange = (category) => {
+    setActiveCategory(category);
+    setCurrentProjectIndex(0);
+  };
+
+  const nextProject = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentProjectIndex((prev) => (prev + 1) % filteredProjects.length);
+    setTimeout(() => setIsTransitioning(false), 500);
+  };
+
+  const handleTouchStart = (e) => {
+    setTouchStart(e.touches[0].clientY);
+    setIsTouchDevice(true);
+  };
+
+  const handleMouseEnter = () => {
+    setIsTouchDevice(false);
+    setIsCardsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsCardsHovered(false);
   };
 
   const handleMouseMove = (e) => {
     setMousePos({ x: e.clientX, y: e.clientY });
   };
 
+  const handleTouchEnd = (e) => {
+    if (!touchStart) return;
+    const touchEnd = e.changedTouches[0].clientY;
+    const diff = touchStart - touchEnd;
+    
+    // Swipe down (diff is negative means touch moved down)
+    if (diff < -50) {
+      nextProject();
+    }
+  };
+
+  const handleWheel = (e) => {
+    if (isTransitioning || !isCardsHovered) return;
+    // Prevent default scrolling behavior
+    e.preventDefault();
+    // Scroll down to go to next project
+    if (e.deltaY > 0) {
+      nextProject();
+    }
+  };
+
+  const currentProject = filteredProjects[currentProjectIndex];
+
+  useEffect(() => {
+    if (isCardsHovered) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isCardsHovered]);
+
+  useEffect(() => {
+    const wheelHandler = (e) => {
+      if (isTransitioning || !isCardsHovered) return;
+      // Prevent default scrolling behavior
+      e.preventDefault();
+      // Scroll down to go to next project
+      if (e.deltaY > 0) {
+        nextProject();
+      }
+    };
+
+    const element = carouselRef.current;
+    if (element) {
+      element.addEventListener('wheel', wheelHandler, { passive: false });
+      return () => {
+        element.removeEventListener('wheel', wheelHandler);
+      };
+    }
+  }, [isCardsHovered, isTransitioning]);
+
   return (
-    <section id="all-projects" className="relative w-full py-16 md:py-24">
+    <section id="all-projects" className="relative w-full h-screen overflow-hidden flex flex-col">
       
-      <div className="max-w-screen-2xl mx-auto px-4">
+      <div className="w-full h-full flex flex-col items-center justify-center px-4">
         
         {/* Category Filter Buttons */}
-        <div className="flex gap-3 mb-12 justify-center">
+        <div className="sticky top-0 z-20 flex gap-1.5 sm:gap-2 md:gap-3 justify-center bg-gradient-to-b from-zinc-900 to-transparent py-1.5 sm:py-2 md:py-3 px-2">
           {['software', 'data'].map((category) => (
             <button
               key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-6 md:px-8 py-2 md:py-3 rounded-xl font-semibold transition-all duration-300 text-sm md:text-base ${
+              onClick={() => handleCategoryChange(category)}
+              className={`px-3 sm:px-4 md:px-6 py-0.5 sm:py-1 md:py-2 rounded-md sm:rounded-lg md:rounded-xl font-semibold transition-all duration-300 text-[10px] sm:text-xs md:text-sm whitespace-nowrap ${
                 activeCategory === category
                   ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg scale-105'
                   : 'bg-white/10 text-zinc-400 hover:text-zinc-200 hover:bg-white/20'
@@ -135,143 +213,91 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Carousel */}
-        <div
-          ref={carouselRef}
-          onScroll={handleScroll}
-          onMouseEnter={() => setIsCarouselHovered(true)}
-          onMouseLeave={() => setIsCarouselHovered(false)}
+        {/* Flashcard Display */}
+        <div 
+          className="flex flex-col items-center justify-center gap-2 flex-1 relative w-full overflow-hidden"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           onMouseMove={handleMouseMove}
-          className="flex gap-6 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory relative"
-          style={{ scrollBehavior: 'smooth' }}
+          style={{ overscrollBehavior: 'contain' }}
+          ref={carouselRef}
         >
-          {filteredProjects.map((project, index) => (
-            <a
-              key={index}
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-shrink-0 w-full sm:w-96 group cursor-pointer snap-start"
-            >
-              <div className="bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-2xl p-6 h-80 flex flex-col justify-between overflow-hidden relative transition-transform duration-300 hover:scale-105 shadow-xl border border-zinc-700/50">
-                
-                {/* GitHub Link - appears on hover */}
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                  <div className="flex items-center gap-2 bg-sky-500/90 px-3 py-2 rounded-lg backdrop-blur-sm">
-                    <span className="text-sm font-semibold text-white">&lt;/&gt;</span>
-                  </div>
-                </div>
-
-                {/* Icon/Image Area */}
-                <div className="flex justify-center items-center flex-1 relative z-10">
-                  <div className="text-6xl md:text-8xl">{project.icon}</div>
-                </div>
-
-                {/* Title & Description */}
-                <div className="relative z-10">
-                  <h3 className="text-white text-xl md:text-2xl font-bold mb-2 group-hover:text-sky-300 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-zinc-400 text-sm md:text-base">
-                    {project.desc}
-                  </p>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-
-        {/* Cursor-following tooltip */}
-        {isCarouselHovered && (
-          <div
-            className="fixed bg-zinc-900 border border-sky-400/50 text-white px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap shadow-lg backdrop-blur-sm z-40 pointer-events-none"
-            style={{
-              left: `${mousePos.x + 12}px`,
-              top: `${mousePos.y + 12}px`,
-            }}
-          >
-            Click to Open
-          </div>
-        )}
-
-        {/* Footer Link with Interactive Index */}
-        <div className="flex justify-center items-center gap-4 mt-12">
           
-          {/* Interactive Overlapping Icons */}
-          <div
-            className="relative flex items-center px-6 py-3 rounded-full border border-white/20 backdrop-blur-sm cursor-pointer hover:border-white/40 transition-colors"
-            onMouseEnter={() => setIndexHovered(true)}
-            onMouseLeave={() => {
-              setIndexHovered(false);
-              setHoveredProjectIndex(null);
-            }}
-          >
-            <div className="flex items-center">
-              {filteredProjects.map((project, index) => (
-                <div key={index} className="relative group" style={{ zIndex: filteredProjects.length - index }}>
-                  <button
-                    className={`cursor-pointer transition-all duration-300 border-3 border-zinc-900 flex items-center justify-center shadow-lg hover:shadow-xl ${
-                      indexHovered ? '-mr-2 md:-mr-3 text-2xl md:text-3xl p-2 md:p-3 rounded-lg' : '-mr-8 md:-mr-10 text-3xl md:text-4xl p-3 md:p-4 rounded-full'
-                    }`}
-                    style={{
-                      backgroundColor: '#C60C30'
-                    }}
-                  >
+          {/* Stacked Cards Container */}
+          <div className="relative w-full max-w-[240px] sm:max-w-[320px] md:max-w-2xl lg:max-w-4xl h-auto aspect-video">
+            {/* Render 3 cards for stacked effect */}
+            {[0, 1, 2].map((offset) => {
+              const cardIndex = (currentProjectIndex + offset) % filteredProjects.length;
+              const project = filteredProjects[cardIndex];
+              
+              return (
+                <div
+                  key={offset}
+                  className="absolute w-full bg-white/5 border-2 border-white/20 rounded-xl sm:rounded-2xl md:rounded-3xl p-2 sm:p-4 md:p-8 lg:p-12 h-full flex flex-col items-center justify-center backdrop-blur-sm transition-all duration-500 ease-out"
+                  style={{
+                    transform: `translateY(${offset * 20}px) scale(${1 - offset * 0.035})`,
+                    zIndex: 100 - offset,
+                    opacity: offset === 0 ? 1 : 0.65 - offset * 0.05,
+                    boxShadow: offset > 0 ? `0 ${8 + offset * 4}px ${16 + offset * 8}px rgba(0,0,0,0.3)` : 'none'
+                  }}
+                >
+                  {/* Icon */}
+                  <div className="text-3xl sm:text-5xl md:text-7xl lg:text-9xl mb-1 sm:mb-2 md:mb-4 lg:mb-8 flex-shrink-0">
                     {project.icon}
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {/* Expanded Variant */}
-            {indexHovered && (
-              <div className="fixed inset-0 z-50 pointer-events-none flex items-center justify-center">
-                <div className="bg-zinc-950/95 border-2 border-white/30 rounded-3xl p-4 md:p-6 shadow-2xl backdrop-blur-md pointer-events-auto w-11/12 md:w-auto max-w-2xl max-h-[90vh] overflow-y-auto">
-                  
-                  {/* Icons Grid */}
-                  <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-3">
-                    {filteredProjects.map((project, index) => (
-                      <div key={index} className="flex flex-col items-center gap-1 relative">
-                        {/* Tooltip on icon hover - appears above */}
-                        {hoveredProjectIndex === index && (
-                          <div className="absolute bottom-full mb-1.5 left-1/2 -translate-x-1/2 z-50 pointer-events-none">
-                            <div className="bg-zinc-900 border border-sky-400/50 text-white px-1.5 py-0.5 rounded text-xs font-semibold whitespace-nowrap shadow-lg backdrop-blur-sm">
-                              {project.title}
-                              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full">
-                                <div className="border-3 border-transparent border-t-zinc-900"></div>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-
-                        <button
-                          onMouseEnter={() => setHoveredProjectIndex(index)}
-                          onMouseLeave={() => setHoveredProjectIndex(null)}
-                          onClick={() => {
-                            if (project.link && project.link !== '-') {
-                              window.open(project.link, '_blank');
-                            }
-                          }}
-                          className="text-lg md:text-xl p-1.5 md:p-2 rounded-md border-2 border-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 w-full aspect-square cursor-pointer"
-                          style={{
-                            backgroundColor: '#C60C30'
-                          }}
-                        >
-                          {project.icon}
-                        </button>
-
-                        {/* Project title below icon */}
-                        <p className="text-zinc-400 text-xs text-center line-clamp-2 leading-tight">
-                          {project.title}
-                        </p>
-                      </div>
-                    ))}
                   </div>
+
+                  {/* Title with description */}
+                  <div className="text-center mb-1 sm:mb-2 md:mb-4 lg:mb-8 flex-1 flex flex-col justify-center min-w-0">
+                    <h3 className="text-sm sm:text-lg md:text-3xl lg:text-5xl font-bold text-white mb-0.5 sm:mb-1 md:mb-2 lg:mb-4 leading-tight line-clamp-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-[10px] sm:text-xs md:text-base lg:text-xl text-zinc-300 max-w-[200px] sm:max-w-xs md:max-w-md lg:max-w-xl line-clamp-2">
+                      {project.desc}
+                    </p>
+                  </div>
+
+                  {/* Link button - only show on top card */}
+                  {offset === 0 && project.link && project.link !== '-' && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 sm:mt-2 md:mt-4 lg:mt-6 px-3 sm:px-4 md:px-6 lg:px-8 py-0.5 sm:py-1 md:py-2 lg:py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-md sm:rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 text-[10px] sm:text-xs md:text-sm lg:text-base whitespace-nowrap"
+                    >
+                      View Project
+                    </a>
+                  )}
+
+                  {/* Project counter - only on top card */}
+                  {offset === 0 && (
+                    <div className="mt-1 sm:mt-2 md:mt-3 lg:mt-8 text-zinc-500 text-[10px] sm:text-xs">
+                      {currentProjectIndex + 1} / {filteredProjects.length}
+                    </div>
+                  )}
                 </div>
-              </div>
-            )}
+              );
+            })}
           </div>
 
+          {/* Swipe hint */}
+          <div className="text-zinc-500 text-[10px] sm:text-xs mt-1 animate-bounce px-2 text-center">
+            Swipe or scroll to view next project
+          </div>
+
+          {/* Cursor-following tooltip - only on non-touch devices and desktop */}
+          {isCardsHovered && !isTouchDevice && (typeof window !== 'undefined' && window.innerWidth >= 1024) && (
+            <div
+              className="fixed bg-zinc-900 border border-sky-400/50 text-white px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap shadow-lg backdrop-blur-sm z-40 pointer-events-none"
+              style={{
+                left: `${mousePos.x + 12}px`,
+                top: `${mousePos.y + 12}px`,
+              }}
+            >
+              Click to Open
+            </div>
+          )}
         </div>
 
       </div>

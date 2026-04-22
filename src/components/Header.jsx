@@ -18,14 +18,14 @@ const Header = () => {
                 <div className="flex items-center gap-4">
 
                     {/* Logo */}
-                    <Link to="/" className="logo" onClick={() => setShowSubtitle(!showSubtitle)}>
+                    <a className="logo" onClick={() => setShowSubtitle(!showSubtitle)}>
                         <img src="/images/aronnSeal.png"
                              width={36}
                              height={36}
                              className="md:w-[50px] md:h-[50px]"
                              alt="Aronn Laurel"
                         />
-                    </Link>
+                    </a>
 
                     {/* Name and Subtitle */}
                     <div className="text-left">

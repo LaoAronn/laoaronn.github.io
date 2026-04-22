@@ -37,7 +37,6 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <AppRoutes />
-        <Footer />
       </BrowserRouter>
     </ReactLenis>
   )
