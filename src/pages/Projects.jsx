@@ -147,13 +147,10 @@ const Projects = () => {
     }
   };
 
-  const handleWheel = (e) => {
-    if (isTransitioning || !isCardsHovered) return;
-    // Prevent default scrolling behavior
-    e.preventDefault();
-    // Scroll down to go to next project
-    if (e.deltaY > 0) {
-      nextProject();
+  const handleCardClick = () => {
+    const project = filteredProjects[currentProjectIndex];
+    if (project.link && project.link !== '-') {
+      window.open(project.link, '_blank');
     }
   };
 
@@ -235,13 +232,16 @@ const Projects = () => {
               return (
                 <div
                   key={offset}
-                  className="absolute w-full bg-white/5 border-2 border-white/20 rounded-xl sm:rounded-2xl md:rounded-3xl p-2 sm:p-4 md:p-8 lg:p-12 h-full flex flex-col items-center justify-center backdrop-blur-sm transition-all duration-500 ease-out"
+                  className={`absolute w-full bg-white/5 border-2 border-white/20 rounded-xl sm:rounded-2xl md:rounded-3xl p-2 sm:p-4 md:p-8 lg:p-12 h-full flex flex-col items-center justify-center backdrop-blur-sm transition-all duration-500 ease-out ${
+                    offset === 0 && filteredProjects[currentProjectIndex].link && filteredProjects[currentProjectIndex].link !== '-' ? 'cursor-pointer hover:border-sky-400/50' : ''
+                  }`}
                   style={{
                     transform: `translateY(${offset * 20}px) scale(${1 - offset * 0.035})`,
                     zIndex: 100 - offset,
                     opacity: offset === 0 ? 1 : 0.65 - offset * 0.05,
                     boxShadow: offset > 0 ? `0 ${8 + offset * 4}px ${16 + offset * 8}px rgba(0,0,0,0.3)` : 'none'
                   }}
+                  onClick={() => offset === 0 && handleCardClick()}
                 >
                   {/* Icon */}
                   <div className="text-3xl sm:text-5xl md:text-7xl lg:text-9xl mb-1 sm:mb-2 md:mb-4 lg:mb-8 flex-shrink-0">
@@ -257,18 +257,6 @@ const Projects = () => {
                       {project.desc}
                     </p>
                   </div>
-
-                  {/* Link button - only show on top card */}
-                  {offset === 0 && project.link && project.link !== '-' && (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-1 sm:mt-2 md:mt-4 lg:mt-6 px-3 sm:px-4 md:px-6 lg:px-8 py-0.5 sm:py-1 md:py-2 lg:py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-md sm:rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 text-[10px] sm:text-xs md:text-sm lg:text-base whitespace-nowrap"
-                    >
-                      View Project
-                    </a>
-                  )}
 
                   {/* Project counter - only on top card */}
                   {offset === 0 && (
@@ -286,18 +274,19 @@ const Projects = () => {
             Swipe or scroll to view next project
           </div>
 
-          {/* Cursor-following tooltip - only on non-touch devices and desktop */}
+          {/* Cursor-following View Project tooltip - only on desktop */}
           {isCardsHovered && !isTouchDevice && (typeof window !== 'undefined' && window.innerWidth >= 1024) && (
             <div
-              className="fixed bg-zinc-900 border border-sky-400/50 text-white px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap shadow-lg backdrop-blur-sm z-40 pointer-events-none"
+              className="fixed bg-zinc-900 border border-sky-400/50 text-white px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap shadow-lg backdrop-blur-sm z-[9999] pointer-events-none"
               style={{
                 left: `${mousePos.x + 12}px`,
                 top: `${mousePos.y + 12}px`,
               }}
             >
-              Click to Open
+              View Project
             </div>
           )}
+
         </div>
 
       </div>
