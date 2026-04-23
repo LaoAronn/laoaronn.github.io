@@ -13,7 +13,7 @@ const About = () => {
         { src: "/images/gallery/dtview.png", caption: "A walk around Kitsilano with my Buddy Eli (Oct 2025)" },
         { src: "/images/gallery/LEBRON.png", caption: "Seeing Lebron James @ Portland (Jan 17 2026)" },
         { src: "/images/gallery/hk_reunion26.JPG", caption: "Highschool Teacher Student Reunion (Dec 2025)" },
-        { src: "/images/gallery/pokemon.MOV", caption: "Pulling a shiny pikachu!" },
+        { src: "/images/gallery/pokemon.MOV", caption: "Pulling a shiny Jigglypuff!" },
         { src: "/images/gallery/hk_tswf.JPG", caption: "Hangout with my friends Percy and TSWF (2026)" },
         { src: "/images/gallery/trout.JPG", caption: "Trout lake with good company (Aug 2025)" },
         { src: "-", caption: "Blank" },
