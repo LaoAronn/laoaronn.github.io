@@ -13,7 +13,6 @@ import Header from "./components/Header";
 import About from "./pages/About";
 import Works from "./pages/Works";
 import Projects from "./pages/Projects";
-import ContactPage from "./pages/Contact";
 import Footer from "./pages/Footer";
 
 const AppRoutes = () => {
@@ -25,7 +24,6 @@ const AppRoutes = () => {
         <Route path="/works" element={<Works />} />
         <Route path="/" element={<Projects />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </main>
   )

@@ -40,11 +40,6 @@ const Navbar = () => {
       label: 'About',
       link: '/about',
       className: 'nav-link'
-    },
-    {
-      label: 'Contact',
-      link: '/contact',
-      className: 'nav-link'
     }
   ];
 
