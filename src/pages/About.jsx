@@ -9,7 +9,7 @@ const About = () => {
     const carouselImages = [
         { src: "/images/gallery/baskethound.JPG", caption: "My last year with BasketHounds (2023 - 2026)" },
         { src: "/images/gallery/cypress2025.JPG", caption: "Cypress Mountains with friends (2026)" },
-        { src: "/images/gallery/roundball.mp4", caption: "Season Highlights in Summer 2026" },
+
         { src: "/images/gallery/dtview.png", caption: "A walk around Kitsilano with my Buddy Eli (Oct 2025)" },
         { src: "/images/gallery/LEBRON.png", caption: "Seeing Lebron James @ Portland (Jan 17 2026)" },
         { src: "/images/gallery/hk_reunion26.JPG", caption: "Highschool Teacher Student Reunion (Dec 2025)" },
