@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 
 /* Primary Button */
+/*  THIS IS THE DOWNLOAD BUTTON */
 const ButtonPrimary = ({
     href,
     target = '_self',
