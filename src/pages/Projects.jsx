@@ -1,295 +1,205 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 
 const allProjects = [
   {
     category: 'software',
     title: 'MyBinder',
-    desc: 'Online Pokemon Binder showcase',
+    desc: 'A personal Pokemon binder to showcase and organize your card collection online',
     icon: '📱',
-    link: '-'
+    link: '-',
+    tags: ['React', 'JavaScript', 'UI Design']
   },
   {
     category: 'software',
     title: 'ScanAhead',
-    desc: 'medical triage platform',
+    desc: 'A medical triage prototype where patients submit symptoms via voice, images, and 3D scans to generate AI-structured case files for doctors',
     icon: '🩺',
-    link: 'https://github.com/LaoAronn/ScanAhead'
+    link: 'https://github.com/LaoAronn/ScanAhead',
+    tags: ['Python', 'Healthcare', 'Machine Learning']
   },
   {
     category: 'software',
     title: 'Movie Review Website',
-    desc: 'Full-Stack Development project on a Movie review platform',
+    desc: 'A full-stack platform for browsing, rating, and reviewing movies with user authentication and persistent storage',
     icon: '🍿',
-    link: 'https://github.com/LaoAronn/Movie-Website'
+    link: 'https://github.com/LaoAronn/Movie-Website',
+    tags: ['React', 'Node.js', 'MongoDB']
   },
   {
     category: 'software',
     title: 'Game Platform Systems',
-    desc: 'Database for organizing game info and reviews',
+    desc: 'A collaborative database application for managing game metadata, third-party news, and user-generated reviews',
     icon: '🎮',
-    link: 'https://github.com/LaoAronn/Game-Platform-Systems-'
+    link: 'https://github.com/LaoAronn/Game-Platform-Systems-',
+    tags: ['Database', 'SQL', 'Backend']
   },
   {
     category: 'software',
     title: 'CookAI',
-    desc: 'Generates recipes from ingredient photos',
+    desc: 'An AI recipe generator that produces personalized meals from a photo of whatever ingredients you have left at home',
     icon: '🥘',
-    link: 'https://devpost.com/software/cook-ai'
+    link: 'https://devpost.com/software/cook-ai',
+    tags: ['Python', 'AI', 'Computer Vision']
   },
   {
     category: 'software',
     title: 'Allyanna Art Portfolio 🎨',
-    desc: 'Portfolio showcase made by her brother.',
+    desc: 'A custom art portfolio website built for my sister, designed to showcase her work in a clean and personal way',
     icon: '🎨',
-    link: 'https://allyhasawebsite.com/'
+    link: 'https://allyhasawebsite.com/',
+    tags: ['React', 'Design', 'Portfolio']
   },
   {
     category: 'software',
     title: 'Pac-Man Clone',
-    desc: 'Interactive game with difficulty levels',
+    desc: 'A browser-based Pac-Man remake with customizable ghost speed, dynamic obstacles, and difficulty settings',
     icon: '🕹️',
-    link: 'https://github.com/LaoAronn/Bootleg-Pacman'
+    link: 'https://github.com/LaoAronn/Bootleg-Pacman',
+    tags: ['JavaScript', 'Game Dev', 'Canvas API']
   },
   {
     category: 'software',
     title: 'UBC Basketball Roster Log',
     desc: 'Application managing team rosters',
     icon: '🏀',
-    link: 'https://github.com/LaoAronn/UBC-mbb-log'
+    link: 'https://github.com/LaoAronn/UBC-mbb-log',
+    tags: ['React', 'Sports', 'Web App']
   },
   {
     category: 'software',
     title: 'Digit Mastermind #',
-    desc: 'Code-breaking game with real-time feedback',
+    desc: 'A terminal strategy game where you crack a hidden number code using positional feedback each round',
     icon: '🔢',
-    link: 'https://github.com/LaoAronn/Digit-Mastermind'
+    link: 'https://github.com/LaoAronn/Digit-Mastermind',
+    tags: ['Game', 'Logic', 'Interactive']
   },
   {
     category: 'data',
     title: 'Predicting Precipitation Rates',
     desc: 'Using K-nearest neighbors regression for weather prediction',
     icon: '☂️',
-    link: 'https://github.com/LaoAronn/Precipitation-Predictability-London-'
+    link: 'https://github.com/LaoAronn/Precipitation-Predictability-London-',
+    tags: ['Python', 'KNN', 'Statistics']
   },
   {
     category: 'data',
     title: 'Spotify Music Popularity Model',
     desc: 'Linear regression analysis of streaming success factors',
     icon: '🎵',
-    link: 'https://github.com/LaoAronn/Spotify-Regression-Model'
+    link: 'https://github.com/LaoAronn/Spotify-Regression-Model',
+    tags: ['Regression', 'Data Science', 'Analytics']
   },
   {
     category: 'data',
     title: 'Credit Card Default Classification',
     desc: 'Comparing supervised learning models for credit risk prediction',
     icon: '💳',
-    link: 'https://github.com/LaoAronn/CC-Default-Classification'
+    link: 'https://github.com/LaoAronn/CC-Default-Classification',
+    tags: ['Classification', 'ML', 'Risk Analysis']
   },
   {
     category: 'data',
     title: 'Time Series Data Analysis',
     desc: 'ARIMA, GARCH, and spectral methods for forecasting',
     icon: '⏳',
-    link: 'https://github.com/LaoAronn/tseries'
+    link: 'https://github.com/LaoAronn/tseries',
+    tags: ['ARIMA', 'Forecasting', 'Statistics']
   },
 ];
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('software');
-  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
-  const [touchStart, setTouchStart] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isCardsHovered, setIsCardsHovered] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-  const carouselRef = useRef(null);
 
   const filteredProjects = allProjects.filter(p => p.category === activeCategory);
 
-  const handleCategoryChange = (category) => {
-    setActiveCategory(category);
-    setCurrentProjectIndex(0);
-  };
-
-  const nextProject = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentProjectIndex((prev) => (prev + 1) % filteredProjects.length);
-    setTimeout(() => setIsTransitioning(false), 500);
-  };
-
-  const handleTouchStart = (e) => {
-    setTouchStart(e.touches[0].clientY);
-    setIsTouchDevice(true);
-  };
-
-  const handleMouseEnter = () => {
-    setIsTouchDevice(false);
-    setIsCardsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsCardsHovered(false);
-  };
-
-  const handleMouseMove = (e) => {
-    setMousePos({ x: e.clientX, y: e.clientY });
-  };
-
-  const handleTouchEnd = (e) => {
-    if (!touchStart) return;
-    const touchEnd = e.changedTouches[0].clientY;
-    const diff = touchStart - touchEnd;
-    
-    // Swipe down (diff is negative means touch moved down)
-    if (diff < -50) {
-      nextProject();
-    }
-  };
-
-  const handleCardClick = () => {
-    const project = filteredProjects[currentProjectIndex];
+  const handleProjectClick = (project) => {
     if (project.link && project.link !== '-') {
       window.open(project.link, '_blank');
     }
   };
 
-  const currentProject = filteredProjects[currentProjectIndex];
-
-  useEffect(() => {
-    if (isCardsHovered) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isCardsHovered]);
-
-  useEffect(() => {
-    const wheelHandler = (e) => {
-      if (isTransitioning || !isCardsHovered) return;
-      // Prevent default scrolling behavior
-      e.preventDefault();
-      // Scroll down to go to next project
-      if (e.deltaY > 0) {
-        nextProject();
-      }
-    };
-
-    const element = carouselRef.current;
-    if (element) {
-      element.addEventListener('wheel', wheelHandler, { passive: false });
-      return () => {
-        element.removeEventListener('wheel', wheelHandler);
-      };
-    }
-  }, [isCardsHovered, isTransitioning]);
-
   return (
-    <section id="all-projects" className="relative w-full h-screen overflow-hidden flex flex-col">
+    <section id="all-projects" className="py-16 lg:py-24 px-4 sm:px-6">
       
-      <div className="w-full h-full flex flex-col items-center justify-center px-4">
-        
-        {/* Category Filter Buttons */}
-        <div className="sticky top-0 z-20 flex gap-1.5 sm:gap-2 md:gap-3 justify-center bg-gradient-to-b from-zinc-900 to-transparent py-1.5 sm:py-2 md:py-3 px-2">
+      <div className="container">
+
+        {/* Category Filter */}
+        <div className="flex gap-2 sm:gap-3 justify-center mb-4 lg:mb-8">
           {['software', 'data'].map((category) => (
             <button
               key={category}
-              onClick={() => handleCategoryChange(category)}
-              className={`px-3 sm:px-4 md:px-6 py-0.5 sm:py-1 md:py-2 rounded-md sm:rounded-lg md:rounded-xl font-semibold transition-all duration-300 text-[10px] sm:text-xs md:text-sm whitespace-nowrap ${
+              onClick={() => setActiveCategory(category)}
+              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-xs sm:text-sm ${
                 activeCategory === category
-                  ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg scale-105'
+                  ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg'
                   : 'bg-white/10 text-zinc-400 hover:text-zinc-200 hover:bg-white/20'
               }`}
             >
-              {category === 'software' ? 'Software Development' : 'Data Analytics'}
+              {category === 'software' ? 'Software Development' : 'Data Analysis'}
             </button>
           ))}
         </div>
 
-        {/* Flashcard Display */}
-        <div 
-          className="flex flex-col items-center justify-center gap-2 flex-1 relative w-full overflow-hidden"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          onMouseMove={handleMouseMove}
-          style={{ overscrollBehavior: 'contain' }}
-          ref={carouselRef}
-        >
-          
-          {/* Stacked Cards Container */}
-          <div className="relative w-full max-w-[240px] sm:max-w-[320px] md:max-w-2xl lg:max-w-4xl h-auto aspect-video">
-            {/* Render 3 cards for stacked effect */}
-            {[0, 1, 2].map((offset) => {
-              const cardIndex = (currentProjectIndex + offset) % filteredProjects.length;
-              const project = filteredProjects[cardIndex];
+        {/* Projects List */}
+        <div className="space-y-6 lg:space-y-8 max-w-4xl mx-auto">
+          {filteredProjects.map((project, index) => (
+            <div
+              key={index}
+              onClick={() => handleProjectClick(project)}
+              className={`group relative rounded-lg sm:rounded-xl overflow-hidden bg-gradient-to-br from-white/10 to-white/5 border border-white/20 backdrop-blur-sm transition-all duration-300 flex flex-col sm:flex-row items-stretch gap-4 sm:gap-6 p-4 sm:p-6 lg:p-8 ${
+                project.link && project.link !== '-' 
+                  ? 'cursor-pointer hover:border-sky-400/50 hover:bg-gradient-to-br hover:from-white/15 hover:to-white/10 hover:shadow-lg hover:shadow-sky-400/20' 
+                  : 'opacity-75'
+              }`}
+            >
               
-              return (
-                <div
-                  key={offset}
-                  className={`absolute w-full bg-white/5 border-2 border-white/20 rounded-xl sm:rounded-2xl md:rounded-3xl p-2 sm:p-4 md:p-8 lg:p-12 h-full flex flex-col items-center justify-center backdrop-blur-sm transition-all duration-500 ease-out ${
-                    offset === 0 && filteredProjects[currentProjectIndex].link && filteredProjects[currentProjectIndex].link !== '-' ? 'cursor-pointer hover:border-sky-400/50' : ''
-                  }`}
-                  style={{
-                    transform: `translateY(${offset * 20}px) scale(${1 - offset * 0.035})`,
-                    zIndex: 100 - offset,
-                    opacity: offset === 0 ? 1 : 0.65 - offset * 0.05,
-                    boxShadow: offset > 0 ? `0 ${8 + offset * 4}px ${16 + offset * 8}px rgba(0,0,0,0.3)` : 'none'
-                  }}
-                  onClick={() => offset === 0 && handleCardClick()}
-                >
-                  {/* Icon */}
-                  <div className="text-3xl sm:text-5xl md:text-7xl lg:text-9xl mb-1 sm:mb-2 md:mb-4 lg:mb-8 flex-shrink-0">
-                    {project.icon}
-                  </div>
+              {/* Icon/Preview - Left side */}
+              <div className="flex-shrink-0 flex items-center justify-center w-full sm:w-24 lg:w-32 h-24 lg:h-32 bg-white/5 rounded-lg text-4xl lg:text-6xl">
+                {project.icon}
+              </div>
 
-                  {/* Title with description */}
-                  <div className="text-center mb-1 sm:mb-2 md:mb-4 lg:mb-8 flex-1 flex flex-col justify-center min-w-0">
-                    <h3 className="text-sm sm:text-lg md:text-3xl lg:text-5xl font-bold text-white mb-0.5 sm:mb-1 md:mb-2 lg:mb-4 leading-tight line-clamp-2">
+              {/* Content - Right side */}
+              <div className="flex-1 flex flex-col justify-between">
+                
+                {/* Header with title and link icon */}
+                <div className="flex items-start justify-between gap-3 mb-2 sm:mb-3">
+                  <div className="flex-1 min-w-0 text-left">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white line-clamp-2">
                       {project.title}
                     </h3>
-                    <p className="text-[10px] sm:text-xs md:text-base lg:text-xl text-zinc-300 max-w-[200px] sm:max-w-xs md:max-w-md lg:max-w-xl line-clamp-2">
-                      {project.desc}
-                    </p>
                   </div>
+                  
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 text-sky-400/60 group-hover:text-sky-400 transition-colors flex-shrink-0">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                  </svg>
 
-                  {/* Project counter - only on top card */}
-                  {offset === 0 && (
-                    <div className="mt-1 sm:mt-2 md:mt-3 lg:mt-8 text-zinc-500 text-[10px] sm:text-xs">
-                      {currentProjectIndex + 1} / {filteredProjects.length}
-                    </div>
-                  )}
                 </div>
-              );
-            })}
-          </div>
 
-          {/* Swipe hint */}
-          <div className="text-zinc-500 text-[10px] sm:text-xs mt-1 animate-bounce px-2 text-center">
-            Swipe or scroll to view next project
-          </div>
+                {/* Description */}
+                <p className="text-sm sm:text-base text-zinc-300 mb-4 sm:mb-6 line-clamp-2 text-left">
+                  {project.desc}
+                </p>
 
-          {/* Cursor-following View Project tooltip - only on desktop */}
-          {isCardsHovered && !isTouchDevice && (typeof window !== 'undefined' && window.innerWidth >= 1024) && (
-            <div
-              className="fixed bg-zinc-900 border border-sky-400/50 text-white px-3 py-2 rounded-lg text-sm font-semibold whitespace-nowrap shadow-lg backdrop-blur-sm z-[9999] pointer-events-none"
-              style={{
-                left: `${mousePos.x + 12}px`,
-                top: `${mousePos.y + 12}px`,
-              }}
-            >
-              View Project
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, tagIndex) => (
+                    <span
+                      key={tagIndex}
+                      className="inline-block px-2.5 sm:px-3 py-1 sm:py-1.5 bg-white/10 border border-white/20 rounded-full text-[11px] sm:text-xs text-zinc-300 group-hover:bg-sky-500/20 group-hover:border-sky-400/50 group-hover:text-sky-200 transition-colors"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+              </div>
+
             </div>
-          )}
-
+          ))}
         </div>
 
       </div>
+
     </section>
   );
 };
