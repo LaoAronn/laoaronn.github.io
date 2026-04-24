@@ -21,13 +21,14 @@ const About = () => {
           return (
             <div 
               key={key} 
-              className="text-left relative overflow-hidden
+              className="text-left relative overflow-hidden mx-auto
               hover:from-zinc-800/60 hover:to-zinc-900/60
               p-4 sm:p-6 md:p-10 mb-4 sm:mb-5 
               rounded-xl sm:rounded-2xl reveal-up
               border border-zinc-700/30 hover:border-sky-400/30
               transition-all duration-300 hover:shadow-lg hover:shadow-sky-400/10
-              flex flex-col justify-end min-h-64 sm:min-h-80"
+              flex flex-col justify-end min-h-64 sm:min-h-80
+              w-full max-w-xl sm:max-w-2xl"
             >
               {/* Background Video */}
               <video

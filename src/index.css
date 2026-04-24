@@ -91,7 +91,7 @@ body {
 }
 
 .section {
-  @apply pt-20 lg:pt-32
+  @apply w-full
 }
 
 /* Components */
