@@ -109,6 +109,8 @@ const allProjects = [
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('software');
+  const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const filteredProjects = allProjects.filter(p => p.category === activeCategory);
 
@@ -116,6 +118,15 @@ const Projects = () => {
     if (project.link && project.link !== '-') {
       window.open(project.link, '_blank');
     }
+  };
+
+  const handleMouseMove = (e, index) => {
+    setHoveredCardIndex(index);
+    setMousePos({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCardIndex(null);
   };
 
   return (
@@ -146,6 +157,8 @@ const Projects = () => {
             <div
               key={index}
               onClick={() => handleProjectClick(project)}
+              onMouseMove={(e) => handleMouseMove(e, index)}
+              onMouseLeave={handleMouseLeave}
               className={`group relative rounded-lg sm:rounded-xl overflow-hidden bg-gradient-to-br from-white/10 to-white/5 border border-white/20 backdrop-blur-sm transition-all duration-300 flex flex-col sm:flex-row items-stretch gap-4 sm:gap-6 p-4 sm:p-6 lg:p-8 ${
                 project.link && project.link !== '-' 
                   ? 'cursor-pointer hover:border-sky-400/50 hover:bg-gradient-to-br hover:from-white/15 hover:to-white/10 hover:shadow-lg hover:shadow-sky-400/20' 
@@ -169,7 +182,7 @@ const Projects = () => {
                     </h3>
                   </div>
                   
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 text-sky-400/60 group-hover:text-sky-400 transition-colors flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 text-sky-400/60 group-hover:text-sky-400 transition-colors flex-shrink-0">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                   </svg>
 
@@ -197,6 +210,19 @@ const Projects = () => {
             </div>
           ))}
         </div>
+
+        {/* Global Tooltip */}
+        {hoveredCardIndex !== null && (
+          <div
+            className="fixed bg-sky-500 text-white text-xs sm:text-sm px-3 py-2 rounded-lg pointer-events-none z-50 whitespace-nowrap shadow-lg"
+            style={{
+              left: `${mousePos.x + 20}px`,
+              top: `${mousePos.y + 20}px`,
+            }}
+          >
+            Click to Open
+          </div>
+        )}
 
       </div>
 
