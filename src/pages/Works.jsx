@@ -56,7 +56,7 @@ const About = () => {
                       className="w-full h-full object-cover" 
                     />
                   </div>
-                  <p className="text-sm sm:text-base font-bold text-sky-400">
+                  <p className="text-xl sm:text-base font-bold text-sky-400">
                     {company}
                   </p>
                 </div>

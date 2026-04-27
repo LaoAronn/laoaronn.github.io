@@ -55,6 +55,16 @@ const Navbar = () => {
           {label}
         </Link>
       ))}
+
+      <a
+        href="/images/resume.pdf"
+        className="nav-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Resume
+      </a>
+
     </nav>
   )
 
