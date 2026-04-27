@@ -19,8 +19,8 @@ const allProjects = [
   },
   {
     category: 'software',
-    title: 'Movie Review Website',
-    desc: 'A full-stack platform for browsing, rating, and reviewing movies with user authentication and persistent storage',
+    title: 'FreshTomatoes 🍅',
+    desc: 'Inspired by RottenTomatoes, afull-stack platform for browsing, rating, and reviewing movies with user authentication and persistent storage',
     icon: '🍿',
     link: 'https://github.com/LaoAronn/Movie-Website',
     tags: ['React', 'Node.js', 'MongoDB']
