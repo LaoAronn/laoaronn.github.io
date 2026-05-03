@@ -6,7 +6,7 @@ const allProjects = [
     title: 'MyBinder',
     desc: 'A personal Pokemon binder to showcase and organize your card collection online',
     icon: '📱',
-    link: '-',
+    link: 'https://my-binder.vercel.app',
     tags: ['React', 'JavaScript', 'UI Design']
   },
   {
