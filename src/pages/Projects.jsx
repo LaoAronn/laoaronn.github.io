@@ -7,7 +7,7 @@ const allProjects = [
     desc: 'A personal Pokemon binder to showcase and organize your card collection online',
     icon: '📱',
     link: 'https://my-binder.vercel.app',
-    tags: ['React', 'JavaScript', 'UI Design']
+    tags: ['Next.js', 'Python', 'PostgreSQL', 'Supabase', 'Web Scraping', 'TailwindCSS']
   },
   {
     category: 'software',
@@ -15,7 +15,7 @@ const allProjects = [
     desc: 'A medical triage prototype where patients submit symptoms via voice, images, and 3D scans to generate AI-structured case files for doctors',
     icon: '🩺',
     link: 'https://github.com/LaoAronn/ScanAhead',
-    tags: ['Python', 'Healthcare', 'Machine Learning']
+    tags: ['React', 'TypeScript', 'Supabase', 'Gemini API']
   },
   {
     category: 'software',
@@ -23,7 +23,7 @@ const allProjects = [
     desc: 'Inspired by RottenTomatoes, afull-stack platform for browsing, rating, and reviewing movies with user authentication and persistent storage',
     icon: '🍿',
     link: 'https://github.com/LaoAronn/Movie-Website',
-    tags: ['React', 'Node.js', 'MongoDB']
+    tags: ['Svelte', 'PHP', 'SQLite', 'JavaScript', 'Full-Stack']
   },
   {
     category: 'software',
@@ -31,7 +31,7 @@ const allProjects = [
     desc: 'A collaborative database application for managing game metadata, third-party news, and user-generated reviews',
     icon: '🎮',
     link: 'https://github.com/LaoAronn/Game-Platform-Systems-',
-    tags: ['Database', 'SQL', 'Backend']
+    tags: ['Java', 'SQL', 'PostgreSQL', 'Database']
   },
   {
     category: 'software',
@@ -39,7 +39,7 @@ const allProjects = [
     desc: 'An AI recipe generator that produces personalized meals from a photo of whatever ingredients you have left at home',
     icon: '🥘',
     link: 'https://devpost.com/software/cook-ai',
-    tags: ['Python', 'AI', 'Computer Vision']
+    tags: ['React', 'JavaScript', 'ChatGPT API', 'MongoDB', 'UI Design']
   },
   {
     category: 'software',
