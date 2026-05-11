@@ -6,7 +6,9 @@ const workExperience = [
     period: 'August - December 2024',
     desc: 'Launching a client-facing website for a Vancouver-based digital consultancy startup from the ground up',
     video: '/images/work/verzena_showcase.mp4',
+    link: 'https://verzena.com/'
   },
+
 ];
 
 const About = () => {
@@ -16,12 +18,13 @@ const About = () => {
       <div className="container px-4 sm:px-6">
 
         {/** Work Experience List */}
-        {workExperience.map(({ workid, company, position, period, desc, video }, key) => {
+        {workExperience.map(({ workid, company, position, period, desc, video, link }, key) => {
 
           return (
             <div 
               key={key} 
-              className="text-left relative overflow-hidden mx-auto
+              onClick={() => window.open(link, '_blank')}
+              className="text-left relative overflow-hidden mx-auto cursor-pointer
               hover:from-zinc-800/60 hover:to-zinc-900/60
               p-4 sm:p-6 md:p-10 mb-4 sm:mb-5 
               rounded-xl sm:rounded-2xl reveal-up
