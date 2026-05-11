@@ -94,72 +94,119 @@ const About = () => {
 
                     {/* Image Carousel */}
                     <div className="w-full mt-8 lg:mt-12">
-                        <div className="relative w-full overflow-hidden rounded-lg">
+                        <div className="relative w-full">
                             
-                            {/* Container */}
-                            <div 
-                                ref={carouselRef}
-                                className="flex gap-2 overflow-x-auto snap-x snap-mandatory pb-4 scroll-smooth pr-[calc(50vw-128px)] sm:pr-[calc(50vw-144px)]"
-                                onScroll={(e) => {
-                                    const container = e.currentTarget;
-                                    const items = container.querySelectorAll('.flex-shrink-0');
-                                    if (items.length === 0) return;
-                                    
-                                    const containerCenter = container.scrollLeft + container.clientWidth / 2;
-                                    let closestIndex = 0;
-                                    let closestDistance = Infinity;
-                                    
-                                    items.forEach((item, i) => {
-                                        const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-                                        const distance = Math.abs(containerCenter - itemCenter);
-                                        if (distance < closestDistance) {
-                                            closestDistance = distance;
-                                            closestIndex = i;
-                                        }
-                                    });
-                                    
-                                    setCurrentSlide(closestIndex);
+                            {/* Navigation Buttons */}
+                            <button
+                                onClick={() => {
+                                    if (carouselRef.current) {
+                                        const items = carouselRef.current.querySelectorAll('.carousel-item');
+                                        const newIndex = (currentSlide - 1 + items.length) % items.length;
+                                        items[newIndex]?.scrollIntoView({
+                                            behavior: 'smooth',
+                                            block: 'nearest',
+                                            inline: 'center'
+                                        });
+                                    }
                                 }}
+                                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 sm:-translate-x-16 z-20 p-2 text-gray-400 hover:text-white transition-colors"
+                                aria-label="Previous slide"
                             >
-                                {carouselImages.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        className="flex-shrink-0 w-56 h-56 sm:w-64 sm:h-64 snap-center rounded-lg overflow-hidden"
-                                    >
-                                        {item.src.toLowerCase().endsWith('.mov') || item.src.toLowerCase().endsWith('.mp4') ? (
-                                            <video
-                                                src={item.src}
-                                                className="w-full h-full object-cover"
-                                                autoPlay
-                                                loop
-                                                muted
-                                                playsInline
-                                            />
-                                        ) : (
-                                            <img
-                                                src={item.src}
-                                                alt={item.caption}
-                                                className="w-full h-full object-cover"
-                                            />
-                                        )}
-                                    </div>
-                                ))}
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                </svg>
+                            </button>
+
+                            <button
+                                onClick={() => {
+                                    if (carouselRef.current) {
+                                        const items = carouselRef.current.querySelectorAll('.carousel-item');
+                                        const newIndex = (currentSlide + 1) % items.length;
+                                        items[newIndex]?.scrollIntoView({
+                                            behavior: 'smooth',
+                                            block: 'nearest',
+                                            inline: 'center'
+                                        });
+                                    }
+                                }}
+                                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 sm:translate-x-16 z-20 p-2 text-gray-400 hover:text-white transition-colors"
+                                aria-label="Next slide"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5L15.75 12l-7.5 7.5" />
+                                </svg>
+                            </button>
+
+                            {/* Carousel Container */}
+                            <div className="overflow-hidden rounded-lg">
+                                <div 
+                                    ref={carouselRef}
+                                    className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth px-[calc(50vw-160px)] sm:px-[calc(50vw-192px)]"
+                                    style={{
+                                        scrollPaddingLeft: 'calc(50vw - 160px)',
+                                        scrollPaddingRight: 'calc(50vw - 160px)'
+                                    }}
+                                    onScroll={(e) => {
+                                        const container = e.currentTarget;
+                                        const items = container.querySelectorAll('.carousel-item');
+                                        if (items.length === 0) return;
+                                        
+                                        const containerCenter = container.scrollLeft + container.clientWidth / 2;
+                                        let closestIndex = 0;
+                                        let closestDistance = Infinity;
+                                        
+                                        items.forEach((item, i) => {
+                                            const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+                                            const distance = Math.abs(containerCenter - itemCenter);
+                                            if (distance < closestDistance) {
+                                                closestDistance = distance;
+                                                closestIndex = i;
+                                            }
+                                        });
+                                        
+                                        setCurrentSlide(closestIndex);
+                                    }}
+                                >
+                                    {carouselImages.map((item, index) => (
+                                        <div
+                                            key={index}
+                                            className="carousel-item flex-shrink-0 w-80 h-80 sm:w-96 sm:h-96 snap-center rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                                        >
+                                            {item.src.toLowerCase().endsWith('.mov') || item.src.toLowerCase().endsWith('.mp4') ? (
+                                                <video
+                                                    src={item.src}
+                                                    className="w-full h-full object-cover"
+                                                    autoPlay
+                                                    loop
+                                                    muted
+                                                    playsInline
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={item.src}
+                                                    alt={item.caption}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
 
                         {/* Caption */}
-                        <p className="text-center text-gray-400 text-xs sm:text-sm mt-4 px-2 min-h-[2.5rem] flex items-center justify-center">
+                        <p className="text-center text-gray-300 text-sm sm:text-base mt-6 px-2 min-h-[3rem] flex items-center justify-center font-medium">
                             {carouselImages[currentSlide].caption}
                         </p>
 
-                        {/* Dot Slider */}
-                        <div className="flex justify-center gap-2 mt-4 flex-wrap px-2">
+                        {/* Dot Indicators */}
+                        <div className="flex justify-center gap-3 mt-6">
                             {carouselImages.map((_, index) => (
                                 <button
                                     key={index}
                                     onClick={() => {
                                         if (carouselRef.current) {
-                                            const items = carouselRef.current.querySelectorAll('.flex-shrink-0');
+                                            const items = carouselRef.current.querySelectorAll('.carousel-item');
                                             if (items[index]) {
                                                 items[index].scrollIntoView({
                                                     behavior: 'smooth',
@@ -169,8 +216,10 @@ const About = () => {
                                             }
                                         }
                                     }}
-                                    className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-colors ${
-                                        index === currentSlide ? 'bg-red-500' : 'bg-gray-600'
+                                    className={`transition-all duration-300 rounded-full ${
+                                        index === currentSlide 
+                                            ? 'w-3 h-3 bg-sky-400 shadow-lg shadow-sky-400/50' 
+                                            : 'w-2 h-2 bg-gray-500 hover:bg-gray-400'
                                     }`}
                                     aria-label={`Go to slide ${index + 1}`}
                                 />
