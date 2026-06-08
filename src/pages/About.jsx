@@ -1,5 +1,6 @@
 /* Components */
 import {ButtonPrimary} from "../components/Button";
+import SpotifyWidget from "../components/SpotifyCard";
 import { useState, useRef } from "react";
 
 const About = () => {
@@ -228,6 +229,10 @@ const About = () => {
 
                     </div>
 
+                    {/* Spotify Widget */}
+                    <div className="w-full mt-12 lg:mt-16">
+                        <SpotifyWidget playlistId="0DttMhMT04xjw4F4An8ass" />
+                    </div>
 
                 </div>
 
