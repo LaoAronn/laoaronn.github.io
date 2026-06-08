@@ -1,18 +1,16 @@
-import fetch from 'node-fetch';
-
 export const handler = async (event) => {
-  const { playlistId } = JSON.parse(event.body);
-  const clientId = process.env.SPOTIFY_CLIENT_ID;
-  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
-
-  if (!clientId || !clientSecret) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Missing Spotify credentials' })
-    };
-  }
-
   try {
+    const { playlistId } = JSON.parse(event.body);
+    const clientId = process.env.SPOTIFY_CLIENT_ID;
+    const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+
+    if (!clientId || !clientSecret) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Missing Spotify credentials' })
+      };
+    }
+
     // Get access token
     const authResponse = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
@@ -23,11 +21,11 @@ export const handler = async (event) => {
         grant_type: 'client_credentials',
         client_id: clientId,
         client_secret: clientSecret
-      })
+      }).toString()
     });
 
     if (!authResponse.ok) {
-      throw new Error('Failed to authenticate with Spotify');
+      throw new Error(`Spotify auth failed: ${authResponse.status}`);
     }
 
     const authData = await authResponse.json();
@@ -43,6 +41,10 @@ export const handler = async (event) => {
       }
     );
 
+    if (!playlistResponse.ok) {
+      throw new Error(`Failed to fetch playlist: ${playlistResponse.status}`);
+    }
+
     const playlist = await playlistResponse.json();
 
     // Fetch tracks
@@ -55,6 +57,10 @@ export const handler = async (event) => {
       }
     );
 
+    if (!tracksResponse.ok) {
+      throw new Error(`Failed to fetch tracks: ${tracksResponse.status}`);
+    }
+
     const tracksData = await tracksResponse.json();
 
     return {
@@ -65,6 +71,7 @@ export const handler = async (event) => {
       })
     };
   } catch (error) {
+    console.error('Spotify function error:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message })
