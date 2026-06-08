@@ -1,6 +1,6 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   const { playlistId } = JSON.parse(event.body);
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
