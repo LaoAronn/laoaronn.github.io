@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useSpotifyAuth } from '../hooks/useSpotifyAuth';
+import { useState, useEffect, useRef } from 'react';
 
 const SpotifyWidget = ({ playlistId }) => {
   const [playlist, setPlaylist] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { isAuthenticated, login, getToken } = useSpotifyAuth();
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     const fetchSpotifyData = async () => {
@@ -38,6 +41,75 @@ const SpotifyWidget = ({ playlistId }) => {
     fetchSpotifyData();
   }, [playlistId]);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+    const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
+    const handleLoadedMetadata = () => setDuration(audio.duration);
+    const handleEnded = () => {
+      if (currentTrackIndex < tracks.length - 1) {
+        playTrack(currentTrackIndex + 1);
+      }
+    };
+
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audio.addEventListener('ended', handleEnded);
+
+    return () => {
+      audio.removeEventListener('play', handlePlay);
+      audio.removeEventListener('pause', handlePause);
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audio.removeEventListener('ended', handleEnded);
+    };
+  }, [currentTrackIndex, tracks.length]);
+
+  const playTrack = (index) => {
+    setCurrentTrackIndex(index);
+    setCurrentTime(0);
+    setTimeout(() => {
+      if (audioRef.current && tracks[index]?.track?.preview_url) {
+        audioRef.current.src = tracks[index].track.preview_url;
+        audioRef.current.play();
+      }
+    }, 0);
+  };
+
+  const togglePlayPause = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+    }
+  };
+
+  const handleNext = () => {
+    if (currentTrackIndex < tracks.length - 1) {
+      playTrack(currentTrackIndex + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentTrackIndex > 0) {
+      playTrack(currentTrackIndex - 1);
+    }
+  };
+
+  const formatTime = (time) => {
+    if (!time || isNaN(time)) return '0:00';
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
   if (loading) {
     return (
       <div className="w-full max-w-sm mx-auto p-6 rounded-2xl bg-gradient-to-br from-zinc-800/50 to-zinc-900/50 border border-zinc-700/30 animate-pulse">
@@ -55,35 +127,6 @@ const SpotifyWidget = ({ playlistId }) => {
       </div>
     );
   }
-
-  const handlePlayback = async (action) => {
-    if (!isAuthenticated) {
-      login();
-      return;
-    }
-
-    try {
-      const token = getToken();
-      const response = await fetch('/.netlify/functions/playback', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ action })
-      });
-
-      if (response.ok) {
-        console.log(`Playback action: ${action}`);
-      } else {
-        throw new Error('Playback action failed');
-      }
-    } catch (err) {
-      console.error('Playback error:', err);
-      // Open Spotify as fallback
-      window.open(playlist?.external_urls?.spotify, '_blank');
-    }
-  };
 
   return (
     <div className="w-full max-w-sm mx-auto">
@@ -115,57 +158,87 @@ const SpotifyWidget = ({ playlistId }) => {
         )}
 
         {/* Playback Controls */}
-        <div className="flex items-center justify-center gap-4 mb-6 pb-4 border-b border-zinc-700/30">
-          {!isAuthenticated ? (
+        <div className="mb-6 pb-4 border-b border-zinc-700/30">
+          <audio ref={audioRef} />
+          
+          {/* Current Track Info */}
+          {tracks[currentTrackIndex] && (
+            <div className="mb-4">
+              <p className="text-gray-400 text-xs font-semibold mb-2">NOW PLAYING</p>
+              <p className="text-white text-sm font-medium truncate">
+                {tracks[currentTrackIndex].track.name}
+              </p>
+              <p className="text-gray-500 text-xs truncate">
+                {tracks[currentTrackIndex].track.artists.map(a => a.name).join(', ')}
+              </p>
+            </div>
+          )}
+
+          {/* Progress Bar */}
+          <div className="mb-3 space-y-1">
+            <input
+              type="range"
+              min="0"
+              max={duration || 0}
+              value={currentTime}
+              onChange={(e) => {
+                if (audioRef.current) {
+                  audioRef.current.currentTime = e.target.value;
+                }
+              }}
+              className="w-full h-1 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-sky-400"
+            />
+            <div className="flex justify-between text-xs text-gray-500">
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
+            </div>
+          </div>
+
+          {/* Player Controls */}
+          <div className="flex items-center justify-center gap-4">
             <button
-              onClick={login}
-              className="px-4 py-2 bg-sky-400 hover:bg-sky-500 text-black rounded-full font-semibold transition-colors shadow-lg"
+              onClick={handlePrevious}
+              disabled={currentTrackIndex === 0}
+              className="p-2 text-gray-400 hover:text-sky-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              title="Previous"
             >
-              Connect Spotify
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
+                <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+              </svg>
             </button>
-          ) : (
-            <>
-              <button
-                onClick={() => handlePlayback('previous')}
-                className="p-2 text-gray-400 hover:text-sky-400 transition-colors"
-                title="Previous track"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
-                  <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
-                </svg>
-              </button>
 
-              <button
-                onClick={() => handlePlayback('play')}
-                className="p-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full transition-colors shadow-lg"
-                title="Play"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </button>
-
-              <button
-                onClick={() => handlePlayback('pause')}
-                className="p-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full transition-colors shadow-lg"
-                title="Pause"
-              >
+            <button
+              onClick={togglePlayPause}
+              disabled={!tracks[currentTrackIndex]?.track?.preview_url}
+              className="p-3 bg-sky-400 hover:bg-sky-500 disabled:bg-gray-600 disabled:cursor-not-allowed text-black rounded-full transition-colors shadow-lg"
+              title={isPlaying ? 'Pause' : 'Play'}
+            >
+              {isPlaying ? (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
                   <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
                 </svg>
-              </button>
-
-              <button
-                onClick={() => handlePlayback('next')}
-                className="p-2 text-gray-400 hover:text-sky-400 transition-colors"
-                title="Next track"
-              >
+              ) : (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
-                  <path d="M16 18h2V6h-2zm-11-7l8.5-6v12z" />
+                  <path d="M8 5v14l11-7z" />
                 </svg>
-              </button>
-            </>
-          )}
+              )}
+            </button>
+
+            <button
+              onClick={handleNext}
+              disabled={currentTrackIndex === tracks.length - 1}
+              className="p-2 text-gray-400 hover:text-sky-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              title="Next"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
+                <path d="M16 18h2V6h-2zm-11-7l8.5-6v12z" />
+              </svg>
+            </button>
+          </div>
+
+          <p className="text-xs text-gray-500 text-center mt-3">
+            {tracks[currentTrackIndex]?.track?.preview_url ? 'Preview available' : 'No preview'}
+          </p>
         </div>
 
         {/* Playlist Info */}
@@ -180,11 +253,20 @@ const SpotifyWidget = ({ playlistId }) => {
         </div>
 
         {/* Tracks List */}
-        <div className="space-y-3 pt-4 border-t border-zinc-700/30">
+        <div className="space-y-2 pt-4 border-t border-zinc-700/30">
+          <p className="text-gray-400 text-xs font-semibold mb-3">PLAYLIST</p>
           {tracks.map((item, index) => (
-            <div key={index} className="flex items-start justify-between gap-2">
-              <div className="flex-1 min-w-0">
-                <p className="text-white text-sm font-medium truncate">
+            <button
+              key={index}
+              onClick={() => playTrack(index)}
+              className={`w-full flex items-start justify-between gap-2 p-2 rounded-lg transition-colors ${
+                index === currentTrackIndex
+                  ? 'bg-sky-400/20 border border-sky-400/50'
+                  : 'hover:bg-zinc-800/50'
+              }`}
+            >
+              <div className="flex-1 min-w-0 text-left">
+                <p className={`text-sm font-medium truncate ${index === currentTrackIndex ? 'text-sky-400' : 'text-white'}`}>
                   {item.track.name}
                 </p>
                 <p className="text-gray-400 text-xs truncate">
@@ -194,7 +276,7 @@ const SpotifyWidget = ({ playlistId }) => {
               <p className="text-gray-500 text-xs whitespace-nowrap">
                 {Math.floor(item.track.duration_ms / 60000)}:{String(Math.floor((item.track.duration_ms % 60000) / 1000)).padStart(2, '0')}
               </p>
-            </div>
+            </button>
           ))}
         </div>
 
