@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useSpotifyAuth } from '../hooks/useSpotifyAuth';
 
 const SpotifyWidget = ({ playlistId }) => {
   const [playlist, setPlaylist] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { isAuthenticated, login, getToken } = useSpotifyAuth();
 
   useEffect(() => {
     const fetchSpotifyData = async () => {
@@ -54,6 +56,35 @@ const SpotifyWidget = ({ playlistId }) => {
     );
   }
 
+  const handlePlayback = async (action) => {
+    if (!isAuthenticated) {
+      login();
+      return;
+    }
+
+    try {
+      const token = getToken();
+      const response = await fetch('/.netlify/functions/playback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ action })
+      });
+
+      if (response.ok) {
+        console.log(`Playback action: ${action}`);
+      } else {
+        throw new Error('Playback action failed');
+      }
+    } catch (err) {
+      console.error('Playback error:', err);
+      // Open Spotify as fallback
+      window.open(playlist?.external_urls?.spotify, '_blank');
+    }
+  };
+
   return (
     <div className="w-full max-w-sm mx-auto">
       <a
@@ -82,6 +113,60 @@ const SpotifyWidget = ({ playlistId }) => {
             </a>
           </div>
         )}
+
+        {/* Playback Controls */}
+        <div className="flex items-center justify-center gap-4 mb-6 pb-4 border-b border-zinc-700/30">
+          {!isAuthenticated ? (
+            <button
+              onClick={login}
+              className="px-4 py-2 bg-sky-400 hover:bg-sky-500 text-black rounded-full font-semibold transition-colors shadow-lg"
+            >
+              Connect Spotify
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={() => handlePlayback('previous')}
+                className="p-2 text-gray-400 hover:text-sky-400 transition-colors"
+                title="Previous track"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
+                  <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+                </svg>
+              </button>
+
+              <button
+                onClick={() => handlePlayback('play')}
+                className="p-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full transition-colors shadow-lg"
+                title="Play"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+
+              <button
+                onClick={() => handlePlayback('pause')}
+                className="p-3 bg-sky-400 hover:bg-sky-500 text-black rounded-full transition-colors shadow-lg"
+                title="Pause"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
+                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                </svg>
+              </button>
+
+              <button
+                onClick={() => handlePlayback('next')}
+                className="p-2 text-gray-400 hover:text-sky-400 transition-colors"
+                title="Next track"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-5 h-5">
+                  <path d="M16 18h2V6h-2zm-11-7l8.5-6v12z" />
+                </svg>
+              </button>
+            </>
+          )}
+        </div>
 
         {/* Playlist Info */}
         <div className="mb-4">
