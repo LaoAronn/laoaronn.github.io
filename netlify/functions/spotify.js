@@ -47,9 +47,9 @@ export const handler = async (event) => {
 
     const playlist = await playlistResponse.json();
 
-    // Fetch tracks
+    // Fetch tracks with explicit fields
     const tracksResponse = await fetch(
-      `https://api.spotify.com/v1/playlists/${playlistId}/tracks?limit=5`,
+      `https://api.spotify.com/v1/playlists/${playlistId}/tracks?limit=5&fields=items(track(id,name,artists(name),preview_url,external_urls,album(images)))`,
       {
         headers: {
           'Authorization': `Bearer ${token}`
