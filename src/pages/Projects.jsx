@@ -143,7 +143,7 @@ const Projects = () => {
               className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-xs sm:text-sm ${
                 activeCategory === category
                   ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg'
-                  : 'bg-white/10 text-zinc-400 hover:text-zinc-200 hover:bg-white/20'
+                  : 'bg-zinc-200 dark:bg-white/10 text-zinc-700 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-300 dark:hover:bg-white/20'
               }`}
             >
               {category === 'software' ? 'Software Development' : 'Data Analysis'}
@@ -159,15 +159,15 @@ const Projects = () => {
               onClick={() => handleProjectClick(project)}
               onMouseMove={(e) => handleMouseMove(e, index)}
               onMouseLeave={handleMouseLeave}
-              className={`group relative rounded-lg sm:rounded-xl overflow-hidden bg-gradient-to-br from-white/10 to-white/5 border border-white/20 backdrop-blur-sm transition-all duration-300 flex flex-col sm:flex-row items-stretch gap-4 sm:gap-6 p-4 sm:p-6 lg:p-8 ${
+              className={`group relative rounded-lg sm:rounded-xl overflow-hidden bg-gradient-to-br from-zinc-100 to-zinc-50 dark:from-white/10 dark:to-white/5 border border-zinc-200 dark:border-white/20 dark:backdrop-blur-sm transition-all duration-300 flex flex-col sm:flex-row items-stretch gap-4 sm:gap-6 p-4 sm:p-6 lg:p-8 ${
                 project.link && project.link !== '-' 
-                  ? 'cursor-pointer hover:border-sky-400/50 hover:bg-gradient-to-br hover:from-white/15 hover:to-white/10 hover:shadow-lg hover:shadow-sky-400/20' 
+                  ? 'cursor-pointer hover:border-sky-400 dark:hover:border-sky-400/50 hover:bg-gradient-to-br hover:from-zinc-200 hover:to-zinc-100 dark:hover:from-white/15 dark:hover:to-white/10 hover:shadow-lg dark:hover:shadow-lg hover:shadow-sky-300/20 dark:hover:shadow-sky-400/20' 
                   : 'opacity-75'
               }`}
             >
               
               {/* Icon/Preview - Left side */}
-              <div className="flex-shrink-0 flex items-center justify-center w-full sm:w-24 lg:w-32 h-24 lg:h-32 bg-white/5 rounded-lg text-4xl lg:text-6xl">
+              <div className="flex-shrink-0 flex items-center justify-center w-full sm:w-24 lg:w-32 h-24 lg:h-32 bg-zinc-200 dark:bg-white/5 rounded-lg text-4xl lg:text-6xl">
                 {project.icon}
               </div>
 
@@ -177,7 +177,7 @@ const Projects = () => {
                 {/* Header with title and link icon */}
                 <div className="flex items-start justify-between gap-3 mb-2 sm:mb-3">
                   <div className="flex-1 min-w-0 text-left">
-                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white line-clamp-2">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-zinc-900 dark:text-white line-clamp-2">
                       {project.title}
                     </h3>
                   </div>
@@ -189,7 +189,7 @@ const Projects = () => {
                 </div>
 
                 {/* Description */}
-                <p className="text-sm sm:text-base text-zinc-300 mb-4 sm:mb-6 line-clamp-2 text-left">
+                <p className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 mb-4 sm:mb-6 line-clamp-2 text-left">
                   {project.desc}
                 </p>
 
@@ -198,7 +198,7 @@ const Projects = () => {
                   {project.tags.map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
-                      className="inline-block px-2.5 sm:px-3 py-1 sm:py-1.5 bg-white/10 border border-white/20 rounded-full text-[11px] sm:text-xs text-zinc-300 group-hover:bg-sky-500/20 group-hover:border-sky-400/50 group-hover:text-sky-200 transition-colors"
+                      className="inline-block px-2.5 sm:px-3 py-1 sm:py-1.5 bg-zinc-200 dark:bg-white/10 border border-zinc-300 dark:border-white/20 rounded-full text-[11px] sm:text-xs text-zinc-700 dark:text-zinc-300 group-hover:bg-sky-200 dark:group-hover:bg-sky-500/20 group-hover:border-sky-400 dark:group-hover:border-sky-400/50 group-hover:text-sky-900 dark:group-hover:text-sky-200 transition-colors"
                     >
                       {tag}
                     </span>
@@ -214,7 +214,7 @@ const Projects = () => {
         {/* Global Tooltip */}
         {hoveredCardIndex !== null && (
           <div
-            className="fixed bg-sky-500 text-white text-xs sm:text-sm px-3 py-2 rounded-lg pointer-events-none z-50 whitespace-nowrap shadow-lg"
+            className="fixed bg-sky-500 dark:bg-sky-600 text-white text-xs sm:text-sm px-3 py-2 rounded-lg pointer-events-none z-50 whitespace-nowrap shadow-lg"
             style={{
               left: `${mousePos.x + 20}px`,
               top: `${mousePos.y + 20}px`,

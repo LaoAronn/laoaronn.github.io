@@ -10,6 +10,8 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
  * Components & Pages
 */
 import Header from "./components/Header";
+import ThemeToggle from "./components/ThemeToggle";
+import { ThemeProvider } from "./context/ThemeContext";
 import About from "./pages/About";
 import Works from "./pages/Works";
 import Projects from "./pages/Projects";
@@ -31,13 +33,16 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    <ReactLenis root>
-      <BrowserRouter>
-        <Header />
-        <AppRoutes />
-        <Footer />
-      </BrowserRouter>
-    </ReactLenis>
+    <ThemeProvider>
+      <ReactLenis root>
+        <BrowserRouter>
+          <Header />
+          <AppRoutes />
+          <Footer />
+          <ThemeToggle />
+        </BrowserRouter>
+      </ReactLenis>
+    </ThemeProvider>
   )
 }
 

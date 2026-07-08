@@ -10,7 +10,7 @@ const Header = () => {
     const [showSubtitle, setShowSubtitle] = useState(false);
 
     return (
-        <header className="relative w-full z-40 bg-gradient-to-b from-zinc-900 to-zinc-900/0">
+        <header className="relative w-full z-40 bg-gradient-to-b from-white to-white/0 dark:from-zinc-900 dark:to-zinc-900/0 transition-colors duration-300">
             
             <div className="w-full px-6 flex flex-col items-start gap-3 py-6">
 
@@ -30,7 +30,7 @@ const Header = () => {
                     {/* Name and Subtitle */}
                     <div className="text-left">
                         <div className="flex items-center gap-3">
-                            <h1 className="text-2xl md:text-4xl font-semibold text-zinc-50">
+                            <h1 className="text-2xl md:text-4xl font-semibold text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
                                 Aronn Laurel
                             </h1>
                             {showSubtitle && (
@@ -39,7 +39,7 @@ const Header = () => {
                                 </h1>
                             )}
                         </div>
-                        <p className="text-xs md:text-sm text-zinc-500">
+                        <p className="text-xs md:text-sm text-zinc-600 dark:text-zinc-500 transition-colors duration-300">
                             Dev, design, & everything in between.
                         </p>
                     </div>
@@ -50,7 +50,7 @@ const Header = () => {
                 <Navbar navOpen={navOpen} />
 
                 {/* HL */}
-                <div className="w-full h-px bg-gradient-to-r from-zinc-700/0 via-zinc-700/50 to-zinc-700/0 mt-4"></div>
+                <div className="w-full h-px bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 dark:from-zinc-700/0 dark:via-zinc-700/50 dark:to-zinc-700/0 mt-4 transition-colors duration-300"></div>
 
             </div>
 
