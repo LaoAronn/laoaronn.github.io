@@ -10,7 +10,7 @@ const Header = () => {
     const [showSubtitle, setShowSubtitle] = useState(false);
 
     return (
-        <header className="relative w-full z-40 bg-gradient-to-b from-[#f8f7ed] to-[#f8f7ed]/0 dark:from-zinc-900 dark:to-zinc-900/0 text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
+        <header className="relative w-full z-40 bg-gradient-to-b text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
             
             <div className="w-full px-6 flex flex-col items-start gap-3 py-6">
 
