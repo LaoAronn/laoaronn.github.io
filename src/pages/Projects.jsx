@@ -7,7 +7,8 @@ const allProjects = [
     desc: 'A personal Pokemon binder to showcase and organize your card collection online',
     icon: '📱',
     link: 'https://my-binder.vercel.app',
-    tags: ['Next.js', 'Python', 'PostgreSQL', 'Supabase', 'Web Scraping', 'TailwindCSS']
+    tags: ['Next.js', 'Python', 'PostgreSQL', 'Supabase', 'Web Scraping', 'TailwindCSS'],
+    color: '8EC5E8'
   },
   {
     category: 'software',
@@ -15,7 +16,8 @@ const allProjects = [
     desc: 'A medical triage prototype where patients submit symptoms via voice, images, and 3D scans to generate AI-structured case files for doctors',
     icon: '🩺',
     link: 'https://github.com/LaoAronn/ScanAhead',
-    tags: ['React', 'TypeScript', 'Supabase', 'Gemini API']
+    tags: ['React', 'TypeScript', 'Supabase', 'Gemini API'],
+    color: '9FD8B4'
   },
   {
     category: 'software',
@@ -23,7 +25,8 @@ const allProjects = [
     desc: 'Inspired by RottenTomatoes, afull-stack platform for browsing, rating, and reviewing movies with user authentication and persistent storage',
     icon: '🍿',
     link: 'https://github.com/LaoAronn/Movie-Website',
-    tags: ['Svelte', 'PHP', 'SQLite', 'JavaScript', 'Full-Stack']
+    tags: ['Svelte', 'PHP', 'SQLite', 'JavaScript', 'Full-Stack'],
+    color: 'BCA7EC'
   },
   {
     category: 'software',
@@ -31,7 +34,8 @@ const allProjects = [
     desc: 'A collaborative database application for managing game metadata, third-party news, and user-generated reviews',
     icon: '🎮',
     link: 'https://github.com/LaoAronn/Game-Platform-Systems-',
-    tags: ['Java', 'SQL', 'PostgreSQL', 'Database']
+    tags: ['Java', 'SQL', 'PostgreSQL', 'Database'],
+    color: 'EAB6CC'
   },
   {
     category: 'software',
@@ -39,7 +43,8 @@ const allProjects = [
     desc: 'An AI recipe generator that produces personalized meals from a photo of whatever ingredients you have left at home',
     icon: '🥘',
     link: 'https://devpost.com/software/cook-ai',
-    tags: ['React', 'JavaScript', 'ChatGPT API', 'MongoDB', 'UI Design']
+    tags: ['React', 'JavaScript', 'ChatGPT API', 'MongoDB', 'UI Design'],
+    color: 'F2DE8C'
   },
   {
     category: 'software',
@@ -47,7 +52,8 @@ const allProjects = [
     desc: 'A custom art portfolio website built for my sister, designed to showcase her work in a clean and personal way',
     icon: '🎨',
     link: 'https://allyhasawebsite.com/',
-    tags: ['React', 'Design', 'Portfolio']
+    tags: ['React', 'Design', 'Portfolio'],
+    color: 'B7CCB0'
   },
   {
     category: 'software',
@@ -55,7 +61,8 @@ const allProjects = [
     desc: 'A browser-based Pac-Man remake with customizable ghost speed, dynamic obstacles, and difficulty settings',
     icon: '🕹️',
     link: 'https://github.com/LaoAronn/Bootleg-Pacman',
-    tags: ['JavaScript', 'Game Dev', 'Canvas API']
+    tags: ['JavaScript', 'Game Dev', 'Canvas API'],
+    color: '9EDDDC'
   },
   {
     category: 'software',
@@ -63,7 +70,8 @@ const allProjects = [
     desc: 'Application managing team rosters',
     icon: '🏀',
     link: 'https://github.com/LaoAronn/UBC-mbb-log',
-    tags: ['React', 'Sports', 'Web App']
+    tags: ['React', 'Sports', 'Web App'],
+    color: 'D0B9EA'
   },
   {
     category: 'software',
@@ -71,7 +79,8 @@ const allProjects = [
     desc: 'A terminal strategy game where you crack a hidden number code using positional feedback each round',
     icon: '🔢',
     link: 'https://github.com/LaoAronn/Digit-Mastermind',
-    tags: ['Game', 'Logic', 'Interactive']
+    tags: ['Game', 'Logic', 'Interactive'],
+    color: 'EBAC9D'
   },
   {
     category: 'data',
@@ -79,7 +88,8 @@ const allProjects = [
     desc: 'Using K-nearest neighbors regression for weather prediction',
     icon: '☂️',
     link: 'https://github.com/LaoAronn/Precipitation-Predictability-London-',
-    tags: ['Python', 'KNN', 'Statistics']
+    tags: ['Python', 'KNN', 'Statistics'],
+    color: 'EFB89B'
   },
   {
     category: 'data',
@@ -87,7 +97,8 @@ const allProjects = [
     desc: 'Linear regression analysis of streaming success factors',
     icon: '🎵',
     link: 'https://github.com/LaoAronn/Spotify-Regression-Model',
-    tags: ['Regression', 'Data Science', 'Analytics']
+    tags: ['Regression', 'Data Science', 'Analytics'],
+    color: 'AEBBF3'
   },
   {
     category: 'data',
@@ -95,7 +106,8 @@ const allProjects = [
     desc: 'Comparing supervised learning models for credit risk prediction',
     icon: '💳',
     link: 'https://github.com/LaoAronn/CC-Default-Classification',
-    tags: ['Classification', 'ML', 'Risk Analysis']
+    tags: ['Classification', 'ML', 'Risk Analysis'],
+    color: 'C9D99F'
   },
   {
     category: 'data',
@@ -103,7 +115,8 @@ const allProjects = [
     desc: 'ARIMA, GARCH, and spectral methods for forecasting',
     icon: '⏳',
     link: 'https://github.com/LaoAronn/tseries',
-    tags: ['ARIMA', 'Forecasting', 'Statistics']
+    tags: ['ARIMA', 'Forecasting', 'Statistics'],
+    color: 'EFC7A5'
   },
 ];
 
