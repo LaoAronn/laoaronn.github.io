@@ -40,12 +40,12 @@ const About = () => {
                 {/* About Content */}
                 <div className="flex flex-col items-center w-full gap-6 lg:gap-8">
 
-                    <h2 className="headline-2 text-zinc-900 dark:text-white text-center transition-colors duration-300">
+                    <h2 className="headline-2 text-inherit text-center transition-colors duration-300">
                         Hello, World! I'm Aronn!
                     </h2>
 
                     {/* Location + Education + Job Status */}
-                    <div className="flex flex-col items-start gap-3 sm:gap-4 text-left text-sm sm:text-base tracking-[0.005em] text-zinc-600 dark:text-gray-400 w-full transition-colors duration-300">
+                    <div className="flex flex-col items-start gap-3 sm:gap-4 text-left text-sm sm:text-base tracking-[0.005em] text-[#3f3f46] dark:text-zinc-400 w-full transition-colors duration-300">
                         <div className="flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 shrink-0">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -70,18 +70,18 @@ const About = () => {
 
                     </div>
 
-                    <p className="text-zinc-300 text-left text-sm sm:text-base lg:text-lg leading-relaxed w-full">
+                    <p className="text-[#27272a] dark:text-zinc-100 text-left text-sm sm:text-base lg:text-lg leading-relaxed w-full">
                         I'm an aspiring software developer with a great passion for programming. I dream to combine art, business, and technology to create products meant to reach the world 🌎
                     </p>
 
-                    <p className="text-zinc-700 dark:text-zinc-300 text-left text-sm sm:text-base lg:text-lg w-full transition-colors duration-300">
+                    <p className="text-[#27272a] dark:text-zinc-100 text-left text-sm sm:text-base lg:text-lg w-full transition-colors duration-300">
                         Recently interned at {" "}
                         
                         <a
                             href="https://verzena.com/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sky-600 dark:text-white underline underline-offset-4 hover:text-sky-800 dark:hover:text-zinc-400 transition-colors"
+                            className="text-sky-600 dark:text-sky-300 underline underline-offset-4 hover:text-sky-800 dark:hover:text-sky-200 transition-colors"
                         >
                             Verzena
                         </a>
@@ -89,7 +89,7 @@ const About = () => {
                         , a Vancouver-based digital consultancy startup where I worked directly with the founders from day one - shaping their brand identity and shipping responsive web pages, directly contributing to landing their first two clients.
                     </p>
 
-                    <p className="text-zinc-300 text-left text-sm sm:text-base lg:text-lg leading-relaxed w-full">
+                    <p className="text-[#27272a] dark:text-zinc-100 text-left text-sm sm:text-base lg:text-lg leading-relaxed w-full">
                         Outside of work, you can find me hunting for Pokemon cards and Lego sets, competing in Vancouver basketball leagues, or just making the most of every sunny day the city offers.
                     </p>
 
@@ -110,7 +110,7 @@ const About = () => {
                                         });
                                     }
                                 }}
-                                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 sm:-translate-x-16 z-20 p-2 text-zinc-500 dark:text-gray-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+                                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 sm:-translate-x-16 z-20 p-2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors"
                                 aria-label="Previous slide"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
@@ -130,7 +130,7 @@ const About = () => {
                                         });
                                     }
                                 }}
-                                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 sm:translate-x-16 z-20 p-2 text-zinc-500 dark:text-gray-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+                                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 sm:translate-x-16 z-20 p-2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors"
                                 aria-label="Next slide"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
@@ -196,7 +196,7 @@ const About = () => {
                         </div>
 
                         {/* Caption */}
-                        <p className="text-center text-zinc-700 dark:text-gray-300 text-sm sm:text-base mt-6 px-2 min-h-[3rem] flex items-center justify-center font-medium transition-colors duration-300">
+                        <p className="text-center text-[#3f3f46] dark:text-zinc-300 text-sm sm:text-base mt-6 px-2 min-h-[3rem] flex items-center justify-center font-medium transition-colors duration-300">
                             {carouselImages[currentSlide].caption}
                         </p>
 

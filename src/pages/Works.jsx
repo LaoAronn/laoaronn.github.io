@@ -25,10 +25,10 @@ const About = () => {
               key={key} 
               onClick={() => window.open(link, '_blank')}
               className="text-left relative overflow-hidden mx-auto cursor-pointer
-              hover:from-zinc-800/60 hover:to-zinc-900/60
+                hover:from-zinc-800/60 hover:to-zinc-900/60
               p-4 sm:p-6 md:p-10 mb-4 sm:mb-5 
               rounded-xl sm:rounded-2xl reveal-up
-              border border-zinc-700/30 hover:border-sky-400/30
+                border border-zinc-300 dark:border-zinc-700/30 hover:border-sky-400/30
               transition-all duration-300 hover:shadow-lg hover:shadow-sky-400/10
               flex flex-col justify-end min-h-64 sm:min-h-80
               w-full max-w-xl sm:max-w-2xl"
@@ -45,7 +45,7 @@ const About = () => {
               </video>
 
               {/* Shadow overlay */}
-              <div className="absolute inset-0 bg-black/60 -z-10 rounded-xl sm:rounded-2xl"></div>
+              <div className="absolute inset-0 bg-zinc-950/40 dark:bg-black/60 -z-10 rounded-xl sm:rounded-2xl"></div>
 
               {/* Content (bottom left) */}
               <div className="relative z-10 flex flex-col gap-3">
@@ -59,13 +59,13 @@ const About = () => {
                       className="w-full h-full object-cover" 
                     />
                   </div>
-                  <p className="text-xl sm:text-base font-bold text-sky-400">
+                  <p className="text-xl sm:text-base font-bold text-sky-600 dark:text-sky-400">
                     {company}
                   </p>
                 </div>
 
                 {/* Job Description */}
-                <p className="text-xs sm:text-sm text-zinc-100 leading-relaxed max-w-md">
+                <p className="text-xs sm:text-sm text-zinc-900 dark:text-zinc-100 leading-relaxed max-w-md">
                   {desc}
                 </p>
 

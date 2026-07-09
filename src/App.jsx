@@ -21,7 +21,7 @@ const AppRoutes = () => {
   const location = useLocation();
 
   return (
-    <main>
+    <main className="text-[#18181b] dark:text-zinc-50">
       <Routes>
         <Route path="/works" element={<Works />} />
         <Route path="/" element={<Projects />} />

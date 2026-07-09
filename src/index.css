@@ -2,6 +2,9 @@
 
 :root {
   --font-display: "Satoshi", "sans-serif";
+  --color-page-light: #fffffd;
+  --color-text-light: #18181b;
+  --color-accent: #e53e3e;
   
   --breakpoint-3xl: 1920px;
 
@@ -38,13 +41,26 @@
 
 
 @layer base {
-  /* base */
   html {
     scroll-behavior: smooth;
+    background-color: var(--color-page-light);
   }
 
   body {
-    @apply bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-50 min-h-screen transition-colors duration-300;
+    @apply min-h-screen transition-colors duration-300;
+    background-color: var(--color-page-light);
+    color: var(--color-text-light);
+    color-scheme: light;
+  }
+
+  .dark body {
+    background-color: theme('colors.zinc.900');
+    color: theme('colors.zinc.50');
+    color-scheme: dark;
+  }
+
+  #root {
+    min-height: 100vh;
   }
 }
 
@@ -56,6 +72,7 @@
     lg:text-[55px] lg:leading-[1.15] mb-0;
     
     background: -webkit-linear-gradient(0deg, #fafafa, #a1a1aa);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -127,7 +144,8 @@
   }
 
   .nav-link.active {
-    @apply text-red-500 duration-500;
+    color: var(--color-accent);
+    @apply duration-500;
   }
 
   .navbar .active-box {
