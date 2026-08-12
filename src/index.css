@@ -53,6 +53,12 @@
     color-scheme: light;
   }
 
+  /* Force black text when explicit light theme selected */
+  :root[data-theme="light"] body,
+  :root[data-theme="light"] body * {
+    color: #18181b !important;
+  }
+
   .dark body {
     background-color: theme('colors.zinc.900');
     color: theme('colors.zinc.50');

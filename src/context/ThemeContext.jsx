@@ -29,7 +29,8 @@ export const ThemeProvider = ({ children }) => {
     setIsDark(shouldBeDark);
 
     setMounted(true);
-
+    // set data-theme attribute for CSS hooks and toggle tailwind dark class
+    document.documentElement.setAttribute('data-theme', initialMode);
     if (shouldBeDark) {
       document.documentElement.classList.add('dark');
     } else {
@@ -42,7 +43,8 @@ export const ThemeProvider = ({ children }) => {
 
     localStorage.setItem('themeMode', mode);
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-
+    // update data-theme attribute (use mode) and tailwind dark class
+    document.documentElement.setAttribute('data-theme', mode);
     if (isDark) {
       document.documentElement.classList.add('dark');
     } else {
