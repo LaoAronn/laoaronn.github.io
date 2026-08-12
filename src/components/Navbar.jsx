@@ -27,24 +27,24 @@ const Navbar = () => {
 
   const navItems = [
     {
+      label: 'About',
+      link: '/about',
+      className: 'nav-link'
+    },
+    {
       label: 'Projects',
       link: '/',
       className: 'nav-link'
     },
-        {
+    {
       label: 'Work',
       link: '/works',
       className: 'nav-link',
-    },
-    {
-      label: 'About',
-      link: '/about',
-      className: 'nav-link'
     }
   ];
 
   return (
-    <nav className="flex items-center justify-start gap-0">
+    <nav className="navbar flex items-center justify-center gap-8">
       {navItems.map(({ label, link, className }, key) => (
         <Link
           to={link}
