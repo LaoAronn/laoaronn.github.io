@@ -119,6 +119,12 @@
 
   /* Components */
 
+  /* Header font: use Georgia for header elements */
+  .header-font {
+    font-family: 'Roboto', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  }
+
+
   .menu-btn {
     @apply w-10 h-10 grid place-items-center bg-zinc-50/10 rounded-xl 
     ring-inset ring-1 ring-zinc-50/[0.02] backdrop-blur-2xl hover:bg-zinc-50/15

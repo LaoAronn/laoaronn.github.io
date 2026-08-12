@@ -9,7 +9,7 @@ const Header = () => {
     const [showSubtitle, setShowSubtitle] = useState(false);
 
     return (
-        <header className="sticky top-0 z-50 bg-gradient-to-b text-zinc-900 dark:text-zinc-50 transition-colors duration-300 backdrop-blur-sm">
+        <header className="sticky top-0 z-50 bg-gradient-to-b text-zinc-900 dark:text-zinc-50 transition-colors duration-300 backdrop-blur-sm header-font">
             <div className="w-full px-6 py-4">
                 <div className="w-full flex items-center gap-6">
 
@@ -28,7 +28,7 @@ const Header = () => {
                             <div className="flex items-center gap-3">
                                 <h1 className="text-xl md:text-3xl lg:text-4xl font-semibold text-inherit transition-colors duration-300">
                                     {showSubtitle ? (
-                                        <span className="text-[#e53e3e] animate-fadeIn">洪梓洺</span>
+                                        <span className=" animate-fadeIn">洪梓洺</span>
                                     ) : (
                                         'Aronn Laurel'
                                     )}
