@@ -143,7 +143,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="all-projects" className="py-16 lg:py-24 px-4 sm:px-6">
+    <section id="all-projects" className="py-16 lg:py-24 px-4 sm:px-6 text-[var(--text)]">
       
       <div className="container">
 
@@ -155,8 +155,8 @@ const Projects = () => {
               onClick={() => setActiveCategory(category)}
               className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-xs sm:text-sm ${
                 activeCategory === category
-                  ? 'bg-gradient-to-r from-[#e53e3e] to-[#cf3a3a] text-white shadow-lg'
-                  : 'bg-zinc-200 dark:bg-zinc-800/60 text-zinc-700 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 hover:bg-zinc-300 dark:hover:bg-zinc-700/60'
+                  ? 'bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-white shadow-lg shadow-[rgba(15,76,138,0.22)]'
+                  : 'bg-[var(--surface-soft)] text-[var(--text-muted)] border border-[var(--border)] hover:text-[var(--text)] hover:bg-white dark:bg-zinc-800/60 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-700/60'
               }`}
             >
               {category === 'software' ? 'Software Development' : 'Data Analysis'}
@@ -172,15 +172,15 @@ const Projects = () => {
               onClick={() => handleProjectClick(project)}
               onMouseMove={(e) => handleMouseMove(e, index)}
               onMouseLeave={handleMouseLeave}
-              className={`group relative rounded-lg sm:rounded-xl overflow-hidden bg-gradient-to-br from-zinc-100 to-zinc-50 dark:from-zinc-800/70 dark:to-zinc-900/70 border border-zinc-200 dark:border-zinc-700/40 dark:backdrop-blur-sm transition-all duration-300 flex flex-col sm:flex-row items-stretch gap-4 sm:gap-6 p-4 sm:p-6 lg:p-8 ${
+              className={`group relative rounded-lg sm:rounded-xl overflow-hidden bg-gradient-to-br from-[var(--surface)] to-[var(--surface-soft)] border border-[var(--border)] dark:from-zinc-800/70 dark:to-zinc-900/70 dark:border-zinc-700/40 dark:backdrop-blur-sm transition-all duration-300 flex flex-col sm:flex-row items-stretch gap-4 sm:gap-6 p-4 sm:p-6 lg:p-8 ${
                 project.link && project.link !== '-' 
-                  ? 'cursor-pointer hover:border-sky-400 dark:hover:border-sky-400/50 hover:bg-gradient-to-br hover:from-zinc-200 hover:to-zinc-100 dark:hover:from-zinc-700/80 dark:hover:to-zinc-800/80 hover:shadow-lg dark:hover:shadow-lg hover:shadow-sky-300/20 dark:hover:shadow-sky-400/20' 
+                  ? 'cursor-pointer hover:border-[var(--primary)] dark:hover:border-sky-400/50 hover:bg-gradient-to-br hover:from-[var(--surface-soft)] hover:to-white dark:hover:from-zinc-700/80 dark:hover:to-zinc-800/80 hover:shadow-lg dark:hover:shadow-lg hover:shadow-[rgba(15,76,138,0.14)] dark:hover:shadow-sky-400/20' 
                   : 'opacity-75'
               }`}
             >
               
               {/* Icon/Preview - Left side */}
-              <div className="flex-shrink-0 flex items-center justify-center w-full sm:w-24 lg:w-32 h-24 lg:h-32 bg-zinc-200 dark:bg-zinc-800/50 rounded-lg text-4xl lg:text-6xl">
+              <div className="flex-shrink-0 flex items-center justify-center w-full sm:w-24 lg:w-32 h-24 lg:h-32 bg-[var(--surface-soft)] dark:bg-zinc-800/50 rounded-lg text-4xl lg:text-6xl">
                 {project.icon}
               </div>
 
@@ -190,19 +190,19 @@ const Projects = () => {
                 {/* Header with title and link icon */}
                 <div className="flex items-start justify-between gap-3 mb-2 sm:mb-3">
                   <div className="flex-1 min-w-0 text-left">
-                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-zinc-900 dark:text-zinc-50 line-clamp-2">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-[var(--text)] dark:text-zinc-50 line-clamp-2">
                       {project.title}
                     </h3>
                   </div>
                   
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 text-sky-400/60 group-hover:text-sky-400 transition-colors flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--secondary)]/70 group-hover:text-[var(--primary)] transition-colors flex-shrink-0">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                   </svg>
 
                 </div>
 
                 {/* Description */}
-                <p className="text-sm sm:text-base text-zinc-700 dark:text-zinc-300 mb-4 sm:mb-6 line-clamp-2 text-left">
+                <p className="text-sm sm:text-base text-[var(--text-muted)] dark:text-zinc-300 mb-4 sm:mb-6 line-clamp-2 text-left">
                   {project.desc}
                 </p>
 
@@ -211,7 +211,7 @@ const Projects = () => {
                   {project.tags.map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
-                      className="inline-block px-2.5 sm:px-3 py-1 sm:py-1.5 bg-zinc-200 dark:bg-zinc-800/60 border border-zinc-300 dark:border-zinc-700/60 rounded-full text-[11px] sm:text-xs text-zinc-700 dark:text-zinc-300 group-hover:bg-sky-200 dark:group-hover:bg-sky-500/20 group-hover:border-sky-400 dark:group-hover:border-sky-400/50 group-hover:text-sky-900 dark:group-hover:text-sky-200 transition-colors"
+                      className="inline-block px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[var(--surface-soft)] dark:bg-zinc-800/60 border border-[var(--border)] dark:border-zinc-700/60 rounded-full text-[11px] sm:text-xs text-[var(--text-muted)] dark:text-zinc-300 group-hover:bg-[rgba(117,173,230,0.24)] dark:group-hover:bg-sky-500/20 group-hover:border-[var(--secondary)] dark:group-hover:border-sky-400/50 group-hover:text-[var(--primary)] dark:group-hover:text-sky-200 transition-colors"
                     >
                       {tag}
                     </span>
@@ -227,7 +227,7 @@ const Projects = () => {
         {/* Global Tooltip */}
         {hoveredCardIndex !== null && (
           <div
-            className="fixed bg-sky-500 dark:bg-sky-600 text-white text-xs sm:text-sm px-3 py-2 rounded-lg pointer-events-none z-50 whitespace-nowrap shadow-lg"
+            className="fixed bg-[var(--primary)] dark:bg-sky-600 text-white text-xs sm:text-sm px-3 py-2 rounded-lg pointer-events-none z-50 whitespace-nowrap shadow-lg"
             style={{
               left: `${mousePos.x + 20}px`,
               top: `${mousePos.y + 20}px`,
