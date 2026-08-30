@@ -75,7 +75,7 @@ const Header = () => {
     }, [headerWidth, leftGroupWidth, rightGroupWidth, navWidth, isMobile]);
 
     return (
-        <header ref={headerRef} className="sticky top-0 z-50 bg-gradient-to-b text-zinc-900 dark:text-zinc-50 transition-colors duration-300 backdrop-blur-sm header-font">
+        <header ref={headerRef} className="sticky top-0 z-50 bg-gradient-to-b text-[var(--text)] transition-colors duration-300 backdrop-blur-sm header-font">
             <div className="w-full px-4 py-3 sm:px-6">
                 <div className="flex w-full items-center gap-4">
 
@@ -101,13 +101,13 @@ const Header = () => {
                                 <span className="invisible col-start-1 row-start-1 select-none">Aronn Laurel</span>
                                 <span className="col-start-1 row-start-1">
                                     {showSubtitle ? (
-                                        <span className="animate-fadeIn">洪梓洺</span>
+                                        <span className="animate-fadeIn text-[#e41010]">洪梓洺</span>
                                     ) : (
                                         "Aronn Laurel"
                                     )}
                                 </span>
                             </h1>
-                            <p className="whitespace-nowrap text-sm md:text-base text-[#3f3f46] transition-colors duration-300 dark:text-zinc-400">
+                            <p className="hidden sm:block text-xs md:text-sm text-[var(--text)] transition-colors duration-300">
                                 Dev, design, & everything in between.
                             </p>
                         </div>
@@ -133,7 +133,7 @@ const Header = () => {
                 </div>
 
                 {/* HL */}
-                <div className="mt-4 h-px w-full bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 transition-colors duration-300 dark:from-zinc-700/0 dark:via-zinc-700/50 dark:to-zinc-700/0"></div>
+                <div className="mt-4 h-px w-full bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 transition-colors duration-300 "></div>
             </div>
 
         </header>
