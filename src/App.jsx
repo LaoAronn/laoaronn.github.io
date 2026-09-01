@@ -24,8 +24,8 @@ const AppRoutes = () => {
     <main className="text-[var(--text)]">
       <Routes>
         <Route path="/works" element={<Works />} />
-        <Route path="/" element={<Projects />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/" element={<About />} />
       </Routes>
     </main>
   )

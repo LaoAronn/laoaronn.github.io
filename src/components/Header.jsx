@@ -99,13 +99,13 @@ const Header = () => {
                         <div className="flex shrink-0 flex-col whitespace-nowrap text-left">
                             <h1 className="relative inline-grid shrink-0 whitespace-nowrap text-xl md:text-3xl lg:text-4xl font-semibold text-inherit transition-colors duration-300">
                                 <span className="invisible col-start-1 row-start-1 select-none">Aronn Laurel</span>
-                                <span className="col-start-1 row-start-1">
+                                <a href="/projects"  className="col-start-1 row-start-1">
                                     {showSubtitle ? (
-                                        <span className="animate-fadeIn text-[#e41010]">洪梓洺</span>
+                                        <a href="/projects" className="animate-fadeIn text-[#e41010]">洪梓洺</a>
                                     ) : (
                                         "Aronn Laurel"
                                     )}
-                                </span>
+                                </a>
                             </h1>
                             <p className="hidden sm:block text-xs md:text-sm text-[var(--text)] transition-colors duration-300">
                                 Dev, design, & everything in between.
@@ -126,7 +126,7 @@ const Header = () => {
                     </div>
 
                     {/* Right: Theme / Icons */}
-                    <div ref={rightGroupRef} className="flex shrink-0 items-center justify-end gap-3 whitespace-nowrap">
+                    <div ref={rightGroupRef} className="hidden shrink-0 items-center justify-end gap-3 whitespace-nowrap md:flex">
                         <ThemeSelector />
                     </div>
 

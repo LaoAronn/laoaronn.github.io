@@ -57,12 +57,18 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
       onCloseMenu();
     };
 
-    document.addEventListener("mousedown", handlePointerDown);
-    document.addEventListener("touchstart", handlePointerDown);
+    const handleEscapeKey = (event) => {
+      if (event.key === "Escape") {
+        onCloseMenu();
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleEscapeKey);
 
     return () => {
-      document.removeEventListener("mousedown", handlePointerDown);
-      document.removeEventListener("touchstart", handlePointerDown);
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [menuOpen, onCloseMenu]);
 
@@ -153,7 +159,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
     : "left-1/2 top-full mt-3 w-[min(20rem,calc(100vw-2rem))] -translate-x-1/2";
 
   return (
-    <div className="relative flex items-center justify-end">
+    <div className="relative flex w-full min-w-0 items-center justify-end">
       <button
         ref={menuButtonRef}
         type="button"
@@ -173,7 +179,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
       <div
         ref={menuPanelRef}
         id="site-navigation"
-        className={`absolute top-full z-50 overflow-hidden border-b border-zinc-200 bg-white/95 backdrop-blur-md transition-[max-height,opacity,transform] duration-300 dark:border-zinc-700 dark:bg-zinc-900/95 ${mobileMenuClasses} ${menuOpen ? "max-h-96 translate-y-0 opacity-100" : "pointer-events-none max-h-0 -translate-y-2 opacity-0"}`}
+        className={`absolute top-full z-50 w-full overflow-hidden border border-zinc-200/80 bg-white/95 shadow-lg shadow-zinc-950/10 backdrop-blur-md transition-[max-height,opacity,transform] duration-300 dark:border-zinc-700 dark:bg-zinc-900/95 dark:shadow-zinc-950/30 ${mobileMenuClasses} ${menuOpen ? "max-h-96 translate-y-0 opacity-100" : "pointer-events-none max-h-0 -translate-y-2 opacity-0"}`}
       >
         <nav className="flex flex-col py-2 whitespace-nowrap">
           {renderNavItems(true)}
