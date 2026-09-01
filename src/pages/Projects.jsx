@@ -1,4 +1,8 @@
+/* Node Modules */
 import { useState } from "react";
+
+/* Components */
+import ProjectCard from "../components/ProjectCard";
 
 const allProjects = [
   {
@@ -22,7 +26,7 @@ const allProjects = [
   {
     category: 'software',
     title: 'FreshTomatoes 🍅',
-    desc: 'Inspired by RottenTomatoes, afull-stack platform for browsing, rating, and reviewing movies with user authentication and persistent storage',
+    desc: 'Inspired by RottenTomatoes, a full-stack platform for browsing, rating, and reviewing movies with user authentication and persistent storage',
     icon: '🍿',
     link: 'https://github.com/LaoAronn/Movie-Website',
     tags: ['Svelte', 'PHP', 'SQLite', 'JavaScript', 'Full-Stack'],
@@ -120,125 +124,53 @@ const allProjects = [
   },
 ];
 
+const categories = [
+  { key: 'software', label: 'Software Development' },
+  { key: 'data', label: 'Data Analysis' },
+];
+
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('software');
-  const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  const filteredProjects = allProjects.filter(p => p.category === activeCategory);
-
-  const handleProjectClick = (project) => {
-    if (project.link && project.link !== '-') {
-      window.open(project.link, '_blank');
-    }
-  };
-
-  const handleMouseMove = (e, index) => {
-    setHoveredCardIndex(index);
-    setMousePos({ x: e.clientX, y: e.clientY });
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredCardIndex(null);
-  };
+  const filteredProjects = allProjects.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="all-projects" className="py-16 lg:py-24 px-4 sm:px-6 text-[var(--text)]">
-      
+    <section id="all-projects" className="px-4 py-16 sm:px-6 lg:py-24">
       <div className="container">
 
         {/* Category Filter */}
-        <div className="flex gap-2 sm:gap-3 justify-center mb-4 lg:mb-8">
-          {['software', 'data'].map((category) => (
+        <div className="mb-8 flex justify-center gap-2 sm:gap-3 lg:mb-12">
+          {categories.map(({ key, label }) => (
             <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-xs sm:text-sm ${
-                activeCategory === category
-                  ? 'bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-white shadow-lg shadow-[rgba(15,76,138,0.22)]'
-                  : 'bg-[var(--surface-soft)] text-[var(--text-muted)] border border-[var(--border)] hover:text-[var(--text)] hover:bg-white dark:bg-zinc-800/60 dark:text-zinc-400 dark:hover:text-zinc-200 dark:hover:bg-zinc-700/60'
+              key={key}
+              onClick={() => setActiveCategory(key)}
+              className={`rounded-lg border-2 px-4 py-2 text-xs font-semibold transition-colors sm:px-6 sm:py-2.5 sm:text-sm ${
+                activeCategory === key
+                  ? 'border-zinc-900 bg-zinc-900 text-zinc-50 dark:border-zinc-50 dark:bg-zinc-50 dark:text-zinc-900'
+                  : 'border-zinc-900/30 bg-transparent text-zinc-700 hover:border-zinc-900 dark:border-zinc-50/30 dark:text-zinc-300 dark:hover:border-zinc-50'
               }`}
             >
-              {category === 'software' ? 'Software Development' : 'Data Analysis'}
+              {label}
             </button>
           ))}
         </div>
 
-        {/* Projects List */}
-        <div className="space-y-6 lg:space-y-8 max-w-4xl mx-auto">
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2">
           {filteredProjects.map((project, index) => (
-            <div
+            <ProjectCard
               key={index}
-              onClick={() => handleProjectClick(project)}
-              onMouseMove={(e) => handleMouseMove(e, index)}
-              onMouseLeave={handleMouseLeave}
-              className={`group relative rounded-lg sm:rounded-xl overflow-hidden bg-gradient-to-br from-[var(--surface)] to-[var(--surface-soft)] border border-[var(--border)] dark:from-zinc-800/70 dark:to-zinc-900/70 dark:border-zinc-700/40 dark:backdrop-blur-sm transition-all duration-300 flex flex-col sm:flex-row items-stretch gap-4 sm:gap-6 p-4 sm:p-6 lg:p-8 ${
-                project.link && project.link !== '-' 
-                  ? 'cursor-pointer hover:border-[var(--primary)] dark:hover:border-sky-400/50 hover:bg-gradient-to-br hover:from-[var(--surface-soft)] hover:to-white dark:hover:from-zinc-700/80 dark:hover:to-zinc-800/80 hover:shadow-lg dark:hover:shadow-lg hover:shadow-[rgba(15,76,138,0.14)] dark:hover:shadow-sky-400/20' 
-                  : 'opacity-75'
-              }`}
-            >
-              
-              {/* Icon/Preview - Left side */}
-              <div className="flex-shrink-0 flex items-center justify-center w-full sm:w-24 lg:w-32 h-24 lg:h-32 bg-[var(--surface-soft)] dark:bg-zinc-800/50 rounded-lg text-4xl lg:text-6xl">
-                {project.icon}
-              </div>
-
-              {/* Content - Right side */}
-              <div className="flex-1 flex flex-col justify-between">
-                
-                {/* Header with title and link icon */}
-                <div className="flex items-start justify-between gap-3 mb-2 sm:mb-3">
-                  <div className="flex-1 min-w-0 text-left">
-                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-[var(--text)] dark:text-zinc-50 line-clamp-2">
-                      {project.title}
-                    </h3>
-                  </div>
-                  
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--secondary)]/70 group-hover:text-[var(--primary)] transition-colors flex-shrink-0">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                  </svg>
-
-                </div>
-
-                {/* Description */}
-                <p className="text-sm sm:text-base text-[var(--text-muted)] dark:text-zinc-300 mb-4 sm:mb-6 line-clamp-2 text-left">
-                  {project.desc}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="inline-block px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[var(--surface-soft)] dark:bg-zinc-800/60 border border-[var(--border)] dark:border-zinc-700/60 rounded-full text-[11px] sm:text-xs text-[var(--text-muted)] dark:text-zinc-300 group-hover:bg-[rgba(117,173,230,0.24)] dark:group-hover:bg-sky-500/20 group-hover:border-[var(--secondary)] dark:group-hover:border-sky-400/50 group-hover:text-[var(--primary)] dark:group-hover:text-sky-200 transition-colors"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-              </div>
-
-            </div>
+              title={project.title}
+              desc={project.desc}
+              tags={project.tags}
+              icon={project.icon}
+              color={project.color}
+              link={project.link}
+            />
           ))}
         </div>
 
-        {/* Global Tooltip */}
-        {hoveredCardIndex !== null && (
-          <div
-            className="fixed bg-[var(--primary)] dark:bg-sky-600 text-white text-xs sm:text-sm px-3 py-2 rounded-lg pointer-events-none z-50 whitespace-nowrap shadow-lg"
-            style={{
-              left: `${mousePos.x + 20}px`,
-              top: `${mousePos.y + 20}px`,
-            }}
-          >
-            Click to Open
-          </div>
-        )}
-
       </div>
-
     </section>
   );
 };

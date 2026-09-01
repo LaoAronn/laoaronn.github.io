@@ -1,58 +1,75 @@
 /* Node Modules */
 import PropTypes from "prop-types";
 
+const ProjectCard = ({ title, desc, tags, icon, color, link }) => {
+  const hex = `#${color}`;
 
-const ProjectCard = ({
-    title,
-    tags,
-    projectLink,
-    desc,
-    classes
-}) => {
-    return (
-        <div className={"relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg dark:bg-zinc-900/90 dark:text-zinc-50 " + classes}>
-            <a
-                className="group flex h-full flex-col gap-4 p-4 text-left transition-colors sm:p-5"
-                href={projectLink}
-                target={projectLink?.startsWith("http") ? "_blank" : undefined}
-                rel={projectLink?.startsWith("http") ? "noopener noreferrer" : undefined}
-            >
-                <div className="flex items-start justify-between gap-4">
-                    <h3 className="min-w-0 flex-1 text-lg font-semibold leading-snug text-[var(--text)] sm:text-xl">
-                        {title}
-                    </h3>
-
-                    <svg className="mt-1 h-5 w-5 flex-shrink-0 text-[var(--secondary)] transition-colors group-hover:text-[var(--primary)]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m8 8-4 4 4 4m8 0 4-4-4-4m-2-3-4 14"/>
-                    </svg>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                    {tags.map((label, key) => (
-                        <span key={key} className="inline-flex h-8 items-center rounded-full border border-[var(--border)] bg-[var(--surface-soft)] px-3 text-sm text-[var(--text-muted)] transition-colors group-hover:border-[var(--secondary)] group-hover:bg-[rgba(117,173,230,0.16)] group-hover:text-[var(--primary)] dark:border-zinc-700/60 dark:bg-zinc-800/70 dark:text-zinc-300 dark:group-hover:border-sky-400/40 dark:group-hover:bg-sky-500/15 dark:group-hover:text-sky-100">
-                            {label}
-                        </span>
-                    ))}
-                </div>
-
-                <p className="text-sm leading-6 text-[var(--text-muted)] dark:text-zinc-300 sm:text-[15px]">
-                    {desc}
-                </p>
-
-                <div className="mt-auto flex items-center gap-2 text-sm font-medium text-[var(--primary)] transition-colors group-hover:text-[var(--accent)] dark:text-sky-300 dark:group-hover:text-sky-200">
-                    <span>github</span>
-                </div>
-            </a>
+  return (
+    <a
+      href={link}
+      target={link?.startsWith("http") ? "_blank" : undefined}
+      rel={link?.startsWith("http") ? "noopener noreferrer" : undefined}
+      className="group flex flex-col overflow-hidden rounded-xl border-2 border-zinc-900 dark:border-zinc-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_rgba(0,0,0,0.9)] dark:hover:shadow-[6px_6px_0_0_rgba(255,255,255,0.85)]"
+      style={{ backgroundColor: hex }}
+    >
+      {/* icon */}
+      <div className="border-b-2 border-zinc-900/80 dark:border-zinc-50/70">
+        
+        <div className="flex h-28 items-center justify-center pb-3 text-6xl sm:h-32 sm:text-7xl">
+          {icon}
         </div>
-    )
-}
+
+      </div>
+
+      {/* Copy */}
+      <div className="flex flex-1 flex-col gap-3 px-5 py-5 sm:px-6 sm:py-6">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="text-2xl font-extrabold leading-none tracking-tight text-zinc-900 sm:text-3xl">
+            {title}
+          </h3>
+          <svg
+            className="mt-1 h-5 w-5 flex-shrink-0 text-zinc-900/70 transition-colors group-hover:text-zinc-900"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+            />
+          </svg>
+        </div>
+
+        <p className="text-sm leading-6 text-zinc-900/80 sm:text-[15px]">
+          {desc}
+        </p>
+
+        <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
+          {tags.map((tag, key) => (
+            <span
+              key={key}
+              className="inline-flex h-7 items-center rounded-md bg-zinc-900 px-2.5 text-xs font-medium text-zinc-50 dark:bg-zinc-950"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </a>
+  );
+};
 
 ProjectCard.propTypes = {
-    title: PropTypes.string.isRequired,
-    tags: PropTypes.array.isRequired,
-    projectLink: PropTypes.string,
-    desc: PropTypes.string,
-    classes: PropTypes.string
-}
+  title: PropTypes.string.isRequired,
+  desc: PropTypes.string,
+  tags: PropTypes.array.isRequired,
+  icon: PropTypes.string,
+  color: PropTypes.string.isRequired,
+  link: PropTypes.string,
+};
 
-export default ProjectCard
+export default ProjectCard;
