@@ -99,9 +99,9 @@ const Header = () => {
                         <div className="flex shrink-0 flex-col whitespace-nowrap text-left">
                             <h1 className="relative inline-grid shrink-0 whitespace-nowrap text-xl md:text-3xl lg:text-4xl font-semibold text-inherit transition-colors duration-300">
                                 <span className="invisible col-start-1 row-start-1 select-none">Aronn Laurel</span>
-                                <a href="/projects"  className="col-start-1 row-start-1">
+                                <a href="/about"  className="col-start-1 row-start-1">
                                     {showSubtitle ? (
-                                        <a href="/projects" className="animate-fadeIn text-[#e41010]">洪梓洺</a>
+                                        <a href="/about" className="animate-fadeIn text-[#e41010]">洪梓洺</a>
                                     ) : (
                                         "Aronn Laurel"
                                     )}

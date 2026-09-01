@@ -17,7 +17,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
     },
     {
       label: "Projects",
-      link: "/",
+      link: "/projects",
       className: "nav-link",
     },
     {

@@ -23,9 +23,10 @@ const AppRoutes = () => {
   return (
     <main className="text-[var(--text)]">
       <Routes>
+        <Route path="/" element={<About />} /> {/* Default route */}
+        <Route path="/about" element={<About />} />
         <Route path="/works" element={<Works />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/" element={<About />} />
       </Routes>
     </main>
   )
