@@ -3,10 +3,14 @@ import { useEffect, useLayoutEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeasureNavWidth }) => {
+
   const lastActiveLink = useRef(null);
   const location = useLocation();
+
+ 
   const menuButtonRef = useRef(null);
   const menuPanelRef = useRef(null);
+
   const measureRowRef = useRef(null);
 
   const navItems = [
@@ -27,6 +31,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
     },
   ];
 
+
   useEffect(() => {
     const activeLink = document.querySelector(`a[href="${location.pathname}"]`);
 
@@ -40,6 +45,8 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
     }
   }, [location.pathname]);
 
+  // Closes the mobile dropdown when the user clicks outside it or presses Escape.
+  // Only attaches these listeners while the menu is actually open
   useEffect(() => {
     if (!menuOpen) {
       return undefined;
@@ -50,6 +57,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
       const buttonElement = menuButtonRef.current;
       const target = event.target;
 
+      // Ignore clicks on the menu itself or the toggle button
       if (menuElement?.contains(target) || buttonElement?.contains(target)) {
         return;
       }
@@ -72,6 +80,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
     };
   }, [menuOpen, onCloseMenu]);
 
+  // Measurement for Compact mode
   useLayoutEffect(() => {
     const measureElement = measureRowRef.current;
 
@@ -98,6 +107,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
     return () => observer.disconnect();
   }, [location.pathname, onMeasureNavWidth, compact, isMobile]);
 
+  // Click handler for nav links
   const activeCurrentLink = (event) => {
     const currentLink = event.currentTarget;
     lastActiveLink.current?.classList.remove("active");
@@ -106,11 +116,12 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
     onCloseMenu();
   };
 
+  // display shared set of nav links + Resume link
   const renderNavItems = (isMobileMenu = false) => (
     <>
       {navItems.map(({ label, link, className }, key) => {
         const itemClasses = isMobileMenu
-          ? `${className} nav-link-mobile !h-auto !min-h-[44px] !w-full !justify-start !px-4 !py-3 !text-base !tracking-normal hover:bg-zinc-100 dark:hover:bg-zinc-800`
+          ? `${className} nav-link-mobile !h-auto !min-h-[44px] !w-full !justify-start !px-4 !py-3 !text-base !tracking-normal hover:bg-zinc-100 `
           : className;
 
         return (
@@ -128,7 +139,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
       <a
         href="/images/resume.pdf"
         className={isMobileMenu
-          ? "nav-link nav-link-mobile !h-auto !min-h-[44px] !w-full !justify-start !px-4 !py-3 !text-base !tracking-normal hover:bg-zinc-100 dark:hover:bg-zinc-800"
+          ? "nav-link nav-link-mobile !h-auto !min-h-[44px] !w-full !justify-start !px-4 !py-3 !text-base !tracking-normal hover:bg-zinc-100"
           : "nav-link"
         }
         target="_blank"
@@ -140,6 +151,8 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
     </>
   );
 
+  // Full-width layout: just the nav row and a hidden duplicate used
+  // for measuring (see useLayoutEffect above)
   if (!compact) {
     return (
       <>
@@ -154,12 +167,14 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
     );
   }
 
+  // Compact layout
   const mobileMenuClasses = isMobile
     ? "left-0 right-0 w-full"
     : "left-1/2 top-full mt-3 w-[min(20rem,calc(100vw-2rem))] -translate-x-1/2";
 
   return (
-    <div className="relative flex w-full min-w-0 items-center justify-end">
+    <div className="relative flex w-full min-w-0 items-center justify-end"> {/* Hamburger toggle button */}
+      
       <button
         ref={menuButtonRef}
         type="button"
@@ -167,7 +182,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
         aria-expanded={menuOpen}
         aria-controls="site-navigation"
         onClick={onToggleMenu}
-        className="group inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-zinc-200/70 bg-white/70 text-zinc-900 shadow-sm transition hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-white dark:border-zinc-700/70 dark:bg-zinc-900/70 dark:text-zinc-50 dark:hover:bg-zinc-800 dark:focus:ring-offset-zinc-900"
+        className="group inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-zinc-200/70 bg-white/70 text-zinc-900 shadow-sm transition hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-white "
       >
         <span className="relative flex h-4 w-5 flex-col justify-between">
           <span className={`block h-0.5 w-full rounded-full bg-current transition duration-300 ${menuOpen ? "translate-y-1.5 rotate-45" : ""}`} />
@@ -176,6 +191,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
         </span>
       </button>
 
+      {/* Dropdown panel */}
       <div
         ref={menuPanelRef}
         id="site-navigation"
@@ -186,6 +202,8 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
         </nav>
       </div>
 
+      {/* Same hidden measuring row as the non-compact branch, kept here too
+          so width reporting still works while compact. */}
       <div ref={measureRowRef} className="pointer-events-none absolute left-0 top-0 -z-10 flex w-max items-center gap-8 whitespace-nowrap opacity-0" aria-hidden="true">
         {renderNavItems(false)}
       </div>
@@ -193,4 +211,4 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
   );
 };
 
-export default Navbar
+export default Navbar;
