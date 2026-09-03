@@ -144,10 +144,8 @@ const Projects = () => {
             <button
               key={key}
               onClick={() => setActiveCategory(key)}
-              className={`rounded-lg border-2 px-4 py-2 text-xs font-semibold transition-colors sm:px-6 sm:py-2.5 sm:text-sm ${
-                activeCategory === key
-                  ? 'border-zinc-900 bg-zinc-900 text-zinc-50 dark:border-zinc-50 dark:bg-zinc-50 dark:text-zinc-900'
-                  : 'border-zinc-900/30 bg-transparent text-zinc-700 hover:border-zinc-900 dark:border-zinc-50/30 dark:text-zinc-300 dark:hover:border-zinc-50'
+              className={`project-filter-btn rounded-lg border-2 px-4 py-2 text-xs font-semibold transition-colors sm:px-6 sm:py-2.5 sm:text-sm ${
+                activeCategory === key ? 'project-filter-btn--active' : 'bg-transparent'
               }`}
             >
               {label}
