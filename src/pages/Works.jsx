@@ -1,3 +1,5 @@
+import { useRef, useEffect, useState } from 'react';
+
 const workExperience = [
   {
     workid: 1,
@@ -8,10 +10,21 @@ const workExperience = [
     video: '/images/work/verzena_showcase.mp4',
     link: 'https://verzena.com/'
   },
-
 ];
 
 const About = () => {
+  const videoRefs = useRef([]);
+
+  useEffect(() => {
+    videoRefs.current.forEach((video) => {
+      if (video) {
+        video.play().catch(err => {
+          console.log('Autoplay blocked:', err);
+        });
+      }
+    });
+  }, []);
+
   return (
     <section id="about" className="section text-[var(--text)]">
 
@@ -35,20 +48,21 @@ const About = () => {
             >
               {/* Background Video */}
               <video
+                ref={el => videoRefs.current[key] = el}
                 autoPlay
                 loop
                 muted
                 playsInline
-                className="absolute inset-0 w-full h-full object-cover -z-10 rounded-xl sm:rounded-2xl"
+                className="absolute inset-0 w-full h-full object-cover z-[1] rounded-xl sm:rounded-2xl"
               >
                 <source src={video} type="video/mp4" />
               </video>
 
               {/* Shadow overlay */}
-              <div className="absolute inset-0 bg-[rgba(248,250,252,0.22)] dark:bg-black/60 -z-10 rounded-xl sm:rounded-2xl"></div>
+              <div className="absolute inset-0 bg-[rgba(248,250,252,0.22)] dark:bg-black/60 z-[2] rounded-xl sm:rounded-2xl"></div>
 
               {/* Content (bottom left) */}
-              <div className="relative z-10 flex flex-col gap-3">
+              <div className="relative z-[3] flex flex-col gap-3">
                 
                 {/* Logo and Company */}
                 <div className="flex items-center gap-3">
@@ -75,10 +89,8 @@ const About = () => {
         })}
       </div>
 
-
     </section>
   )
 }
 
 export default About
-
