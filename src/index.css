@@ -16,6 +16,19 @@
   --color-page-light: var(--background);
   --color-text-light: var(--text);
   --color-accent: var(--accent);
+  --project-card-border: rgba(24, 24, 27, 0.8);
+  --project-card-hover-border: #000000;
+  --project-card-hover-shadow: 6px 6px 0 0 rgba(0, 0, 0, 0.25);
+  --project-card-icon: #18181b;
+  --project-card-divider-border: rgba(24, 24, 27, 0.8);
+
+  --project-filter-border: color-mix(in srgb, var(--text) 18%, transparent);
+  --project-filter-text: var(--text-muted);
+  --project-filter-hover-border: #000000;
+  --project-filter-hover-text: var(--text);
+  --project-filter-active-border: #000000;
+  --project-filter-active-background: #000000;
+  --project-filter-active-text: #ffffff;
 
   --breakpoint-3xl: 1920px;
   --color-avocado-100: oklch(0.99 0 0);
@@ -40,6 +53,19 @@
   --color-page-light: var(--background);
   --color-text-light: var(--text);
   --color-accent: var(--accent);
+  --project-card-border: #fafafa;
+  --project-card-hover-border: #fafafa;
+  --project-card-hover-shadow: 6px 6px 0 0 rgba(255, 255, 255, 0.85);
+  --project-card-icon: #fafafa;
+  --project-card-divider-border: rgba(250, 250, 250, 0.7);
+
+  --project-filter-border: rgba(250, 250, 250, 0.3);
+  --project-filter-text: rgba(222, 230, 237, 0.85);
+  --project-filter-hover-border: #fafafa;
+  --project-filter-hover-text: #fafafa;
+  --project-filter-active-border: #fafafa;
+  --project-filter-active-background: #fafafa;
+  --project-filter-active-text: #030507;
 }
 
 @layer utilities {
@@ -240,104 +266,58 @@
   }
 
   .project-card {
-    border-color: var(--border);
+    border-color: var(--project-card-border);
     transition-property: transform, border-color, box-shadow, background-color;
   }
 
-  :root[data-theme="light"] .project-card:hover {
-    border-color: #000000;
-    box-shadow: 6px 6px 0 0 rgba(0, 0, 0, 0.25);
+  .project-card:hover {
+    border-color: var(--project-card-hover-border);
+    box-shadow: var(--project-card-hover-shadow);
   }
 
-  :root[data-theme="dark"] .project-card,
-  .dark .project-card {
-    border-color: #fafafa;
-  }
-
-  :root[data-theme="dark"] .project-card:hover,
-  .dark .project-card:hover {
-    border-color: #fafafa;
-    box-shadow: 6px 6px 0 0 rgba(255, 255, 255, 0.85);
+  .project-card svg {
+    color: var(--project-card-icon);
   }
 
   @media (hover: none), (pointer: coarse) {
     .project-card {
       transform: translateY(-0.25rem);
-      border-color: #000000;
-      box-shadow: 6px 6px 0 0 rgba(0, 0, 0, 0.25);
+      border-color: var(--project-card-hover-border);
+      box-shadow: var(--project-card-hover-shadow);
     }
 
     :root[data-theme="dark"] .project-card,
     .dark .project-card {
-      border-color: #fafafa;
-      box-shadow: 6px 6px 0 0 rgba(255, 255, 255, 0.85);
-    }
-
-    .project-card svg {
-      color: #18181b;
-    }
-
-    :root[data-theme="dark"] .project-card svg,
-    .dark .project-card svg {
-      color: #fafafa;
+      border-color: var(--project-card-hover-border);
+      box-shadow: var(--project-card-hover-shadow);
     }
   }
 
   .project-card-divider {
-    border-color: rgba(24, 24, 27, 0.8);
-  }
-
-  :root[data-theme="dark"] .project-card-divider,
-  .dark .project-card-divider {
-    border-color: rgba(250, 250, 250, 0.7);
+    border-color: var(--project-card-divider-border);
   }
 
   .project-filter-btn {
-    border-color: color-mix(in srgb, var(--text) 18%, transparent);
-    color: var(--text-muted);
+    border-color: var(--project-filter-border);
+    color: var(--project-filter-text);
     transition: border-color 200ms ease, color 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
   }
 
-  :root[data-theme="light"] .project-filter-btn:hover {
-    border-color: #000000;
-    color: var(--text);
+  .project-filter-btn:hover {
+    border-color: var(--project-filter-hover-border);
+    color: var(--project-filter-hover-text);
   }
 
-  :root[data-theme="light"] .project-filter-btn--active {
-    border-color: #000000;
-    background: #000000;
-    color: #ffffff;
-  }
-
-  :root[data-theme="dark"] .project-filter-btn,
-  .dark .project-filter-btn {
-    border-color: rgba(250, 250, 250, 0.3);
-    color: rgba(222, 230, 237, 0.85);
-  }
-
-  :root[data-theme="dark"] .project-filter-btn:hover,
-  .dark .project-filter-btn:hover {
-    border-color: #fafafa;
-    color: #fafafa;
-  }
-
-  :root[data-theme="dark"] .project-filter-btn--active,
-  .dark .project-filter-btn--active {
-    border-color: #fafafa;
-    background: #fafafa;
-    color: #030507;
+  .project-filter-btn--active {
+    border-color: var(--project-filter-active-border);
+    background: var(--project-filter-active-background);
+    color: var(--project-filter-active-text);
   }
 
   @media (hover: none), (pointer: coarse) {
     .project-filter-btn {
-      border-color: #000000;
-      color: var(--text);
-    }
-
-    :root[data-theme="dark"] .project-filter-btn,
-    .dark .project-filter-btn {
-      border-color: #fafafa;
-      color: #fafafa;
+      border-color: var(--project-filter-hover-border);
+      color: var(--project-filter-hover-text);
     }
   }
 
