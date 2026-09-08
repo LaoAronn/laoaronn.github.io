@@ -7,9 +7,22 @@ const workExperience = [
     position: 'Software Engineering Intern',
     period: 'August - December 2024',
     desc: 'Launching a client-facing website for a Vancouver-based digital consultancy startup from the ground up',
+    logo: "/images/verzena.png",
     video: '/images/work/verzena_showcase.mp4',
     link: 'https://verzena.com/'
   },
+  {
+    workid: 2,
+    company: 'mile',
+    position: 'Software Engineering Intern',
+    period: ' Present ',
+    desc: 'TBA - Building a wellness center system',
+    logo: "/images/mile.png",
+    video: '',
+    link: ''
+  },
+
+
 ];
 
 const About = () => {
@@ -31,7 +44,7 @@ const About = () => {
       <div className="container px-4 sm:px-6">
 
         {/** Work Experience List */}
-        {workExperience.map(({ workid, company, position, period, desc, video, link }, key) => {
+        {workExperience.map(({ workid, company, position, period, desc, logo, video, link }, key) => {
 
           return (
             <div 
@@ -68,8 +81,8 @@ const About = () => {
                 <div className="flex items-center gap-3">
                   <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-sky-400/50 hover:border-sky-400 transition-colors duration-300 shadow-lg shadow-sky-400/20">
                     <img 
-                      src="/images/verzena.png" 
-                      alt="Verzena logo" 
+                      src={logo} 
+                      alt={company} 
                       className="w-full h-full object-cover" 
                     />
                   </div>
