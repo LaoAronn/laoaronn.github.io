@@ -231,8 +231,7 @@ const About = () => {
 
                         {/* Caption */}
                         <p
-                            className="text-center text-[var(--text-muted)] text-base sm:text-lg italic mt-8 px-4 min-h-[2rem] transition-colors duration-300"
-                            style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+                            className="headline-2 text-center text-[var(--text-muted)] text-base sm:text-lg mt-8 px-4 min-h-[2rem] transition-colors duration-300"
                         >
                             {carouselImages[index].caption}
                         </p>
@@ -264,9 +263,9 @@ const About = () => {
                             dark:shadow-[0_8px_32px_rgba(0,0,0,0.25)]
                         "
                     >
-                        <p className="mb-5 text-base sm:text-lg font-medium text-[var(--text)]">
-                            Aronn's Picks 🎵
-                        </p>
+                        <h2 className="headline-2 mb-5 text-base sm:text-lg font-medium text-[var(--text)]">
+                            Aronn's Picks ♫⋆｡♪ ₊˚♬ ﾟ.
+                        </h2>
 
                         <div className="w-full">
                             <SpotifyCard playlistId="0DttMhMT04xjw4F4An8ass" />
