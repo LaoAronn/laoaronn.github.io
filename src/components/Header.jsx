@@ -40,7 +40,7 @@ const Header = () => {
             setHeaderWidth(nextHeaderWidth);
             setLeftGroupWidth(nextLeftWidth);
             setRightGroupWidth(nextRightWidth);
-            setIsMobile(nextHeaderWidth < 768);
+            setIsMobile(nextHeaderWidth < 1080);
         };
 
         updateMeasurements();
