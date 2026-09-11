@@ -1,29 +1,37 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 
 const workExperience = [
   {
     workid: 1,
     company: 'Verzena',
     position: 'Software Engineering Intern',
-    period: 'August - December 2024',
-    desc: 'Launching a client-facing website for a Vancouver-based digital consultancy startup from the ground up',
-    logo: "/images/verzena.png",
+    period: 'Aug 2024 – Dec 2024',
+    current: false,
+    desc: 'Launching a client-facing website for a Vancouver-based digital consultancy startup from the ground up.',
+    logo: '/images/verzena.png',
     video: '/images/work/verzena_showcase.mp4',
-    link: 'https://verzena.com/'
+    link: 'https://verzena.com/',
   },
   {
     workid: 2,
     company: 'mile',
-    position: 'Software Engineering Intern',
-    period: ' Present ',
-    desc: 'TBA - Building a wellness center system',
-    logo: "/images/mile.png",
+    position: 'Junior Developer',
+    period: 'September 2026 – Present',
+    current: true,
+    desc: 'Building a wellness center system — booking, memberships, and the site that carries the brand.',
+    logo: '/images/mile.png',
     video: '',
-    link: ''
+    link: '',
   },
-
-
 ];
+
+// Deterministic placeholder gradient for entries without a video, so the
+// rail never breaks and each brand still gets a distinct field of color.
+const fallbackTint = (seed) => {
+  const hues = [204, 172, 26, 340, 92];
+  const h = hues[seed % hues.length];
+  return `linear-gradient(135deg, hsl(${h} 45% 92%) 0%, hsl(${h} 55% 82%) 100%)`;
+};
 
 const About = () => {
   const videoRefs = useRef([]);
@@ -31,79 +39,134 @@ const About = () => {
   useEffect(() => {
     videoRefs.current.forEach((video) => {
       if (video) {
-        video.play().catch(err => {
-          console.log('Autoplay blocked:', err);
-        });
+        video.play().catch(() => {});
       }
     });
   }, []);
 
   return (
-    <section id="about" className="section text-[var(--text)]">
+    <section id="about" className="section text-[var(--text)] bg-[var(--background)]">
+      <div className="container px-4 sm:px-6 max-w-3xl mx-auto py-16">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[var(--text)] mb-10">
+          Work Experience
+        </h2>
 
-      <div className="container px-4 sm:px-6">
+        <div className="relative">
+          {/* Rail */}
+          <div
+            className="absolute left-[23px] sm:left-[27px] top-2 bottom-2 w-px bg-[var(--border)]"
+            aria-hidden="true"
+          />
 
-        {/** Work Experience List */}
-        {workExperience.map(({ workid, company, position, period, desc, logo, video, link }, key) => {
+          {workExperience.map((role, index) => {
+            const {
+              company,
+              position,
+              period,
+              current,
+              desc,
+              logo,
+              video,
+              link,
+            } = role;
 
-          return (
-            <div 
-              key={key} 
-              onClick={() => window.open(link, '_blank')}
-              className="text-left relative overflow-hidden mx-auto cursor-pointer
-                hover:from-[rgba(255,255,255,0.92)] hover:to-[rgba(237,244,251,0.92)]
-              p-4 sm:p-6 md:p-10 mb-4 sm:mb-5 
-              rounded-xl sm:rounded-2xl reveal-up
-                border border-[var(--border)] dark:border-zinc-700/30 hover:border-[var(--primary)]/30
-              transition-all duration-300 hover:shadow-lg hover:shadow-[rgba(15,76,138,0.10)]
-              flex flex-col justify-end min-h-64 sm:min-h-80
-              w-full max-w-xl sm:max-w-2xl"
-            >
-              {/* Background Video */}
-              <video
-                ref={el => videoRefs.current[key] = el}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover z-[1] rounded-xl sm:rounded-2xl"
-              >
-                <source src={video} type="video/mp4" />
-              </video>
+            const hasVideo = Boolean(video);
+            const hasLink = Boolean(link);
+            const mediaFirst = index % 2 === 0;
 
-              {/* Shadow overlay */}
-              <div className="absolute inset-0 bg-[rgba(248,250,252,0.22)] dark:bg-black/60 z-[2] rounded-xl sm:rounded-2xl"></div>
+            const Wrapper = hasLink ? 'a' : 'div';
+            const wrapperProps = hasLink
+              ? { href: link, target: '_blank', rel: 'noopener noreferrer' }
+              : {};
 
-              {/* Content (bottom left) */}
-              <div className="relative z-[3] flex flex-col gap-3">
+            return (
+              <div key={role.workid} className="relative pl-16 sm:pl-20 pb-12 last:pb-0">
                 
-                {/* Logo and Company */}
-                <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-sky-400/50 hover:border-sky-400 transition-colors duration-300 shadow-lg shadow-sky-400/20">
-                    <img 
-                      src={logo} 
-                      alt={company} 
-                      className="w-full h-full object-cover" 
-                    />
-                  </div>
-                  <p className="text-xl sm:text-base font-bold text-[var(--primary)] dark:text-sky-400">
-                    {company}
-                  </p>
+                {/* Node */}
+                <div
+                  className={`absolute left-0 top-2 w-12 h-12 sm:w-14 sm:h-14 rounded-full
+                    flex items-center justify-center bg-[var(--surface)]
+                    border-2 z-10
+                    ${current ? 'border-[var(--primary)]' : 'border-[var(--border)]'}`}
+                >
+                  <img
+                    src={logo}
+                    alt=""
+                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover"
+                  />
                 </div>
 
-                {/* Job Description */}
-                <p className="text-xs sm:text-sm text-[var(--text)] dark:text-zinc-100 leading-relaxed max-w-md">
-                  {desc}
-                </p>
+                <Wrapper
+                  {...wrapperProps}
+                  className={`group block rounded-xl sm:rounded-2xl border border-[var(--border)]
+                    overflow-hidden bg-[var(--surface)]
+                    transition-shadow duration-300
+                    ${hasLink ? 'hover:shadow-lg hover:shadow-[rgba(15,76,138,0.10)] hover:border-[var(--primary)]/30 cursor-pointer' : 'cursor-default'}
+                    grid grid-cols-1 md:grid-cols-2`}
+                >
+                  {/* Media */}
+                  <div
+                    className={`relative min-h-40 sm:min-h-48 md:min-h-0
+                      ${mediaFirst ? 'md:order-1' : 'md:order-2'}`}
+                    style={!hasVideo ? { background: fallbackTint(role.workid) } : undefined}
+                  >
+                    {hasVideo ? (
+                      <video
+                        ref={(el) => (videoRefs.current[index] = el)}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="absolute inset-0 w-full h-full object-cover
+                          transition-transform duration-500 group-hover:scale-[1.03]"
+                      >
+                        <source src={video} type="video/mp4" />
+                      </video>
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center bg-[var(--surface-soft)]/60">
+                        <span className="text-sm text-[var(--text)]/60">In progress</span>
+                      </div>
+                    )}
+                  </div>
 
+                  {/* Text */}
+                  <div
+                    className={`p-5 sm:p-7 flex flex-col justify-center gap-2
+                      ${mediaFirst ? 'md:order-2' : 'md:order-1'}`}
+                  >
+
+                    {/* Currently working on */}
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-xs sm:text-sm text-[var(--text)]/50">
+                        {period}
+                      </span>
+                      {current && (
+                        <span className="inline-flex items-center gap-1.5 text-xs text-[var(--primary)] dark:text-sky-400">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--primary)] dark:bg-sky-400 animate-pulse" />
+                          Currently working
+                        </span>
+                      )}
+
+                    </div>
+
+                    <p className="text-lg sm:text-xl font-bold text-[var(--primary)]">
+                      {company}
+                    </p>
+                    <p className="text-sm font-medium text-[var(--text)]/80">
+                      {position}
+                    </p>
+                    <p className="text-xs sm:text-sm text-[var(--text)]/70 leading-relaxed max-w-md">
+                      {desc}
+                    </p>
+                  </div>
+                </Wrapper>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-
     </section>
-  )
-}
+  );
+};
 
-export default About
+export default About;
