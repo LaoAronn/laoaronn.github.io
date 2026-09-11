@@ -97,17 +97,14 @@ const Header = () => {
                         <div className="flex shrink-0 flex-col whitespace-nowrap text-left">
 
                             <h1 className="header-font relative inline-grid shrink-0 whitespace-nowrap text-xl md:text-3xl lg:text-4xl font-semibold text-inherit transition-colors duration-300">
-                                
                                 <span className="invisible col-start-1 row-start-1 select-none">Aronn Laurel</span>
-                                
-                                <a href="/about"  className="col-start-1 row-start-1">
-                                    {showSubtitle ? (
-                                        <a href="/about" className="animate-fadeIn text-[#e41010]">洪梓洺</a>
-                                    ) : (
-                                        "Aronn Laurel"
-                                    )}
-                                </a>
 
+                                <a
+                                    href="/about"
+                                    className={`col-start-1 row-start-1 transition-colors duration-300 ${showSubtitle ? "animate-fadeIn text-[#e41010]" : "text-inherit"}`}
+                                >
+                                    {showSubtitle ? "洪梓洺" : "Aronn Laurel"}
+                                </a>
                             </h1>
 
                             <p className=" sm:block font-bold text-xs md:text-sm text-[var(--text)] transition-colors duration-300">
