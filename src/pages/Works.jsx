@@ -47,8 +47,9 @@ const About = () => {
   return (
     <section id="about" className="section text-[var(--text)] bg-[var(--background)]">
       <div className="container px-4 sm:px-6 max-w-3xl mx-auto py-16">
-        <h2 className="text-2xl sm:text-3xl font-bold text-[var(--text)] mb-10">
-          Work Experience
+        
+        <h2 className="work-section-title text-2xl sm:text-3xl font-bold text-[var(--text)] mb-10">
+          Work Experiences
         </h2>
 
         <div className="relative">
@@ -149,10 +150,10 @@ const About = () => {
 
                     </div>
 
-                    <p className="text-lg sm:text-xl font-bold text-[var(--primary)]">
+                    <p className="work-company text-lg sm:text-xl font-bold text-[var(--primary)]">
                       {company}
                     </p>
-                    <p className="text-sm font-medium text-[var(--text)]/80">
+                    <p className="work-position text-md font-medium text-[var(--text)]/80">
                       {position}
                     </p>
                     <p className="text-xs sm:text-sm text-[var(--text)]/70 leading-relaxed max-w-md">

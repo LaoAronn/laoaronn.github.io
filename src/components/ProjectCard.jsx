@@ -25,7 +25,7 @@ const ProjectCard = ({ title, desc, tags, icon, color, link }) => {
       <div className="flex flex-1 flex-col gap-3 px-5 py-5 sm:px-6 sm:py-6">
         <div className="flex items-start justify-between gap-3">
           
-          <h3 className="text-2xl font-extrabold leading-none tracking-tight text-zinc-900 sm:text-3xl">
+          <h3 className="project-card-title text-2xl font-extrabold leading-none tracking-tight text-zinc-900 sm:text-3xl">
             {title}
           </h3>
 

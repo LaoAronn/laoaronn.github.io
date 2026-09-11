@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --font-display: "Satoshi", "sans-serif";
+  --font-body: "IBM Plex Mono", monospace;
+  --font-display: "Doto", sans-serif;
   --text: #121a21;
   --background: #f8fafc;
   --primary: #0f4c8a;
@@ -94,6 +96,7 @@
     background-color: var(--background);
     max-width: 100%;
     overflow-x: hidden;
+    font-family: var(--font-body);
   }
 
   body {
@@ -103,6 +106,7 @@
     color-scheme: light;
     max-width: 100%;
     overflow-x: hidden;
+    font-family: var(--font-body);
   }
 
   .dark body {
@@ -124,7 +128,8 @@
   .headline-1 {
     @apply max-w-max text-5xl leading-tight font-semibold 
     lg:text-[55px] lg:leading-[1.15] mb-0;
-    
+    font-family: var(--font-display);
+    letter-spacing: -0.04em;
     background: -webkit-linear-gradient(0deg, var(--text), var(--primary));
     background-clip: text;
     -webkit-background-clip: text;
@@ -141,10 +146,14 @@
 
   .headline-2 {
     @apply text-3xl lg:text-4xl lg:leading-tight font-semibold;
+    font-family: var(--font-display);
+    letter-spacing: -0.04em;
   }
 
   .title-1 {
     @apply text-[22px] font-normal;
+    font-family: var(--font-display);
+    letter-spacing: -0.04em;
   }
 
   :root[data-theme="light"] .headline-2,
@@ -189,9 +198,17 @@
 
   /* Header font: use Georgia for header elements */
   .header-font {
-    font-family: 'Roboto', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    font-family: var(--font-display);
   }
 
+  .nav-link,
+  .nav-link-mobile,
+  .project-card-title,
+  .work-section-title,
+  .work-company,
+  .work-position {
+    font-family: var(--font-display);
+  }
 
   .menu-btn {
     @apply w-10 h-10 grid place-items-center rounded-xl 

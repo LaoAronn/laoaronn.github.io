@@ -2,14 +2,13 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeasureNavWidth }) => {
+const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu }) => {
 
   const lastActiveLink = useRef(null);
   const location = useLocation();
 
   const menuButtonRef = useRef(null);
   const menuPanelRef = useRef(null);
-  const measureRowRef = useRef(null);
 
   const navItems = [
     {
@@ -87,33 +86,6 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
       document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [menuOpen, onCloseMenu]);
-
-  // Measurement for Compact mode
-  useLayoutEffect(() => {
-    const measureElement = measureRowRef.current;
-
-    if (!measureElement) {
-      return undefined;
-    }
-
-    const reportWidth = () => {
-      onMeasureNavWidth(Math.ceil(measureElement.scrollWidth));
-    };
-
-    reportWidth();
-
-    if (typeof ResizeObserver === "undefined") {
-      return undefined;
-    }
-
-    const observer = new ResizeObserver(() => {
-      reportWidth();
-    });
-
-    observer.observe(measureElement);
-
-    return () => observer.disconnect();
-  }, [location.pathname, onMeasureNavWidth, compact, isMobile]);
 
   // Click handler for nav links
   const activeCurrentLink = (event) => {
@@ -197,19 +169,11 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
     </>
   );
 
-  // Full-width layout: just the nav row and a hidden duplicate used
-  // for measuring (see useLayoutEffect above)
   if (!compact) {
     return (
-      <>
-        <nav className="navbar flex items-center justify-center gap-8 whitespace-nowrap">
-          {renderNavItems(false)}
-        </nav>
-
-        <div ref={measureRowRef} className="pointer-events-none absolute left-0 top-0 -z-10 flex w-full max-w-full items-center gap-8 overflow-hidden whitespace-nowrap opacity-0" aria-hidden="true">
-          {renderNavItems(false)}
-        </div>
-      </>
+      <nav className="navbar flex items-center justify-center gap-8 whitespace-nowrap">
+        {renderNavItems(false)}
+      </nav>
     );
   }
 
@@ -248,10 +212,6 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
         </nav>
       </div>
 
-      {/* Same hidden measuring row as the non-compact branch, kept here too so width reporting still works while compact. */}
-      <div ref={measureRowRef} className="pointer-events-none absolute left-0 top-0 -z-10 flex w-full max-w-full items-center gap-8 overflow-hidden whitespace-nowrap opacity-0" aria-hidden="true">
-        {renderNavItems(false)}
-      </div>
     </div>
   );
 };

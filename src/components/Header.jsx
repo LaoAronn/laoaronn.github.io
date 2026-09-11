@@ -12,7 +12,6 @@ const Header = () => {
     const [headerWidth, setHeaderWidth] = useState(0);
     const [leftGroupWidth, setLeftGroupWidth] = useState(0);
     const [rightGroupWidth, setRightGroupWidth] = useState(0);
-    const [navWidth, setNavWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(true);
     const [isCompact, setIsCompact] = useState(true);
     const headerRef = useRef(null);
@@ -64,15 +63,14 @@ const Header = () => {
     }, []);
 
     useEffect(() => {
-        const availableSpace = Math.max(0, headerWidth - leftGroupWidth - rightGroupWidth - 48);
-        const nextCompactState = isMobile || (navWidth > 0 && navWidth > availableSpace);
+        const nextCompactState = isMobile;
 
         setIsCompact(nextCompactState);
 
         if (!nextCompactState) {
             setMenuOpen(false);
         }
-    }, [headerWidth, leftGroupWidth, rightGroupWidth, navWidth, isMobile]);
+    }, [isMobile]);
 
     return (
         <header ref={headerRef} className="sticky top-0 z-50 bg-gradient-to-b text-[var(--text)] transition-colors duration-300 backdrop-blur-sm header-font">
@@ -97,8 +95,11 @@ const Header = () => {
                         </button>
 
                         <div className="flex shrink-0 flex-col whitespace-nowrap text-left">
-                            <h1 className="relative inline-grid shrink-0 whitespace-nowrap text-xl md:text-3xl lg:text-4xl font-semibold text-inherit transition-colors duration-300">
+
+                            <h1 className="header-font relative inline-grid shrink-0 whitespace-nowrap text-xl md:text-3xl lg:text-4xl font-semibold text-inherit transition-colors duration-300">
+                                
                                 <span className="invisible col-start-1 row-start-1 select-none">Aronn Laurel</span>
+                                
                                 <a href="/about"  className="col-start-1 row-start-1">
                                     {showSubtitle ? (
                                         <a href="/about" className="animate-fadeIn text-[#e41010]">洪梓洺</a>
@@ -106,8 +107,10 @@ const Header = () => {
                                         "Aronn Laurel"
                                     )}
                                 </a>
+
                             </h1>
-                            <p className=" sm:block text-xs md:text-sm text-[var(--text)] transition-colors duration-300">
+
+                            <p className=" sm:block font-bold text-xs md:text-sm text-[var(--text)] transition-colors duration-300">
                                 Dev, design, & everything in between.
                             </p>
                         </div>
@@ -121,7 +124,6 @@ const Header = () => {
                             menuOpen={menuOpen}
                             onToggleMenu={() => setMenuOpen((current) => !current)}
                             onCloseMenu={() => setMenuOpen(false)}
-                            onMeasureNavWidth={setNavWidth}
                         />
                     </div>
 
