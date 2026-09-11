@@ -4,9 +4,6 @@ import SpotifyCard from "../components/SpotifyCard";
 import { useState, useRef } from "react";
 
 const About = () => {
-    const [currentSlide, setCurrentSlide] = useState(0);
-    const carouselRef = useRef(null);
-
     const carouselImages = [
         { src: "/images/gallery/baskethound.JPG", caption: "My last year with BasketHounds (2023 - 2026)" },
         { src: "/images/gallery/cypress2025.JPG", caption: "Cypress Mountains with friends (2026)" },
@@ -17,6 +14,54 @@ const About = () => {
         { src: "/images/gallery/pokemon.MOV", caption: "Pulling a shiny Jigglypuff!" },
         { src: "/images/gallery/hk_tswf.JPG", caption: "Hangout with my friends Percy and TSWF (2026)" },
         { src: "/images/gallery/trout.JPG", caption: "Trout lake with good company (Aug 2025)" },
+    ];
+
+    const total = carouselImages.length;
+    const [index, setIndex] = useState(0);
+    const [dragX, setDragX] = useState(0);
+    const [dragging, setDragging] = useState(false);
+    const startXRef = useRef(0);
+
+    const next = () => setIndex((i) => (i + 1) % total);
+    const prev = () => setIndex((i) => (i - 1 + total) % total);
+
+    const isVideo = (src) =>
+        src.toLowerCase().endsWith('.mov') || src.toLowerCase().endsWith('.mp4');
+
+    const handlePointerDown = (e) => {
+        startXRef.current = e.clientX;
+        setDragging(true);
+        e.currentTarget.setPointerCapture(e.pointerId);
+    };
+
+    const handlePointerMove = (e) => {
+        if (!dragging) return;
+        setDragX(e.clientX - startXRef.current);
+    };
+
+    const handlePointerUp = () => {
+        const threshold = 60;
+        if (Math.abs(dragX) < 10) {
+            next(); // treat as a tap on the top photo
+        } else if (dragX <= -threshold) {
+            next();
+        } else if (dragX >= threshold) {
+            prev();
+        }
+        setDragging(false);
+        setDragX(0);
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'ArrowLeft') prev();
+        if (e.key === 'ArrowRight') next();
+    };
+
+    // Fixed fan geometry for the two cards sitting behind the top photo.
+    const layerStyle = [
+        { rotate: 0, x: 0, y: 0, scale: 1, opacity: 1, z: 30 },
+        { rotate: 8, x: 200, y: 14, scale: 0.94, opacity: 1, z: 20 },
+        { rotate: -8, x: -200, y: 20, scale: 0.88, opacity: 0.95, z: 10 },
     ];
 
     return (
@@ -76,7 +121,7 @@ const About = () => {
 
                     <p className="text-[var(--text)] zinc-100 text-left text-sm sm:text-base lg:text-lg w-full transition-colors duration-300">
                         Recently interned at {" "}
-                        
+
                         <a
                             href="https://verzena.com/"
                             target="_blank"
@@ -93,90 +138,59 @@ const About = () => {
                         Outside of work, you can find me hunting for Pokemon cards and Lego sets, competing in Vancouver basketball leagues, or just making the most of every sunny day the city offers.
                     </p>
 
-                    {/* Image Carousel */}
-                    <div className="w-full mt-8 lg:mt-12">
-                        <div className="relative w-full">
-                            
-                            {/* Navigation Buttons */}
+                    {/* Photo Stack */}
+                    <div className="w-full mt-8 lg:mt-12 flex flex-col items-center">
+
+                        <div className="relative w-full flex items-center justify-center px-10 sm:px-0">
+
+                            {/* Prev */}
                             <button
-                                onClick={() => {
-                                    if (carouselRef.current) {
-                                        const items = carouselRef.current.querySelectorAll('.carousel-item');
-                                        const newIndex = (currentSlide - 1 + items.length) % items.length;
-                                        items[newIndex]?.scrollIntoView({
-                                            behavior: 'smooth',
-                                            block: 'nearest',
-                                            inline: 'center'
-                                        });
-                                    }
-                                }}
-                                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 sm:-translate-x-16 z-20 p-2 text-zinc-500 zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors"
-                                aria-label="Previous slide"
+                                onClick={prev}
+                                className="absolute left-0 sm:-left-10 top-1/2 -translate-y-1/2 z-40 p-2 text-zinc-500 zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors"
+                                aria-label="Previous photo"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                 </svg>
                             </button>
 
-                            <button
-                                onClick={() => {
-                                    if (carouselRef.current) {
-                                        const items = carouselRef.current.querySelectorAll('.carousel-item');
-                                        const newIndex = (currentSlide + 1) % items.length;
-                                        items[newIndex]?.scrollIntoView({
-                                            behavior: 'smooth',
-                                            block: 'nearest',
-                                            inline: 'center'
-                                        });
-                                    }
-                                }}
-                                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 sm:translate-x-16 z-20 p-2 text-zinc-500 zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors"
-                                aria-label="Next slide"
+                            {/* Stage */}
+                            <div
+                                className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 outline-none rounded-2xl
+                                    focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
+                                style={{ touchAction: 'pan-y' }}
+                                tabIndex={0}
+                                role="group"
+                                aria-label="Photo gallery, use arrow keys to browse"
+                                onKeyDown={handleKeyDown}
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5L15.75 12l-7.5 7.5" />
-                                </svg>
-                            </button>
+                                {layerStyle.map((layer, k) => {
+                                    const photo = carouselImages[(index + k) % total];
+                                    const isTop = k === 0;
+                                    const liveRotate = isTop ? layer.rotate + dragX / 12 : layer.rotate;
+                                    const liveX = isTop ? layer.x + dragX : layer.x;
 
-                            {/* Carousel Container */}
-                            <div className="overflow-hidden rounded-lg">
-                                <div 
-                                    ref={carouselRef}
-                                    className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth px-[calc(50vw-160px)] sm:px-[calc(50vw-192px)]"
-                                    style={{
-                                        scrollPaddingLeft: 'calc(50vw - 160px)',
-                                        scrollPaddingRight: 'calc(50vw - 160px)'
-                                    }}
-                                    onScroll={(e) => {
-                                        const container = e.currentTarget;
-                                        const items = container.querySelectorAll('.carousel-item');
-                                        if (items.length === 0) return;
-                                        
-                                        const containerCenter = container.scrollLeft + container.clientWidth / 2;
-                                        let closestIndex = 0;
-                                        let closestDistance = Infinity;
-                                        
-                                        items.forEach((item, i) => {
-                                            const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-                                            const distance = Math.abs(containerCenter - itemCenter);
-                                            if (distance < closestDistance) {
-                                                closestDistance = distance;
-                                                closestIndex = i;
-                                            }
-                                        });
-                                        
-                                        setCurrentSlide(closestIndex);
-                                    }}
-                                >
-                                    {carouselImages.map((item, index) => (
+                                    return (
                                         <div
-                                            key={index}
-                                            className="carousel-item flex-shrink-0 w-80 h-80 sm:w-96 sm:h-96 snap-center rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                                            key={`${photo.src}-${k}`}
+                                            className={`absolute inset-0 rounded-2xl overflow-hidden shadow-xl
+                                                border-4 border-white dark:border-zinc-900 select-none
+                                                motion-reduce:transition-none
+                                                ${isTop && !dragging ? 'transition-transform duration-300 ease-out' : ''}
+                                                ${isTop ? 'cursor-grab active:cursor-grabbing' : ''}`}
+                                            style={{
+                                                transform: `translate(${liveX}px, ${layer.y}px) rotate(${liveRotate}deg) scale(${layer.scale})`,
+                                                zIndex: layer.z,
+                                                opacity: layer.opacity,
+                                            }}
+                                            onPointerDown={isTop ? handlePointerDown : undefined}
+                                            onPointerMove={isTop ? handlePointerMove : undefined}
+                                            onPointerUp={isTop ? handlePointerUp : undefined}
                                         >
-                                            {item.src.toLowerCase().endsWith('.mov') || item.src.toLowerCase().endsWith('.mp4') ? (
+                                            {isVideo(photo.src) ? (
                                                 <video
-                                                    src={item.src}
-                                                    className="w-full h-full object-cover"
+                                                    src={photo.src}
+                                                    className="w-full h-full object-cover pointer-events-none"
                                                     autoPlay
                                                     loop
                                                     muted
@@ -184,47 +198,56 @@ const About = () => {
                                                 />
                                             ) : (
                                                 <img
-                                                    src={item.src}
-                                                    alt={item.caption}
-                                                    className="w-full h-full object-cover"
+                                                    src={photo.src}
+                                                    alt={photo.caption}
+                                                    className="w-full h-full object-cover pointer-events-none"
+                                                    draggable={false}
+                                                />
+                                            )}
+
+                                            {isTop && (
+                                                <span
+                                                    className="absolute -top-2 left-1/2 -translate-x-1/2 w-14 h-5
+                                                        bg-white/70 dark:bg-zinc-200/60 rotate-[-3deg] shadow-sm"
+                                                    aria-hidden="true"
                                                 />
                                             )}
                                         </div>
-                                    ))}
-                                </div>
+                                    );
+                                })}
                             </div>
+
+                            {/* Next */}
+                            <button
+                                onClick={next}
+                                className="absolute right-0 sm:-right-10 top-1/2 -translate-y-1/2 z-40 p-2 text-zinc-500 zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors"
+                                aria-label="Next photo"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5L15.75 12l-7.5 7.5" />
+                                </svg>
+                            </button>
                         </div>
 
                         {/* Caption */}
-                        <p className="text-center text-[var(--text-muted)] text-sm sm:text-base mt-6 px-2 min-h-[3rem] flex items-center justify-center font-medium transition-colors duration-300">
-                            {carouselImages[currentSlide].caption}
+                        <p
+                            className="text-center text-[var(--text-muted)] text-base sm:text-lg italic mt-8 px-4 min-h-[2rem] transition-colors duration-300"
+                            style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+                        >
+                            {carouselImages[index].caption}
                         </p>
 
-                        {/* Dot Indicators */}
-                        <div className="flex justify-center gap-3 mt-6">
-                            {carouselImages.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => {
-                                        if (carouselRef.current) {
-                                            const items = carouselRef.current.querySelectorAll('.carousel-item');
-                                            if (items[index]) {
-                                                items[index].scrollIntoView({
-                                                    behavior: 'smooth',
-                                                    block: 'nearest',
-                                                    inline: 'center'
-                                                });
-                                            }
-                                        }
-                                    }}
-                                            className={`transition-all duration-300 rounded-full ${
-                                        index === currentSlide 
-                                            ? 'w-3 h-3 bg-[var(--accent)] shadow-lg shadow-[rgba(59,130,206,0.35)]' 
-                                            : 'w-2 h-2 bg-[var(--secondary)]/70 hover:bg-[var(--secondary)]'
-                                    }`}
-                                    aria-label={`Go to slide ${index + 1}`}
+                        {/* Progress */}
+                        <div className="flex items-center justify-center gap-3 mt-3">
+                            <span className="text-xs text-[var(--text-muted)] tabular-nums">
+                                {index + 1} / {total}
+                            </span>
+                            <div className="w-24 h-1 rounded-full bg-[var(--secondary)]/30 overflow-hidden">
+                                <div
+                                    className="h-full bg-[var(--primary)] transition-all duration-300"
+                                    style={{ width: `${((index + 1) / total) * 100}%` }}
                                 />
-                            ))}
+                            </div>
                         </div>
 
                     </div>
