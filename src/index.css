@@ -223,8 +223,48 @@
   }
 
   .nav-link {
-    @apply flex items-center h-9 px-3 text-lg font-medium text-left
-    tracking-wide transition-colors md:h-12 md:px-6 md:text-xl;
+    @apply flex items-center gap-2 h-9 px-3 text-lg font-medium text-left
+    tracking-wide transition-colors md:h-12 md:px-4 md:text-xl;
+  }
+
+  .nav-link-desktop {
+    gap: 0.5rem;
+  }
+
+  .nav-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .nav-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+    display: block;
+    stroke: currentColor;
+  }
+
+  .nav-menu-toggle {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+  }
+
+  .nav-menu-panel {
+    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    border: 1px solid var(--border);
+    color: var(--text);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+  }
+
+  .nav-link-mobile {
+    color: var(--text);
+  }
+
+  .nav-link-mobile:hover {
+    background: var(--surface-soft);
   }
 
   :root[data-theme="light"] .nav-link,
@@ -244,20 +284,40 @@
   :root[data-theme="dark"] .nav-link,
   :root[data-theme="dark"] .nav-link-contact,
   .dark .nav-link,
-  .dark .nav-link-contact {
+  .dark .nav-link-contact,
+  :root[data-theme="dark"] .nav-link-mobile,
+  .dark .nav-link-mobile {
     color: rgba(222, 230, 237, 0.72);
   }
 
   :root[data-theme="dark"] .nav-link:hover,
   :root[data-theme="dark"] .nav-link-contact:hover,
   .dark .nav-link:hover,
-  .dark .nav-link-contact:hover {
+  .dark .nav-link-contact:hover,
+  :root[data-theme="dark"] .nav-link-mobile:hover,
+  .dark .nav-link-mobile:hover {
     color: var(--text);
   }
 
   :root[data-theme="dark"] .nav-link.active,
   .dark .nav-link.active {
     color: var(--accent);
+  }
+
+  :root[data-theme="dark"] .nav-menu-toggle,
+  .dark .nav-menu-toggle {
+    background: rgba(11, 16, 21, 0.84);
+    border-color: rgba(117, 178, 240, 0.16);
+    color: var(--text);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  }
+
+  :root[data-theme="dark"] .nav-menu-panel,
+  .dark .nav-menu-panel {
+    background: rgba(11, 16, 21, 0.96);
+    border-color: rgba(117, 178, 240, 0.16);
+    color: var(--text);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.26);
   }
 
   .nav-link-contact {

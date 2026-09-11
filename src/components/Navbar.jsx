@@ -7,27 +7,35 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
   const lastActiveLink = useRef(null);
   const location = useLocation();
 
- 
   const menuButtonRef = useRef(null);
   const menuPanelRef = useRef(null);
-
   const measureRowRef = useRef(null);
 
   const navItems = [
     {
       label: "About",
       link: "/about",
+      icon: "home",
       className: "nav-link",
     },
     {
       label: "Projects",
       link: "/projects",
+      icon: "folder",
       className: "nav-link",
     },
     {
       label: "Work",
       link: "/works",
+      icon: "briefcase",
       className: "nav-link",
+    },
+    {
+      label: "Resume",
+      link: "/images/resume.pdf",
+      icon: "resume",
+      className: "nav-link",
+      external: true,
     },
   ];
 
@@ -116,13 +124,64 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
     onCloseMenu();
   };
 
-  // display shared set of nav links + Resume link
+  const iconMap = {
+    home: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="nav-icon" aria-hidden="true">
+        <path d="M3 10.5 12 3l9 7.5" />
+        <path d="M5 9.5V20h14V9.5" />
+        <path d="M9 20v-6h6v6" />
+      </svg>
+    ),
+    folder: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="nav-icon" aria-hidden="true">
+        <path d="M3.5 7.5A2.5 2.5 0 0 1 6 5h3l1.4 1.8H18a2.5 2.5 0 0 1 2.5 2.5v6.2A2.5 2.5 0 0 1 18 17.5H6A2.5 2.5 0 0 1 3.5 15V7.5Z" />
+        <path d="M3.5 9.5h17" />
+      </svg>
+    ),
+    briefcase: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="nav-icon" aria-hidden="true">
+        <path d="M9 7V5.8A1.8 1.8 0 0 1 10.8 4h2.4A1.8 1.8 0 0 1 15 5.8V7" />
+        <path d="M4 9.5A2.5 2.5 0 0 1 6.5 7h11A2.5 2.5 0 0 1 20 9.5v6A2.5 2.5 0 0 1 17.5 18h-11A2.5 2.5 0 0 1 4 15.5v-6Z" />
+        <path d="M8 12h8" />
+      </svg>
+    ),
+    resume: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="nav-icon" aria-hidden="true">
+        <path d="M7 4.5h7l4 4V18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6.5a2 2 0 0 1 2-2Z" />
+        <path d="M14 4.5V9h4" />
+        <path d="M8 13h8M8 16h6" />
+      </svg>
+    ),
+  };
+
   const renderNavItems = (isMobileMenu = false) => (
     <>
-      {navItems.map(({ label, link, className }, key) => {
+      {navItems.map(({ label, link, className, external, icon }, key) => {
         const itemClasses = isMobileMenu
-          ? `${className} nav-link-mobile !h-auto !min-h-[44px] !w-full !justify-start !px-4 !py-3 !text-base !tracking-normal hover:bg-zinc-100 `
-          : className;
+          ? `${className} nav-link-mobile !h-auto !min-h-[44px] !w-full !justify-start !px-3 !py-2 !text-base !tracking-normal`
+          : `${className} nav-link-desktop`;
+
+        const content = (
+          <>
+            <span className="nav-icon-wrap">{iconMap[icon]}</span>
+            <span>{label}</span>
+          </>
+        );
+
+        if (external) {
+          return (
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              key={key}
+              className={itemClasses}
+              onClick={isMobileMenu ? onCloseMenu : undefined}
+            >
+              {content}
+            </a>
+          );
+        }
 
         return (
           <Link
@@ -131,23 +190,10 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
             className={itemClasses}
             onClick={activeCurrentLink}
           >
-            {label}
+            {content}
           </Link>
         );
       })}
-
-      <a
-        href="/images/resume.pdf"
-        className={isMobileMenu
-          ? "nav-link nav-link-mobile !h-auto !min-h-[44px] !w-full !justify-start !px-4 !py-3 !text-base !tracking-normal hover:bg-zinc-100"
-          : "nav-link"
-        }
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={isMobileMenu ? onCloseMenu : undefined}
-      >
-        Resume
-      </a>
     </>
   );
 
@@ -182,7 +228,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
         aria-expanded={menuOpen}
         aria-controls="site-navigation"
         onClick={onToggleMenu}
-        className="group inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-zinc-200/70 bg-white/70 text-zinc-900 shadow-sm transition hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-white "
+        className="nav-menu-toggle group inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-sm transition focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-white"
       >
         <span className="relative flex h-4 w-5 flex-col justify-between">
           <span className={`block h-0.5 w-full rounded-full bg-current transition duration-300 ${menuOpen ? "translate-y-1.5 rotate-45" : ""}`} />
@@ -195,15 +241,14 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
       <div
         ref={menuPanelRef}
         id="site-navigation"
-        className={`absolute top-full z-50 w-full overflow-hidden border border-zinc-200/80 bg-white/95 shadow-lg shadow-zinc-950/10 backdrop-blur-md transition-[max-height,opacity,transform] duration-300 dark:border-zinc-700 dark:bg-zinc-900/95 dark:shadow-zinc-950/30 ${mobileMenuClasses} ${menuOpen ? "max-h-96 translate-y-0 opacity-100" : "pointer-events-none max-h-0 -translate-y-2 opacity-0"}`}
+        className={`nav-menu-panel absolute top-full z-50 w-full overflow-hidden shadow-lg backdrop-blur-md transition-[max-height,opacity,transform] duration-300 ${mobileMenuClasses} ${menuOpen ? "max-h-96 translate-y-0 opacity-100" : "pointer-events-none max-h-0 -translate-y-2 opacity-0"}`}
       >
         <nav className="flex flex-col py-2 whitespace-nowrap">
           {renderNavItems(true)}
         </nav>
       </div>
 
-      {/* Same hidden measuring row as the non-compact branch, kept here too
-          so width reporting still works while compact. */}
+      {/* Same hidden measuring row as the non-compact branch, kept here too so width reporting still works while compact. */}
       <div ref={measureRowRef} className="pointer-events-none absolute left-0 top-0 -z-10 flex w-max items-center gap-8 whitespace-nowrap opacity-0" aria-hidden="true">
         {renderNavItems(false)}
       </div>
