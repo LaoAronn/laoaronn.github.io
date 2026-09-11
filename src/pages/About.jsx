@@ -252,10 +252,28 @@ const About = () => {
 
                     </div>
 
+                    
                     {/* Spotify Widget */}
-                    <div className="w-full mt-12 lg:mt-16">
-                        <SpotifyCard playlistId="0DttMhMT04xjw4F4An8ass" />
+                    <div
+                        className="
+                            mt-10 relative z-10 w-full rounded-2xl p-5 sm:p-7
+                            border border-white/20 dark:border-white/10
+                            bg-white/20 dark:bg-white/[0.06]
+                            backdrop-blur-xl
+                            shadow-[0_8px_32px_rgba(0,0,0,0.08)]
+                            dark:shadow-[0_8px_32px_rgba(0,0,0,0.25)]
+                        "
+                    >
+                        <p className="mb-5 text-base sm:text-lg font-medium text-[var(--text)]">
+                            Aronn's Picks 🎵
+                        </p>
+
+                        <div className="w-full">
+                            <SpotifyCard playlistId="0DttMhMT04xjw4F4An8ass" />
+                        </div>
                     </div>
+
+                
 
                 </div>
 
