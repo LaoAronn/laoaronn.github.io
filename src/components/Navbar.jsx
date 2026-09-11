@@ -206,7 +206,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
           {renderNavItems(false)}
         </nav>
 
-        <div ref={measureRowRef} className="pointer-events-none absolute left-0 top-0 -z-10 flex w-max items-center gap-8 whitespace-nowrap opacity-0" aria-hidden="true">
+        <div ref={measureRowRef} className="pointer-events-none absolute left-0 top-0 -z-10 flex w-full max-w-full items-center gap-8 overflow-hidden whitespace-nowrap opacity-0" aria-hidden="true">
           {renderNavItems(false)}
         </div>
       </>
@@ -249,7 +249,7 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu, onMeas
       </div>
 
       {/* Same hidden measuring row as the non-compact branch, kept here too so width reporting still works while compact. */}
-      <div ref={measureRowRef} className="pointer-events-none absolute left-0 top-0 -z-10 flex w-max items-center gap-8 whitespace-nowrap opacity-0" aria-hidden="true">
+      <div ref={measureRowRef} className="pointer-events-none absolute left-0 top-0 -z-10 flex w-full max-w-full items-center gap-8 overflow-hidden whitespace-nowrap opacity-0" aria-hidden="true">
         {renderNavItems(false)}
       </div>
     </div>

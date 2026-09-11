@@ -92,6 +92,8 @@
   html {
     scroll-behavior: smooth;
     background-color: var(--background);
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   body {
@@ -99,6 +101,8 @@
     background-color: var(--background);
     color: var(--text);
     color-scheme: light;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   .dark body {
@@ -109,6 +113,8 @@
 
   #root {
     min-height: 100vh;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 }
 
