@@ -107,7 +107,7 @@ const Header = () => {
                                     )}
                                 </a>
                             </h1>
-                            <p className="hidden sm:block text-xs md:text-sm text-[var(--text)] transition-colors duration-300">
+                            <p className=" sm:block text-xs md:text-sm text-[var(--text)] transition-colors duration-300">
                                 Dev, design, & everything in between.
                             </p>
                         </div>
