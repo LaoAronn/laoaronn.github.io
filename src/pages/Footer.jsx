@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 */
 import About from "../pages/About";
 import Works from "../pages/Works";
-import Projects from "../pages/projects";
+import Projects from "../pages/Projects";
 
 const Footer = () => {
   const [vancouverTime, setVancouverTime] = useState("");
