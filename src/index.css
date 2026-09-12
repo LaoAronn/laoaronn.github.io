@@ -206,6 +206,7 @@
   .project-card-title,
   .work-section-title,
   .work-company,
+  .project-filter-btn,
   .work-position {
     font-family: var(--font-display);
   }
