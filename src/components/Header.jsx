@@ -1,6 +1,5 @@
 /* Components */
 import Navbar from "./Navbar"
-import ThemeSelector from "./ThemeSelector";
 
 /* Node */
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -126,7 +125,6 @@ const Header = () => {
 
                     {/* Right: Theme / Icons */}
                     <div ref={rightGroupRef} className="hidden shrink-0 items-center justify-end gap-3 whitespace-nowrap md:flex">
-                        <ThemeSelector />
                     </div>
 
                 </div>
