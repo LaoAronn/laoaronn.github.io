@@ -8,12 +8,13 @@ import { Link } from "react-router-dom";
 */
 import About from "../pages/About";
 import Works from "../pages/Works";
-import Projects from "../pages/Projects";
+import Projects from "../pages/projects";
 
 const Footer = () => {
   const [vancouverTime, setVancouverTime] = useState("");
   const [isDaytime, setIsDaytime] = useState(true);
 
+  // Update the Vancouver time every second
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -82,7 +83,7 @@ const Footer = () => {
           {/* Center Section */}
           <div className="flex flex-col items-start md:items-center gap-4">
             <nav className="flex flex-col md:flex-row gap-6 text-sm text-[var(--text)]/80 transition-colors duration-300">
-              <Link to="/" className="hover:text-[var(--text)] transition-colors">Project</Link>
+              <Link to="/projects" className="hover:text-[var(--text)] transition-colors">Project</Link>
               <Link to="/works" className="hover:text-[var(--text)] transition-colors">Work</Link>
               <Link to="/about" className="hover:text-[var(--text)] transition-colors">About</Link>
             </nav>
