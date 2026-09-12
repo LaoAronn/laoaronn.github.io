@@ -179,8 +179,9 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu }) => {
 
   // Compact layout
   const mobileMenuClasses = isMobile
-    ? "left-0 right-0 w-full"
+    ? "left-1/2 top-[4.75rem] w-[min(22rem,calc(100vw-1rem))] -translate-x-1/2"
     : "left-1/2 top-full mt-3 w-[min(20rem,calc(100vw-2rem))] -translate-x-1/2";
+  const mobileMenuPositionClass = isMobile ? "fixed" : "absolute";
 
   return (
     <div className="relative flex w-full min-w-0 items-center justify-end"> {/* Hamburger toggle button */}
@@ -205,9 +206,9 @@ const Navbar = ({ compact, isMobile, menuOpen, onToggleMenu, onCloseMenu }) => {
       <div
         ref={menuPanelRef}
         id="site-navigation"
-        className={`nav-menu-panel absolute top-full z-50 w-full overflow-hidden shadow-lg backdrop-blur-md transition-[max-height,opacity,transform] duration-300 ${mobileMenuClasses} ${menuOpen ? "max-h-96 translate-y-0 opacity-100" : "pointer-events-none max-h-0 -translate-y-2 opacity-0"}`}
+        className={`nav-menu-panel ${mobileMenuPositionClass} z-50 w-full overflow-hidden shadow-lg backdrop-blur-md transition-[max-height,opacity,transform] duration-300 ${mobileMenuClasses} ${menuOpen ? "max-h-96 translate-y-0 opacity-100" : "pointer-events-none max-h-0 -translate-y-2 opacity-0"}`}
       >
-        <nav className="flex flex-col py-2 whitespace-nowrap">
+        <nav className="flex flex-col py-2 whitespace-normal max-h-[calc(100vh-6rem)] overflow-y-auto">
           {renderNavItems(true)}
         </nav>
       </div>

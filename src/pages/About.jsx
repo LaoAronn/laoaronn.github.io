@@ -21,6 +21,7 @@ const About = () => {
     const [dragX, setDragX] = useState(0);
     const [dragging, setDragging] = useState(false);
     const startXRef = useRef(0);
+    const dragXRef = useRef(0);
 
     const next = () => setIndex((i) => (i + 1) % total);
     const prev = () => setIndex((i) => (i - 1 + total) % total);
@@ -30,25 +31,38 @@ const About = () => {
 
     const handlePointerDown = (e) => {
         startXRef.current = e.clientX;
+        dragXRef.current = 0;
+        setDragX(0);
         setDragging(true);
         e.currentTarget.setPointerCapture(e.pointerId);
     };
 
     const handlePointerMove = (e) => {
         if (!dragging) return;
-        setDragX(e.clientX - startXRef.current);
+        const nextDragX = e.clientX - startXRef.current;
+        dragXRef.current = nextDragX;
+        setDragX(nextDragX);
     };
 
     const handlePointerUp = () => {
         const threshold = 60;
-        if (Math.abs(dragX) < 10) {
+        const releasedDragX = dragXRef.current;
+
+        if (Math.abs(releasedDragX) < 10) {
             next(); // treat as a tap on the top photo
-        } else if (dragX <= -threshold) {
+        } else if (releasedDragX <= -threshold) {
             next();
-        } else if (dragX >= threshold) {
+        } else if (releasedDragX >= threshold) {
             prev();
         }
         setDragging(false);
+        dragXRef.current = 0;
+        setDragX(0);
+    };
+
+    const handlePointerCancel = () => {
+        setDragging(false);
+        dragXRef.current = 0;
         setDragX(0);
     };
 
@@ -186,6 +200,7 @@ const About = () => {
                                             onPointerDown={isTop ? handlePointerDown : undefined}
                                             onPointerMove={isTop ? handlePointerMove : undefined}
                                             onPointerUp={isTop ? handlePointerUp : undefined}
+                                            onPointerCancel={isTop ? handlePointerCancel : undefined}
                                         >
                                             {isVideo(photo.src) ? (
                                                 <video
