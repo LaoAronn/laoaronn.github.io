@@ -4,6 +4,7 @@
 :root {
   --font-body: "IBM Plex Mono", monospace;
   --font-display: "Doto", sans-serif;
+
   --text: #121a21;
   --background: #f8fafc;
   --primary: #0f4c8a;
@@ -18,26 +19,39 @@
   --color-page-light: var(--background);
   --color-text-light: var(--text);
   --color-accent: var(--accent);
+
+  /* Project cards */
   --project-card-border: rgba(24, 24, 27, 0.8);
   --project-card-hover-border: #000000;
   --project-card-hover-shadow: 6px 6px 0 0 rgba(0, 0, 0, 0.25);
   --project-card-icon: #18181b;
   --project-card-divider-border: rgba(24, 24, 27, 0.8);
 
-  --project-filter-border: color-mix(in srgb, var(--text) 18%, transparent);
+  /* Project filters */
+  --project-filter-border: color-mix(
+    in srgb,
+    var(--text) 18%,
+    transparent
+  );
   --project-filter-text: var(--text-muted);
   --project-filter-hover-border: #000000;
   --project-filter-hover-text: var(--text);
+
   --project-filter-active-border: #000000;
   --project-filter-active-background: #000000;
   --project-filter-active-text: #ffffff;
 
+  /* Tailwind/custom variables */
   --breakpoint-3xl: 1920px;
   --color-avocado-100: oklch(0.99 0 0);
-  /* ...etc */
+
   --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
   --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
 }
+
+/* =========================================================
+   DARK THEME
+   ========================================================= */
 
 :root[data-theme="dark"],
 .dark {
@@ -55,40 +69,53 @@
   --color-page-light: var(--background);
   --color-text-light: var(--text);
   --color-accent: var(--accent);
+
+  /* Project cards */
   --project-card-border: #fafafa;
   --project-card-hover-border: #fafafa;
   --project-card-hover-shadow: 6px 6px 0 0 rgba(255, 255, 255, 0.85);
   --project-card-icon: #fafafa;
   --project-card-divider-border: rgba(250, 250, 250, 0.7);
 
+  /* Project filters */
   --project-filter-border: rgba(250, 250, 250, 0.3);
   --project-filter-text: rgba(222, 230, 237, 0.85);
+
   --project-filter-hover-border: #fafafa;
   --project-filter-hover-text: #fafafa;
+
   --project-filter-active-border: #fafafa;
   --project-filter-active-background: #fafafa;
   --project-filter-active-text: #030507;
 }
 
+/* =========================================================
+   UTILITIES
+   ========================================================= */
+
 @layer utilities {
   .font-sans {
     font-family: 'Inter', sans-serif;
   }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;
     }
+
     to {
       opacity: 1;
     }
   }
-  
+
   .animate-fadeIn {
     animation: fadeIn 0.3s ease-in-out;
   }
-} 
+}
 
+/* =========================================================
+   BASE
+   ========================================================= */
 
 @layer base {
   html {
@@ -101,11 +128,14 @@
 
   body {
     @apply min-h-screen transition-colors duration-300;
+
     background-color: var(--background);
     color: var(--text);
     color-scheme: light;
+
     max-width: 100%;
     overflow-x: hidden;
+
     font-family: var(--font-body);
   }
 
@@ -122,15 +152,28 @@
   }
 }
 
+/* =========================================================
+   COMPONENTS
+   ========================================================= */
+
 @layer components {
-  /* Typography */
+
+  /* -------------------------------------------------------
+     HEADINGS
+     ------------------------------------------------------- */
 
   .headline-1 {
-    @apply max-w-max text-5xl leading-tight font-semibold 
-    lg:text-[55px] lg:leading-[1.15] mb-0;
+    @apply max-w-max text-5xl leading-tight font-semibold lg:text-[55px] lg:leading-[1.15] mb-0;
+
     font-family: var(--font-display);
     letter-spacing: -0.04em;
-    background: -webkit-linear-gradient(0deg, var(--text), var(--primary));
+
+    background: -webkit-linear-gradient(
+      0deg,
+      var(--text),
+      var(--primary)
+    );
+
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -138,7 +181,12 @@
 
   :root[data-theme="dark"] .headline-1,
   .dark .headline-1 {
-    background: -webkit-linear-gradient(0deg, #fafafa, #a1a1aa);
+    background: -webkit-linear-gradient(
+      0deg,
+      #fafafa,
+      #a1a1a1
+    );
+
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -146,12 +194,14 @@
 
   .headline-2 {
     @apply text-3xl lg:text-4xl lg:leading-tight font-semibold;
+
     font-family: var(--font-display);
     letter-spacing: -0.04em;
   }
 
   .title-1 {
     @apply text-[22px] font-normal;
+
     font-family: var(--font-display);
     letter-spacing: -0.04em;
   }
@@ -162,21 +212,38 @@
     color: var(--text);
   }
 
-  /* Utilities */
+  /* -------------------------------------------------------
+     MATERIAL SYMBOLS
+     ------------------------------------------------------- */
 
   .material-symbols-rounded {
     @apply w-[1em] h-[1em] overflow-hidden;
-    
-    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0,
-    "opsz" 24;
+
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 400,
+      "GRAD" 0,
+      "opsz" 24;
   }
 
-  /* Outlined material symbols (used by ThemeToggle) */
   .material-symbols-outlined {
     @apply inline-block align-middle;
-    font-family: 'Material Symbols Outlined', 'Material Symbols Rounded', sans-serif;
-    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+
+    font-family:
+      'Material Symbols Outlined',
+      'Material Symbols Rounded',
+      sans-serif;
+
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 400,
+      "GRAD" 0,
+      "opsz" 24;
   }
+
+  /* -------------------------------------------------------
+     CONTAINERS
+     ------------------------------------------------------- */
 
   .container {
     @apply px-4 mx-auto lg:px-8 xl:max-w-6xl;
@@ -194,12 +261,13 @@
     @apply w-full;
   }
 
-  /* Components */
-
-  /* Header font: use Georgia for header elements */
   .header-font {
     font-family: var(--font-display);
   }
+
+  /* -------------------------------------------------------
+     SHARED DISPLAY FONT
+     ------------------------------------------------------- */
 
   .nav-link,
   .nav-link-mobile,
@@ -211,9 +279,40 @@
     font-family: var(--font-display);
   }
 
+  /* =======================================================
+     NAVIGATION
+     ======================================================= */
+
+  .navbar {
+    @apply flex items-center justify-start gap-0 p-0;
+  }
+
+  .nav-link {
+    @apply flex items-center gap-2 h-9 px-3 text-lg font-medium text-left tracking-wide transition-colors md:h-12 md:px-4 md:text-xl;
+  }
+
+  .nav-link-desktop {
+    gap: 0.5rem;
+  }
+
+  .nav-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .nav-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+    display: block;
+    stroke: currentColor;
+  }
+
+  /* Menu button */
+
   .menu-btn {
-    @apply w-10 h-10 grid place-items-center rounded-xl 
-    transition-[transform,background-color] active:scale-95 md:hidden;
+    @apply w-10 h-10 grid place-items-center rounded-xl transition-[transform,background-color] active:scale-95 md:hidden;
   }
 
   :root[data-theme="light"] .menu-btn {
@@ -235,39 +334,11 @@
     box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
   }
 
-  :root[data-theme="dark"] .menu-btn:hover,
-  .dark .menu-btn:hover {
+  :root[data-theme="dark"] .menu-btn:hover {
     background: rgba(16, 24, 32, 0.92);
   }
 
-  /* Navbar */
-
-  .navbar {
-    @apply flex items-center justify-start gap-0 p-0;
-  }
-
-  .nav-link {
-    @apply flex items-center gap-2 h-9 px-3 text-lg font-medium text-left
-    tracking-wide transition-colors md:h-12 md:px-4 md:text-xl;
-  }
-
-  .nav-link-desktop {
-    gap: 0.5rem;
-  }
-
-  .nav-icon-wrap {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-  }
-
-  .nav-icon {
-    width: 1.15rem;
-    height: 1.15rem;
-    display: block;
-    stroke: currentColor;
-  }
+  /* Hamburger navigation */
 
   .nav-menu-toggle {
     background: var(--surface);
@@ -277,10 +348,17 @@
   }
 
   .nav-menu-panel {
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    background: color-mix(
+      in srgb,
+      var(--surface) 94%,
+      transparent
+    );
+
     border: 1px solid var(--border);
     color: var(--text);
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+
+    box-shadow:
+      0 18px 40px rgba(15, 23, 42, 0.12);
   }
 
   .nav-link-mobile {
@@ -290,6 +368,8 @@
   .nav-link-mobile:hover {
     background: var(--surface-soft);
   }
+
+  /* Light navigation */
 
   :root[data-theme="light"] .nav-link,
   :root[data-theme="light"] .nav-link-contact {
@@ -304,6 +384,8 @@
   :root[data-theme="light"] .nav-link.active {
     color: var(--accent);
   }
+
+  /* Dark navigation */
 
   :root[data-theme="dark"] .nav-link,
   :root[data-theme="dark"] .nav-link-contact,
@@ -328,12 +410,16 @@
     color: var(--accent);
   }
 
+  /* Dark menu */
+
   :root[data-theme="dark"] .nav-menu-toggle,
   .dark .nav-menu-toggle {
     background: rgba(11, 16, 21, 0.84);
     border-color: rgba(117, 178, 240, 0.16);
     color: var(--text);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+
+    box-shadow:
+      0 10px 28px rgba(0, 0, 0, 0.28);
   }
 
   :root[data-theme="dark"] .nav-menu-panel,
@@ -341,17 +427,31 @@
     background: rgba(11, 16, 21, 0.96);
     border-color: rgba(117, 178, 240, 0.16);
     color: var(--text);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.26);
+
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.26);
   }
 
   .nav-link-contact {
-    @apply grid items-center h-9 px-4 text-sm font-medium 
-    tracking-wide transition-colors md:hidden;
+    @apply grid items-center h-9 px-4 text-sm font-medium tracking-wide transition-colors md:hidden;
   }
+
+  .navbar .active-box {
+    @apply hidden;
+  }
+
+  /* =======================================================
+     PROJECT CARDS
+     ======================================================= */
 
   .project-card {
     border-color: var(--project-card-border);
-    transition-property: transform, border-color, box-shadow, background-color;
+
+    transition-property:
+      transform,
+      border-color,
+      box-shadow,
+      background-color;
   }
 
   .project-card:hover {
@@ -361,6 +461,10 @@
 
   .project-card svg {
     color: var(--project-card-icon);
+  }
+
+  .project-card-divider {
+    border-color: var(--project-card-divider-border);
   }
 
   @media (hover: none), (pointer: coarse) {
@@ -377,20 +481,29 @@
     }
   }
 
-  .project-card-divider {
-    border-color: var(--project-card-divider-border);
-  }
+  /* =======================================================
+     PROJECT FILTER BUTTONS
+     ======================================================= */
 
   .project-filter-btn {
     border-color: var(--project-filter-border);
     color: var(--project-filter-text);
-    transition: border-color 200ms ease, color 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
+
+    transition:
+      border-color 200ms ease,
+      color 200ms ease,
+      background-color 200ms ease,
+      box-shadow 200ms ease;
   }
 
-  .project-filter-btn:hover {
+  /* Inactive button hover */
+
+  .project-filter-btn:not(.project-filter-btn--active):hover {
     border-color: var(--project-filter-hover-border);
     color: var(--project-filter-hover-text);
   }
+
+  /* Active button */
 
   .project-filter-btn--active {
     border-color: var(--project-filter-active-border);
@@ -398,43 +511,53 @@
     color: var(--project-filter-active-text);
   }
 
+  /* Keep active button appearance on hover */
+
+  .project-filter-btn--active:hover {
+    border-color: var(--project-filter-active-border);
+    background: var(--project-filter-active-background);
+    color: var(--project-filter-active-text);
+  }
+
+  /* Touch devices */
+
   @media (hover: none), (pointer: coarse) {
-    .project-filter-btn {
+    .project-filter-btn:not(.project-filter-btn--active) {
       border-color: var(--project-filter-hover-border);
       color: var(--project-filter-hover-text);
     }
   }
 
-  .navbar .active-box {
-    @apply hidden;
-  }
-
-  /* Button */
+  /* =======================================================
+     BUTTONS
+     ======================================================= */
 
   .btn {
-    @apply max-w-max h-9 flex items-center gap-2 px-4 rounded-xl
-           font-medium text-sm ring-1 ring-inset 
-           transition-[background-color];
+    @apply max-w-max h-9 flex items-center gap-2 px-4 rounded-xl font-medium text-sm ring-1 ring-inset transition-[background-color];
   }
 
   .btn-submit {
-    @apply h-9 flex items-center gap-2 px-4 rounded-xl
-    font-medium text-sm ring-1 ring-inset 
-    transition-[background-color];
+    @apply h-9 flex items-center gap-2 px-4 rounded-xl font-medium text-sm ring-1 ring-inset transition-[background-color];
   }
+
+  /* Light buttons */
 
   :root[data-theme="light"] .btn,
   :root[data-theme="light"] .btn-submit {
     background: var(--surface);
     color: var(--text);
     border-color: var(--border);
-    box-shadow: 0 10px 24px rgba(82, 98, 115, 0.08);
+
+    box-shadow:
+      0 10px 24px rgba(82, 98, 115, 0.08);
   }
 
   :root[data-theme="light"] .btn:hover,
   :root[data-theme="light"] .btn-submit:hover {
     background: var(--surface-soft);
   }
+
+  /* Dark buttons */
 
   :root[data-theme="dark"] .btn,
   :root[data-theme="dark"] .btn-submit,
@@ -452,45 +575,19 @@
     background: rgba(16, 24, 32, 0.88);
   }
 
-  /* Skill Card */
-  .skill {
-    @apply transition-transform duration-250 hover:-translate-y-2 hover:rounded-2xl hover:bg-zinc-800;
-  }
-
-  /* Added Max-md:hidden for Header feature*/
-  .btn-secondary {
-    @apply active:bg-zinc-50/80 max-md:hidden;
-  }
-
-  :root[data-theme="light"] .btn-secondary {
-    background: var(--surface);
-    color: var(--text);
-    border: 1px solid var(--border);
-    box-shadow: 0 10px 24px rgba(82, 98, 115, 0.08);
-  }
-
-  :root[data-theme="light"] .btn-secondary:hover {
-    background: var(--surface-soft);
-  }
-
-  :root[data-theme="dark"] .btn-secondary,
-  .dark .btn-secondary {
-    background: rgba(11, 16, 21, 0.72);
-    color: var(--text);
-    border: 1px solid rgba(117, 178, 240, 0.18);
-  }
-
   .btn .material-symbols-rounded {
     @apply text-[18px];
   }
 
-  .btn:has( .material-symbols-rounded) {
+  .btn:has(.material-symbols-rounded) {
     @apply pr-3;
   }
 
   .btn-primary {
     @apply h-11;
   }
+
+  /* Primary */
 
   :root[data-theme="light"] .btn-primary {
     background: var(--primary);
@@ -507,10 +604,11 @@
     color: #030507;
   }
 
-  :root[data-theme="dark"] .btn-primary:hover,
-  .dark .btn-primary:hover {
+  :root[data-theme="dark"] .btn-primary:hover {
     background: var(--secondary);
   }
+
+  /* Outline */
 
   .btn-outline {
     @apply h-11 active:bg-zinc-800;
@@ -533,12 +631,46 @@
     border: 1px solid rgba(117, 178, 240, 0.18);
   }
 
-  :root[data-theme="dark"] .btn-outline:hover,
-  .dark .btn-outline:hover {
+  :root[data-theme="dark"] .btn-outline:hover {
     background: rgba(21, 32, 44, 0.95);
   }
 
-  /* text field */
+  .btn-secondary {
+    @apply active:bg-zinc-50/80 max-md:hidden;
+  }
+
+  :root[data-theme="light"] .btn-secondary {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+
+    box-shadow:
+      0 10px 24px rgba(82, 98, 115, 0.08);
+  }
+
+  :root[data-theme="light"] .btn-secondary:hover {
+    background: var(--surface-soft);
+  }
+
+  :root[data-theme="dark"] .btn-secondary,
+  .dark .btn-secondary {
+    background: rgba(11, 16, 21, 0.72);
+    color: var(--text);
+    border: 1px solid rgba(117, 178, 240, 0.18);
+  }
+
+  /* =======================================================
+     SKILLS
+     ======================================================= */
+
+  .skill {
+    @apply transition-transform duration-250 hover:-translate-y-2 hover:rounded-2xl hover:bg-zinc-800;
+  }
+
+  /* =======================================================
+     FORMS
+     ======================================================= */
+
   .label {
     @apply block text-sm font-normal mb-2;
   }
@@ -553,32 +685,40 @@
   }
 
   .text-field {
-      @apply block outline-none w-full px-3 py-3 text-sm rounded-xl
-        transition-shadow;
+    @apply block outline-none w-full px-3 py-3 text-sm rounded-xl transition-shadow;
   }
+
+  /* Light form fields */
 
   :root[data-theme="light"] .text-field {
     background: var(--surface);
     color: var(--text);
     border-color: var(--border);
-    box-shadow: inset 0 0 0 1px rgba(82, 98, 115, 0.08);
+
+    box-shadow:
+      inset 0 0 0 1px rgba(82, 98, 115, 0.08);
   }
 
   :root[data-theme="light"] .text-field:hover,
   :root[data-theme="light"] .text-field:focus {
-    box-shadow: inset 0 0 0 1px rgba(15, 76, 138, 0.18);
+    box-shadow:
+      inset 0 0 0 1px rgba(15, 76, 138, 0.18);
   }
 
   :root[data-theme="light"] .text-field::placeholder {
     color: var(--text-muted);
   }
 
+  /* Dark form fields */
+
   :root[data-theme="dark"] .text-field,
   .dark .text-field {
     background: rgba(11, 16, 21, 0.88);
     color: var(--text);
     border-color: rgba(117, 178, 240, 0.18);
-    box-shadow: inset 0 0 0 1px rgba(117, 178, 240, 0.12);
+
+    box-shadow:
+      inset 0 0 0 1px rgba(117, 178, 240, 0.12);
   }
 
   :root[data-theme="dark"] .text-field::placeholder,
@@ -588,6 +728,8 @@
 
   :root[data-theme="dark"] .text-field:focus,
   .dark .text-field:focus {
-    box-shadow: inset 0 0 0 1px rgba(117, 178, 240, 0.22), 0 0 0 2px rgba(117, 178, 240, 0.18);
+    box-shadow:
+      inset 0 0 0 1px rgba(117, 178, 240, 0.22),
+      0 0 0 2px rgba(117, 178, 240, 0.18);
   }
 }
