@@ -278,8 +278,8 @@ const About = () => {
                             dark:shadow-[0_8px_32px_rgba(0,0,0,0.25)]
                         "
                     >
-                        <h2 className="headline-2 mb-5 text-base sm:text-lg font-medium text-[var(--text)]">
-                            Aronn's Picks ♫⋆｡♪ ₊˚♬ ﾟ.
+                        <h2 className="headline-2 mb-5 text-center text-base sm:text-lg font-medium text-[var(--text)]">
+                            .♪ ₊˚♫⋆ . Aronn's Picks ♫⋆｡♪ ₊˚♬ ﾟ.
                         </h2>
 
                         <div className="w-full">
