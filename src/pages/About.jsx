@@ -10,7 +10,7 @@ const About = () => {
         { src: "/images/gallery/roundball.mp4", caption: "Season Highlights in Summer 2026" },
         { src: "/images/gallery/graduation.jpg", caption: "Graduation day (April 2026)" },
         { src: "/images/gallery/LEBRON.png", caption: "Seeing Lebron James @ Portland (Jan 17 2026)" },
-        { src: "/images/gallery/hk_reunion26.JPG", caption: "Highschool Teacher Student Reunion (Dec 2025)" },
+        { src: "/images/gallery/hk_reunion26.JPG", caption: "Rosaryhill Teacher Student Reunion (Dec 2025)" },
         { src: "/images/gallery/pokemon.MOV", caption: "Pulling a shiny Jigglypuff!" },
         { src: "/images/gallery/hk_tswf.JPG", caption: "With my friends Percy & TSWF (January 2026)" },
         { src: "/images/gallery/trout.JPG", caption: "Trout lake with good company (Aug 2025)" },
@@ -22,6 +22,11 @@ const About = () => {
     const [dragging, setDragging] = useState(false);
     const startXRef = useRef(0);
     const dragXRef = useRef(0);
+    const visiblePhotos = [
+        carouselImages[(index - 1 + total) % total],
+        carouselImages[index],
+        carouselImages[(index + 1) % total],
+    ];
 
     const next = () => setIndex((i) => (i + 1) % total);
     const prev = () => setIndex((i) => (i - 1 + total) % total);
@@ -71,11 +76,11 @@ const About = () => {
         if (e.key === 'ArrowRight') next();
     };
 
-    // Fixed fan geometry for the two cards sitting behind the top photo.
+    // Left = previous photo, center = current photo, right = next photo.
     const layerStyle = [
+        { rotate: -8, x: -200, y: 20, scale: 0.88, opacity: 0.95, z: 10 },
         { rotate: 0, x: 0, y: 0, scale: 1, opacity: 1, z: 30 },
         { rotate: 8, x: 200, y: 14, scale: 0.94, opacity: 1, z: 20 },
-        { rotate: -8, x: -200, y: 20, scale: 0.88, opacity: 0.95, z: 10 },
     ];
 
     return (
@@ -181,8 +186,8 @@ const About = () => {
                                 onKeyDown={handleKeyDown}
                             >
                                 {layerStyle.map((layer, k) => {
-                                    const photo = carouselImages[(index + k) % total];
-                                    const isTop = k === 0;
+                                    const photo = visiblePhotos[k];
+                                    const isTop = k === 1;
                                     const liveRotate = isTop ? layer.rotate + dragX / 12 : layer.rotate;
                                     const liveX = isTop ? layer.x + dragX : layer.x;
 
