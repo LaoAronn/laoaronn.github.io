@@ -84,15 +84,17 @@ const About = () => {
             <div className="container flex flex-col items-center max-w-2xl mx-auto">
 
                 {/* Portrait */}
-                <div className="w-full max-w-xs sm:max-w-sm md:max-w-md mb-8 lg:mb-12">
-                    <figure className="w-full overflow-hidden rounded-lg">
-                        <img
-                            src="/images/hero.png"
-                            width={456}
-                            height={600}
-                            alt="Aronn"
-                            className="w-full h-auto"
-                        />
+                <div className="w-full max-w-[220px] sm:max-w-[250px] md:max-w-[280px] mb-8 lg:mb-12">
+                    <figure className="relative w-full overflow-hidden rounded-full border border-white/40 bg-gradient-to-br from-white/40 via-white/10 to-transparent p-2 backdrop-blur-sm ">
+                        <div className="overflow-hidden rounded-full ring-2 ring-white/70 dark:ring-zinc-800/80">
+                            <img
+                                src="/images/hero.png"
+                                width={456}
+                                height={600}
+                                alt="Aronn"
+                                className="h-auto w-full object-cover aspect-[4/5] scale-[1.04]"
+                            />
+                        </div>
                     </figure>
                 </div>
 
